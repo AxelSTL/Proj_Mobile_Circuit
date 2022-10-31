@@ -1,6 +1,13 @@
 package com.example.book2run;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -14,6 +21,7 @@ import com.example.book2run.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    EditText searchCircuit;
     private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,28 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+
+
+        /*==================LISTNERS==================*/
+
+        /*SEARCH*/
+        searchCircuit = findViewById(R.id.search_Input);
+        searchCircuit.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() ==  KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                    Log.i("Recherche", searchCircuit.getText().toString());
+                    //View view = this.getCurrentFocus();
+                    if (v != null) {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                }
+                    return false;
+            }
+        });
+
     }
 
 }
