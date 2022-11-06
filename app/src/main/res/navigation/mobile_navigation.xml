@@ -22,4 +22,9 @@
         android:name="com.example.book2run.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_addcircuit"
+        android:name="com.example.book2run.ui.addcircuit.AddCircuitFragment"
+        android:label="title_addcircuit"
+        tools:layout="@layout/fragment_addcircuit" />
 </navigation>

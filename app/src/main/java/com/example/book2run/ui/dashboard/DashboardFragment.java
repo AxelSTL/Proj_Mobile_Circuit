@@ -6,14 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.book2run.R;
 import com.example.book2run.databinding.FragmentDashboardBinding;
+import com.example.book2run.ui.addcircuit.AddCircuitFragment;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener {
 
@@ -41,7 +42,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addCircuit_btn:
-                Log.i("slt", "slt");
+                Log.i("BntAddCircuit", "Ajout d'un circuit");
+                FragmentTransaction fr = getFragmentManager().beginTransaction();
+                fr.add(R.id.nav_host_fragment_activity_main, new AddCircuitFragment());
+                fr.commit();
         }
+    }
+
+    public void replaceFragment(Fragment someFragment) {
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, someFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
