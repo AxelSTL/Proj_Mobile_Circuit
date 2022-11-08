@@ -6,16 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".AddCircuitActivity">
 
+<<<<<<< HEAD
     <FrameLayout
+=======
+    <fragment
+>>>>>>> e3d03442511e7597ca48175f867241120ad551b3
         android:id="@+id/nav_host_fragment_activity_addcircuit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toTopOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
    <!-- android:name="com.example.book2run.ui.addcircuit.AddCircuitImagesFragment"-->
+=======
+        app:layout_constraintTop_toTopOf="parent"
+        android:name="com.example.book2run.ui.addcircuit.AddCircuitFragment"
+        tools:layout="@layout/fragment_addcircuit" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> e3d03442511e7597ca48175f867241120ad551b3
