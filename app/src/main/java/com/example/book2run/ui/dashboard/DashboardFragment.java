@@ -1,5 +1,6 @@
 package com.example.book2run.ui.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.book2run.R;
 import com.example.book2run.databinding.FragmentDashboardBinding;
-import com.example.book2run.ui.addcircuit.AddCircuitFragment;
+import com.example.book2run.ui.addcircuit.AddNameActivity;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener {
 
@@ -43,9 +44,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.addCircuit_btn:
                 Log.i("BntAddCircuit", "Ajout d'un circuit");
-                FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.add(R.id.nav_host_fragment_activity_main, new AddCircuitFragment());
-                fr.commit();
+                Intent intent = new Intent(getActivity(), AddNameActivity.class);
+                //FragmentTransaction fr = getFragmentManager().beginTransaction();
+                //fr.replace(R.id.nav_host_fragment_activity_main, new AddCircuitFragment());
+                //fr.commit();
+                startActivity(intent);
         }
     }
 

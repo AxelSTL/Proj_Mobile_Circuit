@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.addcircuit.AddNameActivity">
+
+    <TextView
+        android:id="@+id/addcircuitName_view"
+        android:layout_width="137dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="130dp"
+        android:gravity="center"
+        android:text="Choissisez le nom du circuit"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/addcircuitName_input"
+        android:layout_width="366dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="19dp"
+        android:hint="Nom du circuit"
+        android:singleLine="true"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/addcircuitDesc_input"
+        android:layout_width="365dp"
+        android:layout_height="218dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="304dp"
+        android:layout_marginEnd="19dp"
+        android:hint="Descritpion"
+        android:singleLine="true"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/addcircuitDesc_view"
+        android:layout_width="125dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="36dp"
+        android:text="Choissiez une description"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitName_input" />
+
+    <Button
+        android:id="@+id/addcircuitTitleDesc_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="158dp"
+        android:text="Valider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitDesc_input" />
+</androidx.constraintlayout.widget.ConstraintLayout>

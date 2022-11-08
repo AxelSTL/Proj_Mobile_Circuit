@@ -6,20 +6,16 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.book2run.ui.addcircuit.AddCircuitFragment;
+import com.example.book2run.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import com.example.book2run.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         /*==================LISTNERS==================*/
 
         /*SEARCH*/
-        searchCircuit = findViewById(R.id.search_Input);
+      /*  searchCircuit = findViewById(R.id.addcircuit_name_input);
         searchCircuit.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -65,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                     return false;
             }
-        });
+        });*/
 
     }
 

@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/search_Input"
+        android:id="@+id/addcircuit_name_input"
         android:layout_width="366dp"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
