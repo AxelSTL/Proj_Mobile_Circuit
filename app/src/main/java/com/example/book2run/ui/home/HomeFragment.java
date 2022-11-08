@@ -24,7 +24,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         FragmentTransaction fr = getFragmentManager().beginTransaction();
-        fr.remove(new AddCircuitFragment());
+        fr.replace(R.id.nav_host_fragment_activity_main, new HomeFragment());
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);

@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addcircuit.AddCircuitFragment">
+    tools:context=".AddCircuitActivity">
 
-    <Button
-        android:id="@+id/btn_validate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="165dp"
-        android:layout_marginEnd="165dp"
-        android:layout_marginBottom="34dp"
-        android:text="Valider"
+    <fragment
+        android:id="@+id/nav_host_fragment_activity_addcircuit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:name="com.example.book2run.ui.addcircuit.AddCircuitFragment"
+        tools:layout="@layout/fragment_addcircuit" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
