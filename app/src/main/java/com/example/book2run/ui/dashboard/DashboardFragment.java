@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.book2run.AddCircuitActivity;
 import com.example.book2run.R;
 import com.example.book2run.databinding.FragmentDashboardBinding;
 import com.example.book2run.ui.addcircuit.AddNameActivity;
