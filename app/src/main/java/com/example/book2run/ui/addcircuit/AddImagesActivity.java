@@ -30,7 +30,8 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         description = intent.getStringExtra("description");
         adresse = intent.getStringExtra("adresse");
         codePostal = intent.getStringExtra("codePostal");
-        city = intent.getStringExtra("price");
+        city = intent.getStringExtra("city");
+        price = intent.getStringExtra("price");
         TextView topname = findViewById(R.id.addCircuit_name_image_textview);
         topname.setText(name);
 
@@ -67,7 +68,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
                 img = 4;
                 break;
             case R.id.addcircuitImages_btn:
-                Intent intent = new Intent(AddImagesActivity.this, AddImagesActivity.class);
+                Intent intent = new Intent(AddImagesActivity.this, AddCircuitSummaryActivity.class);
                 intent.putExtra("name", name);
                 intent.putExtra("description", description);
                 if(image1.getTag() != null){
