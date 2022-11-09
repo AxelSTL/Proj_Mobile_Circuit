@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.addcircuit.AddNameActivity">
@@ -14,7 +14,7 @@
         android:layout_width="137dp"
         android:layout_height="66dp"
         android:layout_marginStart="130dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="130dp"
         android:gravity="center"
         android:text="Choissisez le nom du circuit"
@@ -30,7 +30,7 @@
         android:layout_width="366dp"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="19dp"
         android:hint="Nom du circuit"
         android:singleLine="true"
@@ -43,17 +43,18 @@
     <EditText
         android:id="@+id/addcircuitDesc_input"
         android:layout_width="365dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="292dp"
+        android:layout_marginTop="236dp"
         android:layout_marginEnd="19dp"
+        android:ems="10"
         android:gravity="top"
         android:hint="Descritpion"
-        android:layout_height="wrap_content"
-        android:ems="10"
         android:inputType="textMultiLine"
         android:singleLine="true"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,7 +63,7 @@
         android:layout_width="125dp"
         android:layout_height="58dp"
         android:layout_marginStart="144dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:text="Choissiez une description"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,11 +74,110 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="157dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="158dp"
         android:text="Valider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitPrice_input" />
+
+    <TextView
+        android:id="@+id/addcircuitAddressMaster_view"
+        android:layout_width="130dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="137dp"
+        android:text="Renseignez l'adresse du circuit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addcircuitDesc_input" />
+
+    <TextView
+        android:id="@+id/addcircuitAddress_view"
+        android:layout_width="65dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="79dp"
+        android:text="Adresse"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitDesc_input" />
+
+    <EditText
+        android:id="@+id/addcircuitAddress_input"
+        android:layout_width="242dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="11dp"
+        android:hint="123 rue de la paix"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitAddress_view" />
+
+    <EditText
+        android:id="@+id/addcircuitPostal_input"
+        android:layout_width="111dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:hint="65000"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitPostal_view" />
+
+    <EditText
+        android:id="@+id/addcircuitCity_input"
+        android:layout_width="354dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="31dp"
+        android:hint="Paris"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitCity_view"></EditText>
+
+    <TextView
+        android:id="@+id/addcircuitPostal_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="28dp"
+        android:text="Code Postale"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitDesc_input" />
+
+    <TextView
+        android:id="@+id/addcircuitCity_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="23dp"
+        android:text="Ville"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitAddress_input" />
+
+    <EditText
+        android:id="@+id/addcircuitPrice_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="9dp"
+        android:ems="10"
+        android:hint="500"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitPrice_view" />
+
+    <TextView
+        android:id="@+id/addcircuitPrice_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="24dp"
+        android:text="Prix à la journée (€)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcircuitCity_input" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

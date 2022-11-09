@@ -13,9 +13,13 @@
             android:id="@+id/addcircuitImages_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="167dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="148dp"
             android:text="Valider"
-            tools:layout_editor_absoluteX="167dp"
-            tools:layout_editor_absoluteY="599dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image3" />
 
         <TextView
             android:layout_width="410dp"
@@ -41,10 +45,10 @@
             android:id="@+id/image2"
             android:layout_width="182dp"
             android:layout_height="182dp"
-            android:layout_marginStart="228dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="76dp"
             android:scaleType="fitXY"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -52,20 +56,20 @@
             android:layout_width="182dp"
             android:layout_height="182dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="324dp"
+            android:layout_marginTop="66dp"
             android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/image1" />
 
         <ImageView
             android:id="@+id/image4"
             android:layout_width="182dp"
             android:layout_height="182dp"
-            android:layout_marginStart="228dp"
-            android:layout_marginTop="324dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="66dp"
             android:scaleType="fitXY"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/image3"
+            app:layout_constraintTop_toBottomOf="@+id/image2" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

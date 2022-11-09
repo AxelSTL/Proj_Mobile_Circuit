@@ -16,7 +16,7 @@ import com.example.book2run.R;
 
 public class AddImagesActivity extends AppCompatActivity implements View.OnClickListener{
     private static final int RESULT_LOAD_IMAGE = 1000;
-    String name, description;
+    String name, description, adresse, codePostal, city, price;;
     ImageView image1, image2, image3, image4;
     Button validate;
     int img;
@@ -28,6 +28,9 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         description = intent.getStringExtra("description");
+        adresse = intent.getStringExtra("adresse");
+        codePostal = intent.getStringExtra("codePostal");
+        city = intent.getStringExtra("price");
         TextView topname = findViewById(R.id.addCircuit_name_image_textview);
         topname.setText(name);
 
@@ -62,14 +65,27 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
             case R.id.image4:
                 startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
                 img = 4;
+                break;
             case R.id.addcircuitImages_btn:
                 Intent intent = new Intent(AddImagesActivity.this, AddImagesActivity.class);
                 intent.putExtra("name", name);
                 intent.putExtra("description", description);
-                intent.putExtra("image1", image1.getTag().toString());
-                intent.putExtra("image2", image2.getTag().toString());
-                intent.putExtra("image3", image3.getTag().toString());
-                intent.putExtra("image4", image4.getTag().toString());
+                if(image1.getTag() != null){
+                    intent.putExtra("image1", image1.getTag().toString());
+                }
+                if(image2.getTag() != null){
+                    intent.putExtra("image2", image2.getTag().toString());
+                }
+                if(image3.getTag() != null){
+                    intent.putExtra("image3", image3.getTag().toString());
+                }
+                if(image4.getTag() != null){
+                    intent.putExtra("image4", image4.getTag().toString());
+                }
+                intent.putExtra("adresse", adresse);
+                intent.putExtra("codePostal", codePostal);
+                intent.putExtra("city", city);
+                intent.putExtra("price", price);
                 startActivity(intent);
                 break;
         }
