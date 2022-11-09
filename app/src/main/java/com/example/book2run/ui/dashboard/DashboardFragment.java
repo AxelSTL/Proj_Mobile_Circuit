@@ -46,9 +46,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             case R.id.addCircuit_btn:
                 Log.i("BntAddCircuit", "Ajout d'un circuit");
                 Intent intent = new Intent(getActivity(), AddNameActivity.class);
-                //FragmentTransaction fr = getFragmentManager().beginTransaction();
-                //fr.replace(R.id.nav_host_fragment_activity_main, new AddCircuitFragment());
-                //fr.commit();
                 startActivity(intent);
         }
     }
