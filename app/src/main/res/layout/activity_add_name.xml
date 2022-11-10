@@ -3,181 +3,221 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/red">
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.addcircuit.AddNameActivity">
 
-    <TextView
-        android:id="@+id/addcircuitName_view"
-        android:layout_width="137dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="130dp"
-        android:gravity="center"
-        android:text="Choissisez le nom du circuit"
-        android:textSize="20dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="start"
+        android:padding="10dp"
+        android:layout_margin="8dp">
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/addcircuitName_view"
+            android:layout_width="250dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:singleLine="true"
+            android:background="@drawable/arround_corners_indigo"
+            android:text="Choisissez un nom de circuit"
+            android:textColor="@color/grey"
+            android:textSize="18sp"/>
 
-    <EditText
-        android:id="@+id/addcircuitName_input"
-        android:layout_width="366dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="19dp"
-        android:hint="Nom du circuit"
-        android:singleLine="true"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/addcircuitName_input"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Nom du circuit"
+            android:textColorHint="@color/grey"
+            android:textAlignment="textStart"
+            android:singleLine="true"
+            android:textSize="20sp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/arround_corners_cyan"/>
 
-    <EditText
-        android:id="@+id/addcircuitDesc_input"
-        android:layout_width="365dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="236dp"
-        android:layout_marginEnd="19dp"
-        android:ems="10"
-        android:gravity="top"
-        android:hint="Descritpion"
-        android:inputType="textMultiLine"
-        android:singleLine="true"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/addcircuitDesc_view"
+            android:layout_width="250dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/arround_corners_indigo"
+            android:text="Choisissez une description"
+            android:textSize="18sp"
+            android:textColor="@color/grey"
+            android:textAlignment="center"
+            />
 
-    <TextView
-        android:id="@+id/addcircuitDesc_view"
-        android:layout_width="125dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="16dp"
-        android:text="Choissiez une description"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitName_input" />
+        <EditText
+            android:id="@+id/addcircuitDesc_input"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:gravity="top"
+            android:hint="Description..."
+            android:textColorHint="@color/grey"
+            android:inputType="textMultiLine"
+            android:textSize="20sp"
+            android:textAlignment="gravity"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/arround_corners_cyan"/>
 
-    <Button
-        android:id="@+id/addcircuitTitleDesc_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="157dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="158dp"
-        android:text="Valider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitPrice_input" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="5dp">
 
-    <TextView
-        android:id="@+id/addcircuitAddressMaster_view"
-        android:layout_width="130dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="137dp"
-        android:text="Renseignez l'adresse du circuit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitDesc_input" />
+            <TextView
+                android:id="@+id/addcircuitAddress_view"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center|start"
+                android:gravity="center"
+                android:text="Adresse"
+                android:textSize="18sp"
+                android:textColor="@color/grey"
+                android:textAlignment="center"
+                android:background="@drawable/arround_corners_indigo"
+                />
 
-    <TextView
-        android:id="@+id/addcircuitAddress_view"
-        android:layout_width="65dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="79dp"
-        android:text="Adresse"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitDesc_input" />
+            <Space
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_weight="0">
+            </Space>
 
-    <EditText
-        android:id="@+id/addcircuitAddress_input"
-        android:layout_width="242dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="11dp"
-        android:hint="123 rue de la paix"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitAddress_view" />
+            <TextView
+                android:id="@+id/addcircuitPostal_view"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center|end"
+                android:gravity="center"
+                android:text="Code Postal"
+                android:textSize="18sp"
+                android:textColor="@color/grey"
+                android:textAlignment="center"
+                android:background="@drawable/arround_corners_indigo"/>
 
-    <EditText
-        android:id="@+id/addcircuitPostal_input"
-        android:layout_width="111dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:hint="65000"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitPostal_view" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/addcircuitCity_input"
-        android:layout_width="354dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="31dp"
-        android:hint="Paris"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitCity_view"></EditText>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="5dp">
 
-    <TextView
-        android:id="@+id/addcircuitPostal_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="28dp"
-        android:text="Code Postale"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitDesc_input" />
+            <EditText
+                android:id="@+id/addcircuitAddress_input"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:hint="123 rue de la paix"
+                android:textColorHint="@color/grey"
+                android:textSize="18sp"
+                android:background="@drawable/arround_corners_cyan"/>
 
-    <TextView
-        android:id="@+id/addcircuitCity_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="23dp"
-        android:text="Ville"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitAddress_input" />
+            <Space
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_weight="0">
+            </Space>
 
-    <EditText
-        android:id="@+id/addcircuitPrice_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="9dp"
-        android:ems="10"
-        android:hint="500"
-        android:inputType="number"
-        android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitPrice_view" />
+            <EditText
+                android:id="@+id/addcircuitPostal_input"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:hint="65000"
+                android:textColorHint="@color/grey"
+                android:textSize="20sp"
+                android:inputType="number"
+                android:background="@drawable/arround_corners_cyan"/>
 
-    <TextView
-        android:id="@+id/addcircuitPrice_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="24dp"
-        android:text="Prix à la journée (€)"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addcircuitCity_input" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/addcircuitCity_view"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Choisissez votre ville"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textColor="@color/grey"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/arround_corners_indigo"/>
+
+        <EditText
+            android:id="@+id/addcircuitCity_input"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Paris"
+            android:textSize="20sp"
+            android:textAlignment="textStart"
+            android:textColorHint="@color/grey"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/arround_corners_cyan"/>
+
+        <TextView
+            android:id="@+id/addcircuitPrice_view"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Prix à la journée (€)"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textColor="@color/grey"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/arround_corners_indigo"/>
+
+        <EditText
+            android:id="@+id/addcircuitPrice_input"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:hint="500"
+            android:textColorHint="@color/grey"
+            android:textAlignment="center"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/arround_corners_cyan" />
+
+
+        <ImageButton
+            android:id="@+id/addcircuitTitleDesc_btn"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/arround_button_indigo"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@drawable/ic_save"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
