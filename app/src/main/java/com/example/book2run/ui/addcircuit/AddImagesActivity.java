@@ -4,15 +4,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.book2run.R;
+
+import java.io.ByteArrayOutputStream;
 
 public class AddImagesActivity extends AppCompatActivity implements View.OnClickListener{
     private static final int RESULT_LOAD_IMAGE = 1000;
@@ -44,6 +50,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         image2.setOnClickListener(this);
         image3.setOnClickListener(this);
         image4.setOnClickListener(this);
+        validate.setOnClickListener(this);
 
     }
 
@@ -70,22 +77,30 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
             case R.id.addcircuitImages_btn:
                 Intent intent = new Intent(AddImagesActivity.this, AddCircuitSummaryActivity.class);
                 intent.putExtra("name", name);
-                intent.putExtra("description", description);
-                if(image1.getTag() != null){
-                    intent.putExtra("image1", image1.getTag().toString());
+
+                image1.buildDrawingCache();
+                image2.buildDrawingCache();
+                image3.buildDrawingCache();
+                image4.buildDrawingCache();
+
+                Bitmap bmap = image1.getDrawingCache();
+                if(image1 != null){
+                    intent.putExtra("image1", getEncoded64ImageStringFromBitmap(image1.getDrawingCache()));
                 }
-                if(image2.getTag() != null){
-                    intent.putExtra("image2", image2.getTag().toString());
+                if(image2 != null){
+                    intent.putExtra("image2", getEncoded64ImageStringFromBitmap(image2.getDrawingCache()));
                 }
-                if(image3.getTag() != null){
-                    intent.putExtra("image3", image3.getTag().toString());
+                if(image3 != null){
+                    intent.putExtra("image3", getEncoded64ImageStringFromBitmap(image3.getDrawingCache()));
                 }
-                if(image4.getTag() != null){
-                    intent.putExtra("image4", image4.getTag().toString());
+                if(image4 != null){
+                    intent.putExtra("image4", getEncoded64ImageStringFromBitmap(image4.getDrawingCache()));
                 }
+
                 intent.putExtra("adresse", adresse);
                 intent.putExtra("codePostal", codePostal);
                 intent.putExtra("city", city);
+                intent.putExtra("description", description);
                 intent.putExtra("price", price);
                 startActivity(intent);
                 break;
@@ -113,5 +128,21 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
             }
         }
     }
+    public String getEncoded64ImageStringFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        byte[] byteFormat = stream.toByteArray();
+        // get the base 64 string
+        String imgString = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
+        Log.i("ImageToBase62", imgString);
+        return imgString;
+    }
+
+    public Bitmap getBitmapFromBase64(String base64){
+        byte[] decodedString = Base64.decode(base64.getBytes(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        return decodedByte;
+    }
+
 }
 
