@@ -8,11 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.book2run.R;
 
 public class AddNameActivity extends AppCompatActivity {
-    Button validate;
+    ImageButton validate;
     EditText name, description, adresse, codePostal, city, price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
