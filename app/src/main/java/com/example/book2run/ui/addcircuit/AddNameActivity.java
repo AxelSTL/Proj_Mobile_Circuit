@@ -28,12 +28,6 @@ public class AddNameActivity extends AppCompatActivity {
         city = findViewById(R.id.addcircuitCity_input);
         price = findViewById(R.id.addcircuitPrice_input);
 
-
-
-
-
-
-
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

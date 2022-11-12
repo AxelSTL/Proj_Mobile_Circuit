@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
     private static final int RESULT_LOAD_IMAGE = 1000;
     String name, description, adresse, codePostal, city, price;;
     ImageView image1, image2, image3, image4;
-    Button validate;
+    ImageButton validate;
     int img;
     @Override
 
@@ -35,11 +36,12 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         TextView topname = findViewById(R.id.addCircuit_name_image_textview);
         topname.setText(name);
 
-        image1 = (ImageView)findViewById(R.id.image1);
-        image2 = (ImageView)findViewById(R.id.image2);
-        image3 = (ImageView)findViewById(R.id.image3);
-        image4 = (ImageView)findViewById(R.id.image4);
+        image1 = findViewById(R.id.image1);
+        image2 = findViewById(R.id.image2);
+        image3 = findViewById(R.id.image3);
+        image4 = findViewById(R.id.image4);
         validate = findViewById(R.id.addcircuitImages_btn);
+        validate.setOnClickListener(this);
         image1.setOnClickListener(this);
         image2.setOnClickListener(this);
         image3.setOnClickListener(this);
