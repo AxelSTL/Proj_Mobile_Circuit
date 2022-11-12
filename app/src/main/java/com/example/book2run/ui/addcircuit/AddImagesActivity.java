@@ -21,11 +21,16 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
     ImageView image1, image2, image3, image4;
     ImageButton validate;
     int img;
-    @Override
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_images);
+
+        // Cacher le bouton login
+        ImageView login = findViewById(R.id.login);
+        login.setVisibility(View.INVISIBLE);
+
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         description = intent.getStringExtra("description");

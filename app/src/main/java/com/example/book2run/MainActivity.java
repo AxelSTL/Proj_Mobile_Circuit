@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
-//                Toast.makeText(MainActivity.this, "Tu as cliqué", Toast.LENGTH_LONG).show();
             }
         });
 

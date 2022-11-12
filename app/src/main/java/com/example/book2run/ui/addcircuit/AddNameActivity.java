@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.book2run.R;
 
@@ -19,6 +20,10 @@ public class AddNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_name);
+
+        // Cacher le bouton login
+        ImageView login = findViewById(R.id.login);
+        login.setVisibility(View.INVISIBLE);
 
         validate = findViewById(R.id.addcircuitTitleDesc_btn);
         name = findViewById(R.id.addcircuitName_input);
