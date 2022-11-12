@@ -2,6 +2,8 @@ package com.example.book2run.ui.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +16,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_login);
-//        Intent intent = getIntent();
-//        startActivity(intent);
+
+        ImageView login = findViewById(R.id.login);
+        login.setVisibility(View.INVISIBLE);
 
     }
 }
