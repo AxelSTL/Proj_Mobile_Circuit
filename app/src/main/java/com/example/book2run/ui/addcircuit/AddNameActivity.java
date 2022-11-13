@@ -22,7 +22,7 @@ public class AddNameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_name);
 
         // Cacher le bouton login
-        ImageView login = findViewById(R.id.login);
+        ImageView login = findViewById(R.id.login5);
         login.setVisibility(View.INVISIBLE);
 
         validate = findViewById(R.id.addcircuitTitleDesc_btn);
