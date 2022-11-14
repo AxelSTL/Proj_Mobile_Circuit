@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.book2run.MainActivity;
 import com.example.book2run.R;
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
@@ -137,6 +138,8 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         switch (v.getId()){
             case R.id.summaryValidate_btn :
                 postCircuit();
+                Intent intent = new Intent(AddCircuitSummaryActivity.this, MainActivity.class);
+                startActivity(intent);
         }
     }
 
@@ -198,7 +201,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
 
         JSONObject utilisateur = new JSONObject();
         // TODO : à changer
-        utilisateur.put("code", 1);
+        utilisateur.put("code", user.code);
 
 
         ville.put("departement", departement);
