@@ -49,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
         //Log.i("Username mainact", user.username);
         if(user.isLoggedIn()){
             userNameToolBar.setText("Bonjour " + user.username);
+            Log.i("nom", user.lastName);
+            Log.i("prenom", user.username);
+            Log.i("email", user.mail);
+            Log.i("id", String.valueOf(user.code));
             login.setVisibility(View.INVISIBLE);
         } else {
             login.setVisibility(View.VISIBLE);

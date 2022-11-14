@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.book2run.R;
+import com.example.book2run.ui.data.LoginDataSource;
+import com.example.book2run.ui.data.LoginRepository;
 
 import java.io.ByteArrayOutputStream;
 
@@ -58,6 +60,13 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         image3.setOnClickListener(this);
         image4.setOnClickListener(this);
         validate.setOnClickListener(this);
+
+        LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
+        TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername);
+        if(user.isLoggedIn()){
+            userNameToolBar.setText("Bonjour " + user.username);
+            login.setVisibility(View.INVISIBLE);
+        }
 
     }
 

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.book2run.LoginActivity;
 import com.example.book2run.R;
 import com.example.book2run.databinding.FragmentDashboardBinding;
 import com.example.book2run.ui.addcircuit.AddNameActivity;
@@ -50,10 +51,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.addCircuit_btn:
                 Log.i("BntAddCircuit", "Ajout d'un circuit");
-                LoginRepository test = LoginRepository.getInstance(new LoginDataSource());
-                Log.i("test", valueOf(test.isLoggedIn()));
-                Log.i("Le blase ?", test.username);;
-                Intent intent = new Intent(getActivity(), AddNameActivity.class);
+                LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
+                Intent intent;
+                if(user.isLoggedIn()){
+                    intent = new Intent(getActivity(), AddNameActivity.class);
+                } else {
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.putExtra("userLogged", false);
+                }
                 startActivity(intent);
         }
     }
