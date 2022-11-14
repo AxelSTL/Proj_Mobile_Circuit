@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,8 +26,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.book2run.MainActivity;
 import com.example.book2run.R;
 import com.example.book2run.databinding.FragmentLoginBinding;
+import com.example.book2run.ui.addcircuit.AddNameActivity;
 
 public class LoginFragment extends Fragment {
 
@@ -133,6 +136,9 @@ public class LoginFragment extends Fragment {
         // TODO : initiate successful logged in experience
         if (getContext() != null && getContext().getApplicationContext() != null) {
             Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            onDestroyView();
         }
     }
 

@@ -1,5 +1,7 @@
 package com.example.book2run.ui.dashboard;
 
+import static java.lang.String.valueOf;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.book2run.R;
 import com.example.book2run.databinding.FragmentDashboardBinding;
 import com.example.book2run.ui.addcircuit.AddNameActivity;
+import com.example.book2run.ui.data.LoginDataSource;
+import com.example.book2run.ui.data.LoginRepository;
+import com.example.book2run.ui.data.model.LoggedInUser;
+import com.example.book2run.ui.ui.login.LoginViewModel;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener {
 
@@ -44,6 +50,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.addCircuit_btn:
                 Log.i("BntAddCircuit", "Ajout d'un circuit");
+                LoginRepository test = LoginRepository.getInstance(new LoginDataSource());
+                Log.i("test", valueOf(test.isLoggedIn()));
+                Log.i("Le blase ?", test.username);;
                 Intent intent = new Intent(getActivity(), AddNameActivity.class);
                 startActivity(intent);
         }

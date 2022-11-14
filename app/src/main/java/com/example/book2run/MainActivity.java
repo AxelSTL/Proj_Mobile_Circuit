@@ -2,11 +2,15 @@ package com.example.book2run;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.book2run.databinding.ActivityMainBinding;
+import com.example.book2run.ui.data.LoginDataSource;
+import com.example.book2run.ui.data.LoginRepository;
 import com.example.book2run.ui.ui.login.LoginFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -40,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Gestion connexion login
         ImageView login = findViewById(R.id.login5);
+        TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername);
+        LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
+        //Log.i("Username mainact", user.username);
+        if(user.isLoggedIn()){
+            userNameToolBar.setText("Bonjour " + user.username);
+            login.setVisibility(View.INVISIBLE);
+        } else {
+            login.setVisibility(View.VISIBLE);
+        }
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
 

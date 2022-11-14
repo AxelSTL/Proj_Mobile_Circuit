@@ -22,15 +22,24 @@ public class LoginDataSource {
         try {
             // TODO: handle loggedInUser authentication
 
-            logAccount(username, password);
-            LoggedInUser fakeUser =
+            boolean userExist= logAccount(username, password);
+            Log.i("test", String.valueOf(userExist));
+            if(userExist){
+                LoggedInUser inUser = new LoggedInUser("1", username);
+                return new Result.Success<>(inUser);
+            } else {
+                // TODO : faire qu'il doit se reco
+            }
+          /*  LoggedInUser fakeUser =
                     new LoggedInUser(
                             java.util.UUID.randomUUID().toString(),
-                            "Jane Doe");
-            return new Result.Success<>(fakeUser);
+                            "Jane Doe");*/
+            //return new Result.Success<>(fakeUser);
         } catch (Exception e) {
+            e.printStackTrace();
             return new Result.Error(new IOException("Error logging in", e));
         }
+        return null;
     }
 
     public void logout() {
@@ -38,9 +47,12 @@ public class LoginDataSource {
     }
 
 
-    public void logAccount(String username, String password) throws IOException {
+    public boolean logAccount(String username, String password) throws IOException {
+        boolean userExist = false;
         try {
-            String requestURL = "http://localhost:8180/login?user=" + username + "&mdp=" + password;
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/login?user=" + username + "&mdp=" + password;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -51,13 +63,18 @@ public class LoginDataSource {
 
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
+
             }
-            Log.i("line", line);
+            Log.i("L'utilisateur existe ? ", buffer.toString());
+            if(buffer.toString().equals("true")){
+                userExist = true;
+            }
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return userExist;
     }
 }
