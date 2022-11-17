@@ -26,8 +26,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.book2run.LoginActivity;
 import com.example.book2run.MainActivity;
 import com.example.book2run.R;
+import com.example.book2run.RegisterActivity;
 import com.example.book2run.databinding.FragmentLoginBinding;
 import com.example.book2run.ui.addcircuit.AddNameActivity;
 
@@ -56,6 +58,7 @@ public class LoginFragment extends Fragment {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
+        final Button registerButton = binding.registerBtn;
         final ProgressBar loadingProgressBar = binding.loading;
 
         loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
@@ -127,6 +130,15 @@ public class LoginFragment extends Fragment {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                //intent.putExtra("userLogged", false);
+                startActivity(intent);
             }
         });
     }
