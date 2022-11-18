@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -94,22 +95,23 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
                 Intent intent = new Intent(AddImagesActivity.this, AddCircuitSummaryActivity.class);
                 intent.putExtra("name", name);
 
-                image1.buildDrawingCache();
-                image2.buildDrawingCache();
-                image3.buildDrawingCache();
-                image4.buildDrawingCache();
 
-                Bitmap bmap = image1.getDrawingCache();
+                Log.i("TEST2", );
+                System.out.println("DEBUT");
                 if(image1 != null){
+                    image1.buildDrawingCache();
                     intent.putExtra("image1", getEncoded64ImageStringFromBitmap(image1.getDrawingCache()));
                 }
                 if(image2 != null){
+                    image2.buildDrawingCache();
                     intent.putExtra("image2", getEncoded64ImageStringFromBitmap(image2.getDrawingCache()));
                 }
                 if(image3 != null){
+                    image3.buildDrawingCache();
                     intent.putExtra("image3", getEncoded64ImageStringFromBitmap(image3.getDrawingCache()));
                 }
                 if(image4 != null){
+                    image4.buildDrawingCache();
                     intent.putExtra("image4", getEncoded64ImageStringFromBitmap(image4.getDrawingCache()));
                 }
 
@@ -118,7 +120,14 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
                 intent.putExtra("city", city);
                 intent.putExtra("description", description);
                 intent.putExtra("price", price);
+                Log.i("image1", String.valueOf(String.valueOf(getEncoded64ImageStringFromBitmap(image1.getDrawingCache())).length()));
+                /*Log.i("image2", String.valueOf(image2));
+                Log.i("image3", String.valueOf(image3));
+                Log.i("image4", String.valueOf(image4));*/
+                System.out.println("fin");
                 startActivity(intent);
+
+
                 break;
         }
     }
@@ -152,12 +161,6 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         String imgString = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
         Log.i("ImageToBase62", imgString);
         return imgString;
-    }
-
-    public Bitmap getBitmapFromBase64(String base64){
-        byte[] decodedString = Base64.decode(base64.getBytes(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        return decodedByte;
     }
 
 }

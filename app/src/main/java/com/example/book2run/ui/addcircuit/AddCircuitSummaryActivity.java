@@ -38,7 +38,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class AddCircuitSummaryActivity extends AppCompatActivity implements View.OnClickListener{
     String name, description, adresse, codePostal, city, price, image1, image2, image3, image4;
@@ -46,6 +48,10 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     TextView nameSum, descriptionSum, adresseSum, codePostalSum, citySum, priceSum;
     Button validate;
     LoginRepository user;
+
+    int indexImage = 0;
+
+    int idCircuit = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +69,11 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         image4 = intent.getStringExtra("image4");
 
         Log.i("name", this.name);
+
+        Log.i("image1", image1);
+        Log.i("image2", image2);
+        Log.i("image3", image3);
+        Log.i("image4", image4);
 
         nameSum = findViewById(R.id.summaryName_view);
         descriptionSum = findViewById(R.id.summaryDesc_view);
@@ -137,9 +148,14 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.summaryValidate_btn :
-                postCircuit();
+                //postCircuit();
+                try {
+                    postImageCircuit();
+                } catch (IOException | JSONException e) {
+                    throw new RuntimeException(e);
+                }
                 Intent intent = new Intent(AddCircuitSummaryActivity.this, MainActivity.class);
-                startActivity(intent);
+                //startActivity(intent);
         }
     }
 
@@ -170,6 +186,9 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
+            idCircuit = Integer.parseInt(String.valueOf(buffer));
+            Log.i("circuitID", String.valueOf(idCircuit));
+
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -212,5 +231,73 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
 
         Log.i("CircuitJson", String.valueOf(circuitDetails));
         return circuitDetails;
+    }
+
+    public void postImageCircuit() throws IOException, JSONException {
+        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(gfgPolicy);
+        String requestURL = "http://192.168.2.118:8180/images";
+        URL url = new URL(requestURL);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.connect();
+        OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
+
+        Log.i("imagesjsonToString",jSonConstructorImage().toString());
+        writer.write(jSonConstructorImage().toString());
+        writer.flush();
+        writer.close();
+
+        InputStream stream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        StringBuffer buffer = new StringBuffer();
+        String line = "";
+
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
+    }
+
+
+    public JSONArray jSonConstructorImage() throws JSONException {
+        JSONArray images = new JSONArray();
+        if(!image1.isEmpty()){
+            JSONObject link = new JSONObject();
+            link.put("liens", image1);
+            JSONObject circuit = new JSONObject();
+            circuit.put("code", idCircuit);
+            images.put(circuit);
+            images.put(circuit);
+        }
+        if(!image2.isEmpty()){
+            JSONObject link = new JSONObject();
+            link.put("liens", image2);
+            JSONObject circuit = new JSONObject();
+            circuit.put("code", idCircuit);
+            images.put(circuit);
+            images.put(circuit);
+        }
+        if(!image3.isEmpty()){
+            JSONObject link = new JSONObject();
+            link.put("liens", image3);
+            JSONObject circuit = new JSONObject();
+            circuit.put("code", idCircuit);
+            images.put(circuit);
+            images.put(circuit);
+        }
+        if(!image4.isEmpty()){
+            JSONObject link = new JSONObject();
+            link.put("liens", image4);
+            JSONObject circuit = new JSONObject();
+            circuit.put("code", idCircuit);
+            images.put(circuit);
+            images.put(circuit);
+        }
+
+
+
+        return images;
     }
 }
