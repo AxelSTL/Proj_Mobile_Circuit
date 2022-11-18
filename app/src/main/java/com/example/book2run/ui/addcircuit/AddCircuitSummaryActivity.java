@@ -148,14 +148,14 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.summaryValidate_btn :
-                //postCircuit();
+                postCircuit();
                 try {
                     postImageCircuit();
                 } catch (IOException | JSONException e) {
                     throw new RuntimeException(e);
                 }
                 Intent intent = new Intent(AddCircuitSummaryActivity.this, MainActivity.class);
-                //startActivity(intent);
+                startActivity(intent);
         }
     }
 
@@ -164,7 +164,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.118:8180/circuits";
+            String requestURL = "http://10.0.2.2:8180/circuits";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -236,7 +236,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public void postImageCircuit() throws IOException, JSONException {
         StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://192.168.2.118:8180/images";
+        String requestURL = "http://10.0.2.2:8180/images";
         URL url = new URL(requestURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -264,36 +264,36 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public JSONArray jSonConstructorImage() throws JSONException {
         JSONArray images = new JSONArray();
         if(!image1.isEmpty()){
-            JSONObject link = new JSONObject();
-            link.put("liens", image1);
-            JSONObject circuit = new JSONObject();
-            circuit.put("code", idCircuit);
-            images.put(circuit);
-            images.put(circuit);
+           JSONObject obj = new JSONObject();
+           obj.put("lien", image1);
+           JSONObject circuit = new JSONObject();
+           circuit.put("code", idCircuit);
+           obj.put("circuit", circuit);
+           images.put(obj);
         }
         if(!image2.isEmpty()){
-            JSONObject link = new JSONObject();
-            link.put("liens", image2);
+            JSONObject obj = new JSONObject();
+            obj.put("lien", image2);
             JSONObject circuit = new JSONObject();
             circuit.put("code", idCircuit);
-            images.put(circuit);
-            images.put(circuit);
+            obj.put("circuit", circuit);
+            images.put(obj);
         }
         if(!image3.isEmpty()){
-            JSONObject link = new JSONObject();
-            link.put("liens", image3);
+            JSONObject obj = new JSONObject();
+            obj.put("lien", image3);
             JSONObject circuit = new JSONObject();
             circuit.put("code", idCircuit);
-            images.put(circuit);
-            images.put(circuit);
+            obj.put("circuit", circuit);
+            images.put(obj);
         }
         if(!image4.isEmpty()){
-            JSONObject link = new JSONObject();
-            link.put("liens", image4);
+            JSONObject obj = new JSONObject();
+            obj.put("lien", image4);
             JSONObject circuit = new JSONObject();
             circuit.put("code", idCircuit);
-            images.put(circuit);
-            images.put(circuit);
+            obj.put("circuit", circuit);
+            images.put(obj);
         }
 
 

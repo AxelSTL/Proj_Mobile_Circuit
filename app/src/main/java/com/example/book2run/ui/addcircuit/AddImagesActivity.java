@@ -29,6 +29,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
     String name, description, adresse, codePostal, city, price;;
     ImageView image1, image2, image3, image4;
     ImageButton validate;
+    boolean isImage1, isImage2, isImage3, isImage4 = false;
     int img;
 
     @Override
@@ -74,57 +75,71 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v){
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
         switch(v.getId()){
             case R.id.image1:
-                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+                isImage1 = true;
                 img = 1;
+                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
                 break;
             case R.id.image2:
-                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+                isImage2 = true;
                 img = 2;
+                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
                 break;
             case R.id.image3:
-                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+                isImage3 = true;
                 img = 3;
+                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
                 break;
             case R.id.image4:
-                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+                isImage4 = true;
                 img = 4;
+                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
                 break;
             case R.id.addcircuitImages_btn:
                 Intent intent = new Intent(AddImagesActivity.this, AddCircuitSummaryActivity.class);
                 intent.putExtra("name", name);
-
-
-                Log.i("TEST2", );
-                System.out.println("DEBUT");
-                if(image1 != null){
+                //Log.i("TEST2", String.valueOf(image1.getDrawingCache()));
+               /* System.out.println("1234564789");
+                Log.i("image1 en string", String.valueOf(image1.getDrawingCache()));
+                Log.i("image2 en string", String.valueOf(image2.getDrawingCache()));
+                Log.i("image3 en string", String.valueOf(image3.getDrawingCache()));
+                Log.i("image4 en string", String.valueOf(image4.getDrawingCache()));
+                System.out.println("888888888888888888888888");*/
+                if(isImage1){
                     image1.buildDrawingCache();
-                    intent.putExtra("image1", getEncoded64ImageStringFromBitmap(image1.getDrawingCache()));
+                    String img1ToSend = getEncoded64ImageStringFromBitmap(image1.getDrawingCache());
+                    Log.i("image1 en string", img1ToSend);
+                    intent.putExtra("image1", img1ToSend);
                 }
-                if(image2 != null){
+                if(isImage2){
                     image2.buildDrawingCache();
-                    intent.putExtra("image2", getEncoded64ImageStringFromBitmap(image2.getDrawingCache()));
+                    String img2ToSend = getEncoded64ImageStringFromBitmap(image2.getDrawingCache());
+                    Log.i("image2 en string", img2ToSend);
+                    intent.putExtra("image2", img2ToSend);
                 }
-                if(image3 != null){
+                if(isImage3){
                     image3.buildDrawingCache();
-                    intent.putExtra("image3", getEncoded64ImageStringFromBitmap(image3.getDrawingCache()));
+                    String img3ToSend = getEncoded64ImageStringFromBitmap(image3.getDrawingCache());
+                    Log.i("image3 en string", img3ToSend);
+                    intent.putExtra("image3", img3ToSend);
                 }
-                if(image4 != null){
+                if(isImage4){
                     image4.buildDrawingCache();
-                    intent.putExtra("image4", getEncoded64ImageStringFromBitmap(image4.getDrawingCache()));
+                    String img4ToSend = getEncoded64ImageStringFromBitmap(image4.getDrawingCache());
+                    Log.i("image4 en string", img4ToSend);
+                    intent.putExtra("image4", img4ToSend);
                 }
+
 
                 intent.putExtra("adresse", adresse);
                 intent.putExtra("codePostal", codePostal);
                 intent.putExtra("city", city);
                 intent.putExtra("description", description);
                 intent.putExtra("price", price);
-                Log.i("image1", String.valueOf(String.valueOf(getEncoded64ImageStringFromBitmap(image1.getDrawingCache())).length()));
-                /*Log.i("image2", String.valueOf(image2));
-                Log.i("image3", String.valueOf(image3));
-                Log.i("image4", String.valueOf(image4));*/
                 System.out.println("fin");
+                //Log.i("Intent avant summary", intent.getDataString());
                 startActivity(intent);
 
 

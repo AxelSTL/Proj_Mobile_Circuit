@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">    </ScrollView>
 
     <TextView
         android:id="@+id/title_register_txtview"
@@ -69,7 +72,7 @@
         android:layout_width="302dp"
         android:layout_height="38dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codepostal_register_txtview"></EditText>
 
@@ -117,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:text="S'inscrire"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/codepostal_register_txtEdit" />
