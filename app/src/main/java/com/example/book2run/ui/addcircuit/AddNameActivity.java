@@ -10,8 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.book2run.R;
+import com.example.book2run.ui.data.LoginDataSource;
+import com.example.book2run.ui.data.LoginRepository;
 
 public class AddNameActivity extends AppCompatActivity {
     ImageButton validate;
@@ -22,8 +25,13 @@ public class AddNameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_name);
 
         // Cacher le bouton login
-        ImageView login = findViewById(R.id.login);
-        login.setVisibility(View.INVISIBLE);
+        ImageView login = findViewById(R.id.login5);
+        TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername);
+        LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
+        if(user.isLoggedIn()){
+            userNameToolBar.setText("Bonjour " + user.username);
+            login.setVisibility(View.INVISIBLE);
+        }
 
         validate = findViewById(R.id.addcircuitTitleDesc_btn);
         name = findViewById(R.id.addcircuitName_input);
