@@ -182,4 +182,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mdp_register_txtView" />
 
+    <TextView
+        android:id="@+id/pseudo_register_txtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="7dp"
+        android:text="Pseudo"
+        app:layout_constraintStart_toEndOf="@+id/mdp_register_txtView"
+        app:layout_constraintTop_toBottomOf="@+id/mail_register_txtEdit" />
+
+    <EditText
+        android:id="@+id/pseudo_register_txtEdit"
+        android:layout_width="131dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="7dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toEndOf="@+id/mdp_register_txtEdit"
+        app:layout_constraintTop_toBottomOf="@+id/pseudo_register_txtView" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

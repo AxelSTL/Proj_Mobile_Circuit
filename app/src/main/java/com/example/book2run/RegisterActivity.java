@@ -2,10 +2,10 @@ package com.example.book2run;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -21,13 +21,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText nom, prenom, tel, adresse, codepostal, email, ville, mdp;
+    EditText nom, prenom, tel, adresse, codepostal, email, ville, mdp, pseudo;
     Button validate;
 
     @Override
@@ -43,71 +43,66 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.mail_register_txtEdit);
         ville = findViewById(R.id.ville_register_txtEdit);
         mdp = findViewById(R.id.mdp_register_txtEdit);
+        pseudo = findViewById(R.id.pseudo_register_txtEdit);
 
         validate = findViewById(R.id.validate_register_button);
-        validate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerAccount();
-            }
+        validate.setOnClickListener(v -> {
+            registerAccount();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
         });
     }
 
 
-
-    public void registerAccount(){
+    public void registerAccount() {
         try {
-        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://192.168.2.118:8180/utilisateur";
-        URL url = new URL(requestURL);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.connect();
-        OutputStream out = new BufferedOutputStream(connection.getOutputStream());
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://192.168.2.118:8180/utilisateur";
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.connect();
+            OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
 
-        Log.i("circuitToString",jSonConstructorUser().toString());
-        writer.write(jSonConstructorUser().toString());
-        writer.flush();
-        writer.close();
+            Log.i("circuitToString", jSonConstructorUser().toString());
+            writer.write(jSonConstructorUser().toString());
+            writer.flush();
+            writer.close();
 
-        InputStream stream = connection.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        StringBuffer buffer = new StringBuffer();
-        String line = "";
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuilder buffer = new StringBuilder();
+            String line;
 
-        while ((line = reader.readLine()) != null) {
-            buffer.append(line);
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
         }
-
-    } catch (
-    MalformedURLException e) {
-        e.printStackTrace();
-    } catch (
-                IOException | JSONException e) {
-        e.printStackTrace();
-    }
     }
 
 
     public JSONObject jSonConstructorUser() throws JSONException {
         JSONObject user = new JSONObject();
 
-        user.put("pseudo","glv");
-        user.put("motDePasse",mdp.getText());
-        user.put("nom",nom.getText());
-        user.put("prenom",prenom.getText());
-        user.put("email",email.getText());
-        user.put("telephone",tel.getText());
+        user.put("pseudo", pseudo.getText());
+        user.put("motDePasse", mdp.getText());
+        user.put("nom", nom.getText());
+        user.put("prenom", prenom.getText());
+        user.put("email", email.getText());
+        user.put("telephone", tel.getText());
         user.put("adresse", adresse.getText());
 
         JSONObject ville = new JSONObject();
 
         ville.put("codePostal", codepostal.getText());
         ville.put("nom", this.ville.getText());
-        user.put("ville",ville);
+        user.put("ville", ville);
         return user;
 
     }
