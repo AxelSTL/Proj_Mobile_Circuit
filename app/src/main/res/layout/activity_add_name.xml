@@ -45,10 +45,11 @@
             android:layout_height="48dp"
             android:hint="Nom du circuit"
             android:textColorHint="@color/grey"
+            android:textColor="@color/white"
             android:textAlignment="textStart"
             android:singleLine="true"
             android:textSize="20sp"
-            android:paddingStart="10dp"
+            android:paddingStart="12dp"
             android:paddingEnd="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/arround_corners_cyan"/>
@@ -74,12 +75,13 @@
             android:gravity="top"
             android:hint="Description..."
             android:textColorHint="@color/grey"
+            android:textColor="@color/white"
             android:inputType="textMultiLine"
             android:textSize="20sp"
             android:textAlignment="gravity"
-            android:paddingStart="10dp"
+            android:paddingStart="12dp"
             android:paddingEnd="10dp"
-            android:paddingTop="5dp"
+            android:paddingTop="7dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/arround_corners_cyan" />
 
@@ -138,6 +140,7 @@
                 android:gravity="center"
                 android:hint="123 rue de la paix"
                 android:textColorHint="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:background="@drawable/arround_corners_cyan"/>
 <!--                android:autofillHints="postalAddress"-->
@@ -157,6 +160,7 @@
                 android:gravity="center"
                 android:hint="65000"
                 android:textColorHint="@color/grey"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:inputType="number"
                 android:background="@drawable/arround_corners_cyan"/>
@@ -184,7 +188,7 @@
             android:textSize="20sp"
             android:textAlignment="textStart"
             android:textColorHint="@color/grey"
-            android:paddingStart="10dp"
+            android:paddingStart="12dp"
             android:paddingEnd="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/arround_corners_cyan"/>
@@ -210,6 +214,7 @@
             android:gravity="center"
             android:hint="500"
             android:textColorHint="@color/grey"
+            android:textColor="@color/white"
             android:textAlignment="center"
             android:inputType="number"
             android:minHeight="48dp"

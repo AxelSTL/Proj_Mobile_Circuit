@@ -33,7 +33,7 @@
                 android:layout_marginTop="128dp"
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/arround_corners_cyan"
-                android:hint="@string/prompt_email"
+                android:hint="@string/prompt_mail"
                 android:inputType="textEmailAddress"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
@@ -59,7 +59,7 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/grey" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/login"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
@@ -68,10 +68,11 @@
                 android:layout_marginTop="150dp"
                 android:layout_marginEnd="48dp"
                 android:layout_marginBottom="150dp"
-                android:background="@drawable/arround_button_indigo"
                 android:enabled="false"
-                android:text="Se connecter"
-                app:srcCompat="@drawable/ic_register" />
+                android:contentDescription="Bouton sauvegarder"
+                android:background="@drawable/arround_button_indigo"
+                app:srcCompat="@drawable/ic_login2"
+                />
 
             <ProgressBar
                 android:id="@+id/loading"
@@ -88,7 +89,8 @@
                 android:id="@+id/register_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pas de compte ? Inscrivez-vous ici" />
+                android:text="Pas de compte ? Inscrivez-vous ici"
+                android:background="@drawable/arround_corners_indigo"/>
 
         </LinearLayout>
 

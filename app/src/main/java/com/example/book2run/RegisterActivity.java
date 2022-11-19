@@ -8,6 +8,7 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 public class RegisterActivity extends AppCompatActivity {
 
     EditText nom, prenom, tel, adresse, codepostal, email, ville, mdp, pseudo;
-    Button validate;
+    ImageButton validate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
