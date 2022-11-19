@@ -19,14 +19,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.book2run.LoginActivity;
 import com.example.book2run.R;
-import com.example.book2run.adapters.ListViewAdapter;
+import com.example.book2run.adapters.ListViewCircuitAdapter;
 import com.example.book2run.databinding.FragmentDashboardBinding;
 import com.example.book2run.model.Circuit;
 import com.example.book2run.ui.addcircuit.AddNameActivity;
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
-import com.example.book2run.ui.data.model.LoggedInUser;
-import com.example.book2run.ui.ui.login.LoginViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +34,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -54,7 +51,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         Button addCircuitBtn = root.findViewById(R.id.addCircuit_btn);
-        listViewCircuits = root.findViewById(R.id.listview_mycircuits);
+        listViewCircuits = root.findViewById(R.id.listView_dashboard);
+
         addCircuitBtn.setOnClickListener(this);
         if(user.isLoggedIn()) {
             try {
@@ -119,29 +117,66 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         JSONArray circuitsArray = new JSONArray(buffer.toString());
 
         Circuit[] circuits = new Circuit[circuitsArray.length()];
-        /*Log.i("circuits ", circuitsArray.getJSONObject(0).getString("adresse"));
-        Log.i("length", String.valueOf(circuitsArray.length()));*/
+
+        System.out.println("TAILLE DE CIRCUIT ARRAY " + circuitsArray.length() );
         for(int i = 0; i < circuitsArray.length(); i++){
+
+            JSONArray imgList = loadImageFromCircuit(circuitsArray.getJSONObject(i).getInt("code"));
+
             circuits[i] = new Circuit
                     (circuitsArray.getJSONObject(i).getInt("code"),
-                    circuitsArray.getJSONObject(0).getString("nom"),
-                    circuitsArray.getJSONObject(0).getString("adresse"),
-                    circuitsArray.getJSONObject(0).getString("description"));
+                    circuitsArray.getJSONObject(i).getString("nom"),
+                    circuitsArray.getJSONObject(i).getString("adresse"),
+                    circuitsArray.getJSONObject(i).getString("description"),
+                    imgList.getJSONObject(0).getString("lien"));
 
         }
         System.out.println(circuits);
-       // loadListViewCircuits(circuits);
+        loadListViewCircuits(circuits);
     }
 
 
 
-    /*public void loadListViewCircuits(Circuit [] circuits){
-        ArrayList<Circuit> circuit = new ArrayList<>();
-        circuit.add(new Circuit(1, "Paul Ricard", "329 rue de la paix", "très jlie circuit"));
+    public JSONArray loadImageFromCircuit(int idCircuit) throws IOException, JSONException {
+        JSONArray imgList = null;
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
 
-        ListViewAdapter adapter = new ListViewAdapter(test.getContext(), circuit);
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            imgList = new JSONArray(buffer.toString());
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        Log.i("imgList", imgList.toString());
+        return imgList;
+    }
+
+
+
+
+
+
+
+    public void loadListViewCircuits(Circuit [] circuits){
+        ArrayList<Circuit> circuit = new ArrayList<>();
+        circuit.add(new Circuit(circuits[0].getCode(), circuits[0].getNom(), circuits[0].getAdresse(), circuits[0].getDescription(), circuits[0].getMainImg()));
+
+        ListViewCircuitAdapter adapter = new ListViewCircuitAdapter(getActivity() ,R.layout.adaptercircuit_view_layout, circuit);
+        System.out.println(adapter);
         listViewCircuits.setAdapter(adapter);
 
-    }*/
+    }
 
 }
