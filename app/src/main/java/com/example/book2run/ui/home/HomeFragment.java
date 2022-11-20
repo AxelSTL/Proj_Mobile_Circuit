@@ -1,5 +1,6 @@
 package com.example.book2run.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
@@ -18,10 +19,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.book2run.CircuitViewActivity;
+import com.example.book2run.MainActivity;
 import com.example.book2run.R;
 import com.example.book2run.adapters.ListViewCircuitAdapter;
 import com.example.book2run.databinding.FragmentHomeBinding;
 import com.example.book2run.model.Circuit;
+import com.example.book2run.ui.addcircuit.AddCircuitSummaryActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,7 +66,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println(position);
-                System.out.println(circuits[position].getNom());
+                System.out.println(circuits[position].getCode());
+
+                Intent intent = new Intent(getActivity(), CircuitViewActivity.class);
+                intent.putExtra("code",circuits[position].getCode());
+                intent.putExtra("isMine", "false");
+                startActivity(intent);
             }
         });
 
