@@ -142,6 +142,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
+            Log.i("idCircuit", String.valueOf(idCircuit));
             String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -154,6 +155,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
+            Log.i("buffer", buffer.toString());
             imgList = new JSONArray(buffer.toString());
 
         } catch (Exception e){
@@ -171,7 +173,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     public void loadListViewCircuits(Circuit [] circuits){
         ArrayList<Circuit> circuit = new ArrayList<>();
-        circuit.add(new Circuit(circuits[0].getCode(), circuits[0].getNom(), circuits[0].getAdresse(), circuits[0].getDescription(), circuits[0].getMainImg()));
+        for(int i = 0; i < circuits.length; i++){
+            circuit.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getMainImg()));
+        }
+
 
         ListViewCircuitAdapter adapter = new ListViewCircuitAdapter(getActivity() ,R.layout.adaptercircuit_view_layout, circuit);
         System.out.println(adapter);

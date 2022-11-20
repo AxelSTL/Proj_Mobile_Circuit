@@ -3,6 +3,7 @@ package com.example.book2run.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import com.example.book2run.R;
 import com.example.book2run.model.Circuit;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -105,20 +107,28 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
         holder.description.setText(description);
 
         ImageView img= convertView.findViewById(R.id.image_adapter);
-        File imgFile = new  File("C:/image_projet_mobile/8/11/15.png");
+        img.setImageBitmap(getBitmapFromBase64(mainImage));
+        /*File imgFile = new  File("C:/image_projet_mobile/8/11/15.png");
         System.out.println(imgFile.exists());
         if(imgFile.exists()){
 
             Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(imgFile));
             img.setImageBitmap(bitmap);
 
-        }
+        }*/
         //holder.prix.setText(prix);
 
         //create the imageloader object
 
 
         return convertView;
+    }
+
+    public Bitmap getBitmapFromBase64(String base64){
+        byte[] decodedString = Base64.decode(base64.getBytes(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        return decodedByte;
     }
 
     /**

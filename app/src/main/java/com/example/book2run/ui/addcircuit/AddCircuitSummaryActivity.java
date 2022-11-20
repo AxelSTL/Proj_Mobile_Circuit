@@ -265,36 +265,28 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         JSONArray images = new JSONArray();
         System.out.println(idCircuit);
         if(!image1.isEmpty()){
-           JSONObject obj = new JSONObject();
-           obj.put("lien", image1);
-           JSONObject circuit = new JSONObject();
-           circuit.put("code", idCircuit);
-           obj.put("circuit", circuit);
-           images.put(obj);
+           JSONObject image = new JSONObject();
+            image.put("lien", image1);
+            image.put("codeCircuit", idCircuit);
+            images.put(image);
         }
         if(!image2.isEmpty()){
-            JSONObject obj = new JSONObject();
-            obj.put("lien", image2);
-            JSONObject circuit = new JSONObject();
-            circuit.put("code", idCircuit);
-            obj.put("circuit", circuit);
-            images.put(obj);
+            JSONObject image = new JSONObject();
+            image.put("lien", image2);
+            image.put("codeCircuit", idCircuit);
+            images.put(image);
         }
         if(!image3.isEmpty()){
-            JSONObject obj = new JSONObject();
-            obj.put("lien", image3);
-            JSONObject circuit = new JSONObject();
-            circuit.put("code", idCircuit);
-            obj.put("circuit", circuit);
-            images.put(obj);
+            JSONObject image = new JSONObject();
+            image.put("lien", image3);
+            image.put("codeCircuit", idCircuit);
+            images.put(image);
         }
         if(!image4.isEmpty()){
-            JSONObject obj = new JSONObject();
-            obj.put("lien", image4);
-            JSONObject circuit = new JSONObject();
-            circuit.put("code", idCircuit);
-            obj.put("circuit", circuit);
-            images.put(obj);
+            JSONObject image = new JSONObject();
+            image.put("lien", image4);
+            image.put("codeCircuit", idCircuit);
+            images.put(image);
         }
 
 
