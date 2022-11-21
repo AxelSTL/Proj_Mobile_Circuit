@@ -70,10 +70,10 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
 
         Log.i("name", this.name);
 
-        Log.i("image1", image1);
+        /*Log.i("image1", image1);
         Log.i("image2", image2);
         Log.i("image3", image3);
-        Log.i("image4", image4);
+        Log.i("image4", image4);*/
 
         nameSum = findViewById(R.id.summaryName_view);
         descriptionSum = findViewById(R.id.summaryDesc_view);
@@ -263,37 +263,30 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
 
     public JSONArray jSonConstructorImage() throws JSONException {
         JSONArray images = new JSONArray();
+        System.out.println(idCircuit);
         if(!image1.isEmpty()){
-           JSONObject obj = new JSONObject();
-           obj.put("lien", image1);
-           JSONObject circuit = new JSONObject();
-           circuit.put("code", idCircuit);
-           obj.put("circuit", circuit);
-           images.put(obj);
+           JSONObject image = new JSONObject();
+            image.put("lien", image1);
+            image.put("codeCircuit", idCircuit);
+            images.put(image);
         }
         if(!image2.isEmpty()){
-            JSONObject obj = new JSONObject();
-            obj.put("lien", image2);
-            JSONObject circuit = new JSONObject();
-            circuit.put("code", idCircuit);
-            obj.put("circuit", circuit);
-            images.put(obj);
+            JSONObject image = new JSONObject();
+            image.put("lien", image2);
+            image.put("codeCircuit", idCircuit);
+            images.put(image);
         }
         if(!image3.isEmpty()){
-            JSONObject obj = new JSONObject();
-            obj.put("lien", image3);
-            JSONObject circuit = new JSONObject();
-            circuit.put("code", idCircuit);
-            obj.put("circuit", circuit);
-            images.put(obj);
+            JSONObject image = new JSONObject();
+            image.put("lien", image3);
+            image.put("codeCircuit", idCircuit);
+            images.put(image);
         }
         if(!image4.isEmpty()){
-            JSONObject obj = new JSONObject();
-            obj.put("lien", image4);
-            JSONObject circuit = new JSONObject();
-            circuit.put("code", idCircuit);
-            obj.put("circuit", circuit);
-            images.put(obj);
+            JSONObject image = new JSONObject();
+            image.put("lien", image4);
+            image.put("codeCircuit", idCircuit);
+            images.put(image);
         }
 
 
