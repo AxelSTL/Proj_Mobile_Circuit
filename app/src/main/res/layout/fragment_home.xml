@@ -1,36 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/searchCircuit_home_input"
-        android:layout_width="366dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="19dp"
-        android:hint="Rechercher..."
-        android:textSize="20sp"
-        android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.home.HomeFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/searchCircuit_home_input"
+                android:layout_width="366dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:paddingStart="12dp"
+                android:paddingEnd="10dp"
+                android:hint="@string/prompt_search"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:singleLine="true"
+                android:autofillHints="all"
+                android:inputType="text"
+                android:background="@drawable/arround_corners_indigo"/>
 
 
-    <ListView
-        android:id="@+id/listView_home"
-        android:layout_width="407dp"
-        android:layout_height="567dp"
-        android:layout_marginTop="125dp"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.021" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ListView
+                android:id="@+id/listView_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="300dp"
+                android:layout_marginTop="75dp"
+                android:layout_marginBottom="100dp"
+                tools:ignore="NestedScrolling" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
