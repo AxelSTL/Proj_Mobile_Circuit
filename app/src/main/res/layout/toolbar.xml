@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/red">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/icon1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_arrow_back">
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/icon1"
+            android:layout_centerVertical="true"
+            android:text="Book2Run"
+            android:textSize="22sp"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/login5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_login"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/toolbar_loggedUsername"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginRight="75dp"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
