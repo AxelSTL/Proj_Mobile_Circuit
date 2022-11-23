@@ -79,6 +79,8 @@ public class CircuitViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ReserveActivity.class);
+                intent.putExtra("nom", nom.getText());
+                intent.putExtra("code", code);
                 startActivity(intent);
             }
         });

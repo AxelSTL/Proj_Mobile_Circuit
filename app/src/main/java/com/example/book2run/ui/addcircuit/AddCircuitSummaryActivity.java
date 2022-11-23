@@ -67,7 +67,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         image2 = intent.getStringExtra("image2");
         image3 = intent.getStringExtra("image3");
         image4 = intent.getStringExtra("image4");
-
+        price = intent.getStringExtra("price");
         Log.i("name", this.name);
 
         /*Log.i("image1", image1);
@@ -210,7 +210,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         circuitDetails.put("nom", name);
         circuitDetails.put("adresse", this.adresse);
         circuitDetails.put("description", this.description);
-
+        circuitDetails.put("tarif", price);
         JSONObject ville = new JSONObject();
         ville.put("codePostal", Integer.parseInt(this.codePostal));
         ville.put("nom", this.city);

@@ -11,7 +11,6 @@ public class LoginRepository {
     private static volatile LoginRepository instance;
 
     private LoginDataSource dataSource;
-
     public String username;
     public String lastName;
     public int code;
@@ -41,6 +40,10 @@ public class LoginRepository {
 
     public void logout() {
         user = null;
+        username =null;
+        lastName = null;
+        code = 0;
+        mail = null;
         dataSource.logout();
     }
 

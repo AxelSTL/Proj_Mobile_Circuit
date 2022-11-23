@@ -6,4 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".ReserveActivity">
 
+    <ImageView
+        android:id="@+id/reserve_image"
+        android:layout_width="410dp"
+        android:layout_height="346dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reserve_name_view" />
+
+    <Button
+        android:id="@+id/reserve_debut_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="408dp"
+        android:layout_marginEnd="90dp"
+        android:text="Date de début"
+        app:layout_constraintEnd_toStartOf="@+id/reserve_end_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/reserve_end_btn"
+        android:layout_width="160dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="408dp"
+        android:layout_marginEnd="10dp"
+        android:text="Date de fin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/reserve_name_view"
+        android:layout_width="178dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="117dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

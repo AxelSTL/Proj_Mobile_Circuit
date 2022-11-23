@@ -32,8 +32,8 @@
 
     <ListView
         android:id="@+id/listView_dashboard"
-        android:layout_width="403dp"
-        android:layout_height="471dp"
+        android:layout_width="407dp"
+        android:layout_height="347dp"
         android:layout_marginTop="125dp"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
