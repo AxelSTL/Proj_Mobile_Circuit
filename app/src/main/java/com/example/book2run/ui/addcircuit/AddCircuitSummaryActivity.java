@@ -100,16 +100,16 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     }
 
     public void loadImage(){
-        if(!image1.isEmpty()){
+        if(image1 != null){
             imageSum1.setImageBitmap(getBitmapFromBase64(image1));
         }
-        if(!image2.isEmpty()){
+        if(image2 != null){
             imageSum2.setImageBitmap(getBitmapFromBase64(image2));
         }
-        if(!image3.isEmpty()){
+        if(image3 != null){
             imageSum3.setImageBitmap(getBitmapFromBase64(image3));
         }
-        if(!image4.isEmpty()){
+        if(image4 != null){
             imageSum4.setImageBitmap(getBitmapFromBase64(image4));
         }
     }
@@ -164,7 +164,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.109:8180/circuits";
+            String requestURL = "http://10.0.2.2:8180/circuits";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -236,7 +236,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public void postImageCircuit() throws IOException, JSONException {
         StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://192.168.2.109:8180/images";
+        String requestURL = "http://10.0.2.2:8180/images";
         URL url = new URL(requestURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -264,25 +264,25 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public JSONArray jSonConstructorImage() throws JSONException {
         JSONArray images = new JSONArray();
         System.out.println(idCircuit);
-        if(!image1.isEmpty()){
+        if(image1 != null){
            JSONObject image = new JSONObject();
             image.put("lien", image1);
             image.put("codeCircuit", idCircuit);
             images.put(image);
         }
-        if(!image2.isEmpty()){
+        if(image2 != null){
             JSONObject image = new JSONObject();
             image.put("lien", image2);
             image.put("codeCircuit", idCircuit);
             images.put(image);
         }
-        if(!image3.isEmpty()){
+        if(image3 != null){
             JSONObject image = new JSONObject();
             image.put("lien", image3);
             image.put("codeCircuit", idCircuit);
             images.put(image);
         }
-        if(!image4.isEmpty()){
+        if(image4 != null){
             JSONObject image = new JSONObject();
             image.put("lien", image4);
             image.put("codeCircuit", idCircuit);

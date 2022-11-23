@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ public class CircuitViewActivity extends AppCompatActivity {
 
     boolean isMine = true;
     TextView nom,desc, adresse, ville, postal, pseudo;
+    Button validate;
 
     ImageView image;
     JSONObject circuit;
@@ -49,7 +52,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         ville = findViewById(R.id.circuitviewCity_view);
         postal = findViewById(R.id.circuitviewPostal_view);
         pseudo = findViewById(R.id.circuitviewPseudoonwer_view);
-
+        validate = findViewById(R.id.circuitviewValidate_btn);
         image = findViewById(R.id.circuitviewImg_imageview);
 
         circuit = loadCircuitValues(code);
@@ -72,7 +75,13 @@ public class CircuitViewActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+        validate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ReserveActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -85,7 +94,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.109:8180/circuits/" + code;
+            String requestURL = "http://10.0.2.2:8180/circuits/" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -111,7 +120,7 @@ public class CircuitViewActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://192.168.2.109:8180/images?code=" + idCircuit;
+            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();

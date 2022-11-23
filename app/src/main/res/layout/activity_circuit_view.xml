@@ -98,6 +98,18 @@
             app:layout_constraintStart_toEndOf="@+id/circuitviewPostal_view"
             app:layout_constraintTop_toBottomOf="@+id/circuitviewAdresse_view" />
 
+        <Button
+            android:id="@+id/circuitviewValidate_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
+            android:text="Reserver"
+            app:layout_constraintBottom_toTopOf="@+id/circuitviewDescrption_view"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
