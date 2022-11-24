@@ -1,5 +1,7 @@
 package com.example.book2run;
 
+import static java.security.AccessController.getContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,6 +15,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.book2run.ui.data.LoginDataSource;
+import com.example.book2run.ui.data.LoginRepository;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +38,7 @@ public class CircuitViewActivity extends AppCompatActivity {
     boolean isMine = true;
     TextView nom,desc, adresse, ville, postal, pseudo;
     Button validate;
-
+    private LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
     ImageView image;
     JSONObject circuit;
     JSONArray images;
@@ -78,10 +84,17 @@ public class CircuitViewActivity extends AppCompatActivity {
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ReserveActivity.class);
-                intent.putExtra("nom", nom.getText());
-                intent.putExtra("code", code);
-                startActivity(intent);
+                if(user.isLoggedIn()){
+                    Intent intent = new Intent(getApplicationContext(), ReserveActivity.class);
+                    intent.putExtra("nom", nom.getText());
+                    intent.putExtra("code", code);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Toast.makeText(getApplicationContext(), "Vous devez être connecté pour faire cela.", Toast.LENGTH_LONG).show();
+                    startActivity(intent);
+                }
+
             }
         });
 

@@ -1,9 +1,12 @@
 package com.example.book2run.ui.data;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.example.book2run.MainActivity;
 import com.example.book2run.ui.data.model.LoggedInUser;
+import com.example.book2run.ui.ui.login.LoginFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +51,7 @@ public class LoginDataSource {
     }
 
     public void logout() {
+        prenom = null;
         // TODO: revoke authentication
     }
 

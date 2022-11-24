@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.icu.util.Calendar;
+import android.icu.util.TimeZone;
 import android.media.Image;
 import android.os.Bundle;
 import android.app.DatePickerDialog;
@@ -19,6 +20,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,16 +40,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ReserveActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener {
+public class ReserveActivity extends AppCompatActivity implements View.OnClickListener {
     private Button firstDateBtn;
     private Button secondeDateBtn;
     private ImageView image;
     private TextView nom;
-    private String firstDate;
-    private String secondeDate;
-    private boolean isFirst;
     int code;
     JSONArray images;
+    MaterialDatePicker materialDatePicker;
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,19 +76,34 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
             e.printStackTrace();
         }
         firstDateBtn.setOnClickListener(this);
-        secondeDateBtn.setOnClickListener(this);
+
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.clear();
+        long today = materialDatePicker.todayInUtcMilliseconds();
+        CalendarConstraints.Builder constrainBuilder = new CalendarConstraints.Builder();
+        constrainBuilder.setOpenAt(today);
+        constrainBuilder.setValidator(DateValidatorPointForward.now());
+
+
+        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
+        builder.setTitleText("Selectionnez date de départ et de fin");
+        builder.setCalendarConstraints(constrainBuilder.build());
+        materialDatePicker = builder.build();
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+            @Override
+            public void onPositiveButtonClick(Object selection) {
+                firstDateBtn.setText(materialDatePicker.getHeaderText());
+            }
+        });
+
 
     }
 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.reserve_debut_btn:
-                isFirst = true;
-                showDatePickerDialogStart();
-                break;
-            case R.id.reserve_end_btn:
-                isFirst = false;
-                showDatePickerDialogEnd();
+                materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
                 break;
         }
 
@@ -90,70 +111,6 @@ public class ReserveActivity extends AppCompatActivity implements DatePickerDial
     }
 
 
-    public void showDatePickerDialogStart() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                this,
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
-
-    public void showDatePickerDialogEnd() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                this,
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        //String date = dayOfMonth + "/" + month + "/" + year;
-        String date = year + "-" + month + "-" + dayOfMonth;
-        System.out.println(view.getId());
-
-        if(isFirst){
-            firstDateBtn.setText(date);
-            firstDate = date;
-        } else {
-            secondeDateBtn.setText(date);
-            secondeDate = date;
-        }
-
-    }
-
-
-    public String compareDate() throws ParseException {
-        String message = null;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date1 = sdf.parse(firstDate);
-            Date date2 = sdf.parse(secondeDate);
-
-            System.out.println("date1 : " + sdf.format(date1));
-            System.out.println("date2 : " + sdf.format(date2));
-
-            int result = date1.compareTo(date2);
-            System.out.println("result: " + result);
-
-            if (result == 0) {
-                System.out.println("Date1 is equal to Date2");
-                message = "Correct";
-            } else if (result > 0) {
-                System.out.println("Date1 is after Date2");
-                message = "Vous ne pouvez pas choisir une date de fin avant la date de début";
-            } else if (result < 0) {
-                System.out.println("Date1 is before Date2");
-                message = "Correct";
-            } else {
-                System.out.println("How to get here?");
-            }
-
-        return message;
-    }
 
 
     public Bitmap getBitmapFromBase64(String base64){
