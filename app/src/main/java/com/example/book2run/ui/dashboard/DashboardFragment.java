@@ -2,21 +2,28 @@ package com.example.book2run.ui.dashboard;
 
 import static java.lang.String.valueOf;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.book2run.CircuitViewActivity;
 import com.example.book2run.LoginActivity;
 import com.example.book2run.R;
 import com.example.book2run.adapters.ListViewCircuitAdapter;
@@ -43,6 +50,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     LayoutInflater  test;
     private ListView listViewCircuits;
     private LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
+    Circuit[] circuits;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         test = inflater;
@@ -52,8 +61,49 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         View root = binding.getRoot();
         Button addCircuitBtn = root.findViewById(R.id.addCircuit_btn);
         listViewCircuits = root.findViewById(R.id.listView_dashboard);
-
         addCircuitBtn.setOnClickListener(this);
+        listViewCircuits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PopupMenu circuitSettings = new PopupMenu(getActivity(), view);
+                circuitSettings.getMenuInflater().inflate(R.menu.circuitsetting_menu, circuitSettings.getMenu());
+                circuitSettings.show();
+                circuitSettings.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch(item.getItemId()){
+                            case R.id.deleteCircuit:
+                                new AlertDialog.Builder(getActivity())
+                                        .setTitle("Voulez vous vraiment supprimer votre annonce ?")
+                                        .setMessage("Votre annonce sera définitivement supprimer")
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                                deleteCircuit(circuits[position].getCode());
+                                            }})
+                                        .setNegativeButton(android.R.string.no, null).show();
+                                break;
+                            case R.id.modifyCircuit:
+                                break;
+                            case R.id.seeCircuit:
+                                Intent intent = new Intent(getActivity(), CircuitViewActivity.class);
+                                intent.putExtra("code",circuits[position].getCode());
+                                intent.putExtra("isMine", "true");
+                                startActivity(intent);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+
+            }
+        });
+
+
+
+
+
         if(user.isLoggedIn()) {
             try {
                 loadUserCircuit();
@@ -129,7 +179,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                     circuitsArray.getJSONObject(i).getString("description"),
                     imgList.getJSONObject(0).getString("lien"),
                     circuitsArray.getJSONObject(i).getInt("tarif"));
-
+            this.circuits = circuits;
         }
         System.out.println(circuits);
         loadListViewCircuits(circuits);
@@ -163,6 +213,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         }
         Log.i("imgList", imgList.toString());
         return imgList;
+    }
+
+
+    public void deleteCircuit(int code){
+//TODO faire le post delete circuit
+
     }
 
 

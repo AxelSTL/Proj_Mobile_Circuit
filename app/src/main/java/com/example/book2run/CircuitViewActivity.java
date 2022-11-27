@@ -4,6 +4,7 @@ import static java.security.AccessController.getContext;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,13 +37,14 @@ public class CircuitViewActivity extends AppCompatActivity {
 
 
     boolean isMine = true;
-    TextView nom,desc, adresse, ville, postal, pseudo;
+    TextView nom,desc, adresse, ville, postal, pseudo, price;
     Button validate;
     private LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
     ImageView image;
     JSONObject circuit;
     JSONArray images;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         pseudo = findViewById(R.id.circuitviewPseudoonwer_view);
         validate = findViewById(R.id.circuitviewValidate_btn);
         image = findViewById(R.id.circuitviewImg_imageview);
-
+        price = findViewById(R.id.circuitviewPrice_view);
         circuit = loadCircuitValues(code);
         try {
             images = loadImageFromCircuit(code);
@@ -72,6 +74,7 @@ public class CircuitViewActivity extends AppCompatActivity {
             ville.setText(circuit.getJSONObject("ville").getString("nom"));
             postal.setText(circuit.getJSONObject("ville").getString("codePostal"));
             pseudo.setText(circuit.getJSONObject("utilisateur").getString("pseudo"));
+            price.setText(circuit.getString("tarif"));
 
             image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(0).getString("lien")));
 
@@ -88,6 +91,9 @@ public class CircuitViewActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ReserveActivity.class);
                     intent.putExtra("nom", nom.getText());
                     intent.putExtra("code", code);
+                    float tarif = Float.parseFloat(price.getText().toString());
+                    System.out.println(tarif);
+                    intent.putExtra("tarif", tarif);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -97,6 +103,10 @@ public class CircuitViewActivity extends AppCompatActivity {
 
             }
         });
+
+        if(isMine){
+            validate.setVisibility(View.INVISIBLE);
+        }
 
 
     }

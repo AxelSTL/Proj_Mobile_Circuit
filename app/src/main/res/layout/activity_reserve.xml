@@ -19,21 +19,12 @@
         android:id="@+id/reserve_debut_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="117dp"
         android:layout_marginTop="408dp"
-        android:layout_marginEnd="90dp"
-        android:text="Date de début"
-        app:layout_constraintEnd_toStartOf="@+id/reserve_end_btn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/reserve_end_btn"
-        android:layout_width="160dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="408dp"
-        android:layout_marginEnd="10dp"
-        android:text="Date de fin"
+        android:layout_marginEnd="108dp"
+        android:text="Section des dates"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -50,6 +41,30 @@
         android:textStyle="bold"
         android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tarifTotal_txtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="172dp"
+        android:text="Tarif total :"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reserve_image" />
+
+    <Button
+        android:id="@+id/reserve_reserve_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="106dp"
+        android:layout_marginEnd="143dp"
+        android:text="RESERVER"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tarifTotal_txtView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
