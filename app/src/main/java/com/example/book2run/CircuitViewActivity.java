@@ -104,6 +104,10 @@ public class CircuitViewActivity extends AppCompatActivity {
             }
         });
 
+        if(isMine){
+            validate.setVisibility(View.INVISIBLE);
+        }
+
 
     }
 
