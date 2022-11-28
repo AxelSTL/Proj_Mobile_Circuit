@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         // Gestion connexion login
-        ImageView login = findViewById(R.id.login5);
-        TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername);
+        ImageView login = findViewById(R.id.toolbar_buttonLogin);
+        //TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername2);
         LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
         //Log.i("Username mainact", user.username);
         if(user.isLoggedIn()){
-            userNameToolBar.setText("Bonjour " + user.username);
+            //userNameToolBar.setText("Bonjour " + user.username);
             Log.i("nom", user.lastName);
             Log.i("prenom", user.username);
             Log.i("email", user.mail);

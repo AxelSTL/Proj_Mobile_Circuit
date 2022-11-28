@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     android:weightSum="100">
 
-        <ImageView
-            android:id="@+id/image_adapter"
-            android:layout_width="match_parent"
-            android:layout_height="121dp"
-            android:layout_weight="50"
-            android:contentDescription="@string/description_image1" />
+    <ImageView
+        android:id="@+id/image_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="121dp"
+        android:layout_weight="50"
+        android:contentDescription="@string/description_image1" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -22,7 +22,10 @@
             android:id="@+id/nom_adapter_circuit"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:gravity="center"
+            android:gravity="bottom|center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:text="nom" />
 
         <TextView
@@ -42,16 +45,17 @@
 
             <TextView
                 android:id="@+id/adresse_adapter_circuit"
-                android:layout_width="137dp"
+                android:layout_width="match_parent"
                 android:layout_height="41dp"
-                android:gravity="center"
+                android:gravity="top|center"
+                android:textSize="15sp"
                 android:text="adresse" />
 
-           <!-- <TextView
-                android:id="@+id/prix_adapter_circuit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="prix" /> -->
+            <!-- <TextView
+                 android:id="@+id/prix_adapter_circuit"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="prix" /> -->
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

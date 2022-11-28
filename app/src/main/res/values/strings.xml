@@ -2,7 +2,7 @@
     <string name="app_name">Book2Run</string>
     <string name="title_recherche">Recherche</string>
     <string name="title_circuit">Mes circuits</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_compte">Mon compte</string>
     <!-- Strings related to login -->
     <string name="prompt_mail">Mail</string>
     <string name="prompt_pseudo">Pseudo</string>
@@ -11,7 +11,7 @@
     <string name="description_image1">Image principale</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome!"</string>
+    <string name="welcome">"Bienvenue "</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
