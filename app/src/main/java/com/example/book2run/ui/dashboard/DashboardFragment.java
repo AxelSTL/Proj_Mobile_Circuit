@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -47,13 +48,14 @@ import java.util.ArrayList;
 public class DashboardFragment extends Fragment implements View.OnClickListener {
 
     private FragmentDashboardBinding binding;
-    LayoutInflater  test;
+    LayoutInflater test;
     private ListView listViewCircuits;
     private LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
     Circuit[] circuits;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         test = inflater;
         DashboardViewModel dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
@@ -62,9 +64,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         Button addCircuitBtn = root.findViewById(R.id.addCircuit_btn);
         listViewCircuits = root.findViewById(R.id.listView_dashboard);
         addCircuitBtn.setOnClickListener(this);
-        listViewCircuits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewCircuits.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
                 PopupMenu circuitSettings = new PopupMenu(getActivity(), view);
                 circuitSettings.getMenuInflater().inflate(R.menu.circuitsetting_menu, circuitSettings.getMenu());
                 circuitSettings.show();
@@ -75,7 +78,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             case R.id.deleteCircuit:
                                 new AlertDialog.Builder(getActivity())
                                         .setTitle("Voulez vous vraiment supprimer votre annonce ?")
-                                        .setMessage("Votre annonce sera définitivement supprimer")
+                                        .setMessage("Votre annonce sera dÃ©finitivement supprimer")
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -96,13 +99,19 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                         return false;
                     }
                 });
-
+                return false;
             }
         });
 
-
-
-
+        listViewCircuits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), CircuitViewActivity.class);
+                intent.putExtra("code",circuits[position].getCode());
+                intent.putExtra("isMine", "true");
+                startActivity(intent);
+            }
+        });
 
         if(user.isLoggedIn()) {
             try {
@@ -114,7 +123,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             }
         }
         return root;
-
     }
 
     @Override
@@ -150,7 +158,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     public void loadUserCircuit() throws IOException, JSONException {
         StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://10.0.2.2:8180/circuits/user?user=" + user.code;
+        String requestURL = "http://172.20.10.2:8180/circuits/user?user=" + user.code;
         URL url = new URL(requestURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
@@ -193,7 +201,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
+            String requestURL = "http://172.20.10.2:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();

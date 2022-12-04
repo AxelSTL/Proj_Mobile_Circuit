@@ -26,21 +26,21 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="10dp"
                 android:hint="@string/prompt_search"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:singleLine="true"
                 android:autofillHints="all"
                 android:inputType="text"
-                android:background="@drawable/arround_corners_indigo"/>
+                android:background="@drawable/arround_search_button"/>
 
 
             <ListView
                 android:id="@+id/listView_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="300dp"
-                android:layout_marginTop="75dp"
+                android:layout_height="400dp"
+                android:minHeight="600dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginBottom="100dp"
                 tools:ignore="NestedScrolling" />
 

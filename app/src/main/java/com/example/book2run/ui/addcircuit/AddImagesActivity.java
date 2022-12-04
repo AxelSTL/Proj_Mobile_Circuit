@@ -29,6 +29,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
     String name, description, adresse, codePostal, city, price;;
     ImageView image1, image2, image3, image4;
     ImageButton validate;
+    private ImageButton arrowBack;
     boolean isImage1, isImage2, isImage3, isImage4 = false;
     int img;
 
@@ -40,6 +41,15 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         // Cacher le bouton login
         ImageView login = findViewById(R.id.login5);
         login.setVisibility(View.INVISIBLE);
+
+        // Gestion flèche retour
+        arrowBack = findViewById(R.id.icon7888);
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
@@ -64,9 +74,9 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         validate.setOnClickListener(this);
 
         LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
-        TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername);
+        //(!savoir qu'on est connecté)TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername);
         if(user.isLoggedIn()){
-            userNameToolBar.setText("Bonjour " + user.username);
+            //(!savoir qu'on est connecté)userNameToolBar.setText("Bonjour " + user.username);
             login.setVisibility(View.INVISIBLE);
         }
 

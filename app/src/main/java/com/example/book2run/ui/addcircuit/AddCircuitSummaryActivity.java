@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     ImageView imageSum1,imageSum2,imageSum3,imageSum4;
     TextView nameSum, descriptionSum, adresseSum, codePostalSum, citySum, priceSum;
     Button validate;
+    private ImageButton arrowBack;
     LoginRepository user;
 
     int indexImage = 0;
@@ -69,6 +71,15 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         image4 = intent.getStringExtra("image4");
         price = intent.getStringExtra("price");
         Log.i("name", this.name);
+
+        // Gestion flèche retour
+        arrowBack = findViewById(R.id.icon7888);
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         /*Log.i("image1", image1);
         Log.i("image2", image2);
@@ -164,7 +175,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits";
+            String requestURL = "http://172.20.10.2:8180/circuits";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -236,7 +247,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public void postImageCircuit() throws IOException, JSONException {
         StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://10.0.2.2:8180/images";
+        String requestURL = "http://172.20.10.2:8180/images";
         URL url = new URL(requestURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -288,8 +299,6 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
             image.put("codeCircuit", idCircuit);
             images.put(image);
         }
-
-
 
         return images;
     }

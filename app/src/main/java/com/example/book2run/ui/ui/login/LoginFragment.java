@@ -31,12 +31,15 @@ import com.example.book2run.MainActivity;
 import com.example.book2run.R;
 import com.example.book2run.RegisterActivity;
 import com.example.book2run.databinding.FragmentLoginBinding;
+import com.example.book2run.databinding.ToolbarBinding;
 import com.example.book2run.ui.addcircuit.AddNameActivity;
 
 public class LoginFragment extends Fragment {
 
     private LoginViewModel loginViewModel;
     private FragmentLoginBinding binding;
+
+    private ImageButton arrowBack;
 
     @Nullable
     @Override
@@ -60,6 +63,15 @@ public class LoginFragment extends Fragment {
         final ImageButton loginButton = binding.login;
         final Button registerButton = binding.registerBtn;
         final ProgressBar loadingProgressBar = binding.loading;
+
+        arrowBack = binding.getRoot().findViewById(R.id.icon7888);
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
             @Override
