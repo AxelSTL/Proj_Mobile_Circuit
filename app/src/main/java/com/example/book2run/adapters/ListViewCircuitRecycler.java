@@ -5,12 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,11 +30,13 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
     private List<Circuit> circuits;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private Context context;
 
     // data is passed into the constructor
     public ListViewCircuitRecycler(Context context, List<Circuit> circuits) {
         this.mInflater = LayoutInflater.from(context);
         this.circuits = circuits;
+        this.context = context;
         System.out.println("test : " + circuits.get(0).getDateDebut());
     }
 
@@ -48,9 +52,6 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Circuit circuit = circuits.get(position);
-        System.out.println(circuit.getPrice());
-        System.out.println(circuit.getNom());
-        System.out.println(circuit.getDateFin());
 
 
         holder.prix.setText(String.valueOf(circuit.getPrice()));
@@ -83,7 +84,26 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+
+            PopupMenu reservation = new PopupMenu(context, view);
+            reservation.getMenuInflater().inflate(R.menu.reservation_menu, reservation.getMenu());
+            reservation.show();
+            reservation.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    if(item.getTitle().equals("Annuler")){
+                        //todo delete la resa
+                        System.out.println("mdr");
+                    }
+                    return false;
+                }
+            });
+
+
+            if (mClickListener != null){
+                mClickListener.onItemClick(view, getAdapterPosition());
+            }
         }
     }
 

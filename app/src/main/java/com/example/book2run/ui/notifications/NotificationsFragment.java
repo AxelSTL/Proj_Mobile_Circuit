@@ -36,7 +36,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationsFragment extends Fragment implements View.OnClickListener {
+public class NotificationsFragment extends Fragment implements View.OnClickListener{
 
     private FragmentNotificationsBinding binding;
     private Button deconnexion;
@@ -90,7 +90,6 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                     e.printStackTrace();
                 }
             }
-
             loadRecyclerView(this.circuits);
             //this.circuits = circuits;
 
