@@ -5,6 +5,8 @@ public class Circuit {
     String nom;
     String adresse;
     String description;
+    String ville;
+    int codePostal;
     int price;
     String mainImg;
     String dateDebut;
@@ -14,11 +16,13 @@ public class Circuit {
     String image3;
     String image4;*/
 
-    public Circuit(int code, String nom, String adresse, String description, String mainImg, int price) {
+    public Circuit(int code, String nom, String adresse, String description, String ville, int codePostal, String mainImg, int price) {
         this.code = code;
         this.nom = nom;
         this.adresse = adresse;
         this.description = description;
+        this.ville = ville;
+        this.codePostal = codePostal;
         this.mainImg = mainImg;
         this.price = price;
     }
@@ -64,6 +68,22 @@ public class Circuit {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public int getCodePostal() {
+        return codePostal;
+    }
+
+    public void setCodePostal(int codePostal) {
+        this.codePostal = codePostal;
     }
 
     public String getMainImg() {

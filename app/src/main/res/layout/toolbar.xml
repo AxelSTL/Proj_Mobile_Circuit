@@ -10,7 +10,7 @@
         android:padding="2dp">
 
         <ImageButton
-            android:id="@+id/icon7888"
+            android:id="@+id/flecheRetour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -24,13 +24,13 @@
             android:layout_width="200dp"
             android:layout_height="70dp"
             android:layout_marginStart="60dp"
-            android:layout_toEndOf="@+id/icon7888"
+            android:layout_toEndOf="@+id/flecheRetour"
             android:src="@drawable/ic_logo">
 
         </ImageView>
 
         <ImageView
-            android:id="@+id/login5"
+            android:id="@+id/loginToolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

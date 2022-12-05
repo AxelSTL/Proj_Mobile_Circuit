@@ -103,6 +103,8 @@ public class HomeFragment extends Fragment {
                                             circuitsArray.getJSONObject(i).getString("nom"),
                                             circuitsArray.getJSONObject(i).getString("adresse"),
                                             circuitsArray.getJSONObject(i).getString("description"),
+                                            circuitsArray.getJSONObject(i).getJSONObject("ville").getString("nom"),
+                                            circuitsArray.getJSONObject(i).getJSONObject("ville").getInt("codePostal"),
                                             imgList.getJSONObject(0).getString("lien"),
                                             circuitsArray.getJSONObject(i).getInt("tarif"));
                         } catch (JSONException e) {
@@ -127,7 +129,7 @@ public class HomeFragment extends Fragment {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/search?nom=" + nom;
+            String requestURL = "http://192.168.2.118:8180/circuits/search?nom=" + nom;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -154,7 +156,7 @@ public class HomeFragment extends Fragment {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
+            String requestURL = "http://192.168.2.118:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -180,7 +182,7 @@ public class HomeFragment extends Fragment {
     public void loadListViewCircuits(Circuit[] circuits) {
         ArrayList<Circuit> circuit = new ArrayList<>();
         for (int i = 0; i < circuits.length; i++) {
-            circuit.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getMainImg(), circuits[i].getPrice()));
+            circuit.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getVille(), circuits[i].getCodePostal(), circuits[i].getMainImg(), circuits[i].getPrice()));
         }
 
 

@@ -19,4 +19,5 @@
     <string name="scrollview_circuitview">scrollviewCircuitView</string>
     <string name="bouton_connexion">Bouton connexion</string>
     <string name="bouton_inscription">Pas de compte ? Inscrivez-vous ici</string>
+    <string name="nomcircuit">Nom du circuit...</string>
 </resources>

@@ -30,7 +30,7 @@ public class AddNameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_name);
 
         // Cacher le bouton login
-        ImageView login = findViewById(R.id.login5);
+        ImageView login = findViewById(R.id.loginToolbar);
         //(!savoir qu'on est connecté)TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername);
         LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
         if(user.isLoggedIn()){
@@ -39,7 +39,7 @@ public class AddNameActivity extends AppCompatActivity {
         }
 
         // Gestion flèche retour
-        arrowBack = findViewById(R.id.icon7888);
+        arrowBack = findViewById(R.id.flecheRetour);
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

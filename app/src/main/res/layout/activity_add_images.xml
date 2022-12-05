@@ -32,21 +32,69 @@
                 android:textColor="@color/black"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:layout_marginTop="70dp"
-                android:background="@drawable/border_indigo">
+                android:layout_marginTop="70dp">
             </TextView>
+
+            <TextView
+                android:id="@+id/imagePrincipaleView"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:singleLine="true"
+                android:background="@drawable/border_black"
+                android:text="Image principale"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/image1"
                     android:layout_width="182dp"
                     android:layout_height="182dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/arround_image_indigo"
+                    app:srcCompat="@drawable/ic_add_image_foreground"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/imageSecondaireView"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:singleLine="true"
+                android:background="@drawable/border_black"
+                android:text="Images secondaires"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:textSize="18sp"/>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:scaleType="fitXY"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/arround_image_indigo"
@@ -59,30 +107,9 @@
                 </Space>
 
                 <ImageView
-                    android:id="@+id/image2"
-                    android:layout_width="182dp"
-                    android:layout_height="182dp"
-                    android:scaleType="fitXY"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/arround_image_indigo"
-                    app:srcCompat="@drawable/ic_add_image_foreground"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:padding="5dp"
-                >
-
-
-                <ImageView
                     android:id="@+id/image3"
-                    android:layout_width="182dp"
-                    android:layout_height="182dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:scaleType="fitXY"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/arround_image_indigo"
@@ -90,14 +117,14 @@
 
                 <Space
                     android:layout_width="0dp"
-                    android:layout_height="15dp"
+                    android:layout_height="4dp"
                     android:layout_weight="1">
                 </Space>
 
                 <ImageView
                     android:id="@+id/image4"
-                    android:layout_width="182dp"
-                    android:layout_height="182dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:scaleType="fitXY"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/arround_image_indigo"
@@ -107,12 +134,12 @@
 
             <ImageButton
                 android:id="@+id/addcircuitImages_btn"
-                android:layout_width="200dp"
+                android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:contentDescription="Bouton sauvegarder"
                 android:background="@drawable/arround_button_black"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="25dp"
                 app:srcCompat="@drawable/ic_save" />
 
         </LinearLayout>

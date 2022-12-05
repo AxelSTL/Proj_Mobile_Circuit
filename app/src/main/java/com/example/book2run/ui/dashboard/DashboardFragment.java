@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -61,7 +62,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Button addCircuitBtn = root.findViewById(R.id.addCircuit_btn);
+        ImageButton addCircuitBtn = root.findViewById(R.id.addCircuit_btn);
         listViewCircuits = root.findViewById(R.id.listView_dashboard);
         addCircuitBtn.setOnClickListener(this);
         listViewCircuits.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -158,7 +159,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     public void loadUserCircuit() throws IOException, JSONException {
         StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://10.0.2.2:8180/circuits/user?user=" + user.code;
+        String requestURL = "http://192.168.2.118:8180/circuits/user?user=" + user.code;
         URL url = new URL(requestURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
@@ -185,6 +186,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                     circuitsArray.getJSONObject(i).getString("nom"),
                     circuitsArray.getJSONObject(i).getString("adresse"),
                     circuitsArray.getJSONObject(i).getString("description"),
+                    circuitsArray.getJSONObject(i).getJSONObject("ville").getString("nom"),
+                    circuitsArray.getJSONObject(i).getJSONObject("ville").getInt("codePostal"),
                     imgList.getJSONObject(0).getString("lien"),
                     circuitsArray.getJSONObject(i).getInt("tarif"));
             this.circuits = circuits;
@@ -201,7 +204,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
+            String requestURL = "http://192.168.2.118:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -238,7 +241,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     public void loadListViewCircuits(Circuit [] circuits){
         ArrayList<Circuit> circuit = new ArrayList<>();
         for(int i = 0; i < circuits.length; i++){
-            circuit.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getMainImg(), circuits[i].getPrice()));
+            circuit.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getVille(), circuits[i].getCodePostal(), circuits[i].getMainImg(), circuits[i].getPrice()));
         }
 
 

@@ -130,7 +130,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/reservation?user=" + code;
+            String requestURL = "http://192.168.2.118:8180/reservation?user=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -143,7 +143,6 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 buffer.append(line);
             }
             reservationList = new JSONArray(buffer.toString());
-
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -155,7 +154,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try{
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/images?code=" + codeCircuit;
+            String requestURL = "http://192.168.2.118:8180/images?code=" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -189,7 +188,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/" + codeCircuit;
+            String requestURL = "http://192.168.2.118:8180/circuits/" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();

@@ -36,6 +36,8 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
     private static class ViewHolder {
         TextView nom;
         TextView description;
+        TextView ville;
+        TextView codePostal;
         TextView adresse;
         ImageView image;
         //TextView prix;
@@ -62,6 +64,8 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
         String nom = getItem(position).getNom();
         String adresse = getItem(position).getAdresse();
         String description = getItem(position).getDescription();
+        String ville = getItem(position).getVille();
+        String codePostal = String.valueOf(getItem(position).getCodePostal());
         String mainImage = getItem(position).getMainImg();
         //String prix = getItem(position).getPrix();
 
@@ -79,10 +83,12 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
         if(convertView == null){
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(mResource, parent, false);
-            holder= new ViewHolder();
+            holder = new ViewHolder();
             holder.nom = (TextView) convertView.findViewById(R.id.nom_adapter_circuit);
             holder.adresse = (TextView) convertView.findViewById(R.id.adresse_adapter_circuit);
-            holder.description = (TextView) convertView.findViewById(R.id.description_adapter_circuit);
+//            holder.description = (TextView) convertView.findViewById(R.id.description_adapter_circuit);
+            holder.ville = (TextView) convertView.findViewById(R.id.ville_adapter_circuit);
+            holder.codePostal = (TextView) convertView.findViewById(R.id.codepostal_adapter_circuit);
             holder.image = (ImageView) convertView.findViewById(R.id.image_adapter);
 
             //holder.prix = (TextView) convertView.findViewById(R.id.prix_adapter_circuit);
@@ -104,7 +110,9 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
 
         holder.nom.setText(nom);
         holder.adresse.setText(adresse);
-        holder.description.setText(description);
+//        holder.description.setText(description);
+        holder.ville.setText(ville);
+        holder.codePostal.setText(codePostal);
 
         ImageView img= convertView.findViewById(R.id.image_adapter);
         img.setImageBitmap(getBitmapFromBase64(mainImage));

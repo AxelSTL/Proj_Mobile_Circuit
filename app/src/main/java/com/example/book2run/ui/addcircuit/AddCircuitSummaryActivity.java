@@ -72,8 +72,12 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         price = intent.getStringExtra("price");
         Log.i("name", this.name);
 
+        // Cacher bouton login
+        ImageView login = findViewById(R.id.loginToolbar);
+        login.setVisibility(View.INVISIBLE);
+
         // Gestion flèche retour
-        arrowBack = findViewById(R.id.icon7888);
+        arrowBack = findViewById(R.id.flecheRetour);
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,7 +179,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits";
+            String requestURL = "http://192.168.2.118:8180/circuits";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -247,7 +251,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public void postImageCircuit() throws IOException, JSONException {
         StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://10.0.2.2:8180/images";
+        String requestURL = "http://192.168.2.118:8180/images";
         URL url = new URL(requestURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");

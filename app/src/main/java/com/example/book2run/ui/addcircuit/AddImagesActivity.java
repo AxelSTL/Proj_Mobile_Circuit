@@ -39,11 +39,11 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_add_images);
 
         // Cacher le bouton login
-        ImageView login = findViewById(R.id.login5);
+        ImageView login = findViewById(R.id.loginToolbar);
         login.setVisibility(View.INVISIBLE);
 
         // Gestion flèche retour
-        arrowBack = findViewById(R.id.icon7888);
+        arrowBack = findViewById(R.id.flecheRetour);
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

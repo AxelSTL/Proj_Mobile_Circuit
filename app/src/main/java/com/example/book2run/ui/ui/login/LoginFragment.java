@@ -64,7 +64,12 @@ public class LoginFragment extends Fragment {
         final Button registerButton = binding.registerBtn;
         final ProgressBar loadingProgressBar = binding.loading;
 
-        arrowBack = binding.getRoot().findViewById(R.id.icon7888);
+        // Cacher bouton login
+        ImageView login = binding.getRoot().findViewById(R.id.loginToolbar);
+        login.setVisibility(View.INVISIBLE);
+
+        // Gestion flèche retour
+        arrowBack = binding.getRoot().findViewById(R.id.flecheRetour);
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
