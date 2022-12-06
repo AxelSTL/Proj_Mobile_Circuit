@@ -54,10 +54,10 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
         Circuit circuit = circuits.get(position);
 
 
-        holder.prix.setText(String.valueOf(circuit.getPrice()));
+        holder.prix.setText("Montant réglé : " + String.valueOf(circuit.getPrice()) + "€");
         holder.nom.setText(circuit.getNom());
         holder.image.setImageBitmap(getBitmapFromBase64(circuit.getMainImg()));
-        holder.date.setText("Arrivé : " + circuit.getDateDebut()+ "      Départ : " + circuit.getDateFin());
+        holder.date.setText("Arrivée : " + circuit.getDateDebut() + "   Départ : " + circuit.getDateFin());
        // holder.myTextView.setText(animal);
     }
 
