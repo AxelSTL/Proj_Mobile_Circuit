@@ -9,117 +9,132 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/circuitviewImg_imageview"
-            android:layout_width="412dp"
-            android:layout_height="344dp"
-            android:layout_marginTop="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView2"
+        <include layout="@layout/toolbar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="62dp"
-            android:layout_marginTop="399dp"
-            android:text="TEST"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circuitviewPostal_view" />
+            android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/circuitviewName_view"
-            android:layout_width="234dp"
-            android:layout_height="37dp"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            android:layout_marginStart="89dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="89dp"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circuitviewImg_imageview" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/circuitviewPseudoonwer_view"
-            android:layout_width="151dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="131dp"
-            android:textSize="17dp"
-            android:layout_marginTop="9dp"
-            android:textAlignment="center"
-            android:layout_marginEnd="130dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circuitviewName_view" />
+            <ImageView
+                android:id="@+id/circuitviewImg_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="73dp"/>
 
-        <TextView
-            android:id="@+id/circuitviewDescrption_view"
-            android:layout_width="383dp"
-            android:layout_height="315dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="22dp"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circuitviewPseudoonwer_view" />
+            <TextView
+                android:id="@+id/circuitviewName_view"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"/>
 
-        <TextView
-            android:id="@+id/circuitviewAdresse_view"
-            android:layout_width="382dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circuitviewDescrption_view" />
+            <TextView
+                android:id="@+id/circuitviewPseudoonwer_view"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="center|top"
+                android:gravity="top"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:textAlignment="gravity"/>
 
-        <TextView
-            android:id="@+id/circuitviewPostal_view"
-            android:layout_width="142dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circuitviewAdresse_view" />
+            <TextView
+                android:id="@+id/circuitviewDescrption_view"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:paddingStart="12dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="7dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_black"/>
 
-        <TextView
-            android:id="@+id/circuitviewCity_view"
-            android:layout_width="202dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/circuitviewPostal_view"
-            app:layout_constraintTop_toBottomOf="@+id/circuitviewAdresse_view" />
+            <TextView
+                android:id="@+id/circuitviewAdresse_view"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/border_black"/>
 
-        <Button
-            android:id="@+id/circuitviewValidate_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="12dp"
-            android:text="Reserver"
-            app:layout_constraintBottom_toTopOf="@+id/circuitviewDescrption_view"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/circuitviewPrice_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="424dp"
-            android:inputType="number"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/circuitviewPostal_view"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center|top"
+                    android:gravity="center"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:textAlignment="gravity"
+                    android:background="@drawable/border_black"/>
+
+<!--                <Space-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="4dp"-->
+<!--                    android:layout_weight="1">-->
+<!--                </Space>-->
 
 
+                <TextView
+                    android:id="@+id/circuitviewCity_view"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center|top"
+                    android:gravity="center"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:background="@drawable/border_black"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/circuitviewPrice_view"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_black"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/circuitviewValidate_btn"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/boutonReserver"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/arround_button_black2"/>
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>

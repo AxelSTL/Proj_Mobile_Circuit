@@ -20,4 +20,9 @@
     <string name="bouton_connexion">Bouton connexion</string>
     <string name="bouton_inscription">Pas de compte ? Inscrivez-vous ici</string>
     <string name="nomcircuit">Nom du circuit...</string>
+    <string name="ville">Ma Ville</string>
+    <string name="prix">0000</string>
+    <string name="codePostal">12000</string>
+    <string name="nomAnnonce">Nom</string>
+    <string name="boutonReserver">Reserver</string>
 </resources>

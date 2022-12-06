@@ -1,5 +1,6 @@
 package com.example.book2run.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,7 +41,7 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
         TextView codePostal;
         TextView adresse;
         ImageView image;
-        //TextView prix;
+        TextView prix;
     }
 
     /**
@@ -67,7 +68,7 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
         String ville = getItem(position).getVille();
         String codePostal = String.valueOf(getItem(position).getCodePostal());
         String mainImage = getItem(position).getMainImg();
-        //String prix = getItem(position).getPrix();
+        String prix = String.valueOf(getItem(position).getPrice());
 
         /*String img2Url = getItem(position).getImage1();
         String img3Url = getItem(position).getImage1();
@@ -85,13 +86,13 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
             convertView = inflater.inflate(mResource, parent, false);
             holder = new ViewHolder();
             holder.nom = (TextView) convertView.findViewById(R.id.nom_adapter_circuit);
-            holder.adresse = (TextView) convertView.findViewById(R.id.adresse_adapter_circuit);
+//            holder.adresse = (TextView) convertView.findViewById(R.id.adresse_adapter_circuit);
 //            holder.description = (TextView) convertView.findViewById(R.id.description_adapter_circuit);
             holder.ville = (TextView) convertView.findViewById(R.id.ville_adapter_circuit);
             holder.codePostal = (TextView) convertView.findViewById(R.id.codepostal_adapter_circuit);
             holder.image = (ImageView) convertView.findViewById(R.id.image_adapter);
 
-            //holder.prix = (TextView) convertView.findViewById(R.id.prix_adapter_circuit);
+            holder.prix = (TextView) convertView.findViewById(R.id.prix_adapter_circuit);
 
             result = convertView;
 
@@ -109,12 +110,13 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
         lastPosition = position;
 
         holder.nom.setText(nom);
-        holder.adresse.setText(adresse);
+//        holder.adresse.setText(adresse);
 //        holder.description.setText(description);
         holder.ville.setText(ville);
         holder.codePostal.setText(codePostal);
+        holder.prix.setText(prix+"€ / jour");
 
-        ImageView img= convertView.findViewById(R.id.image_adapter);
+        ImageView img = convertView.findViewById(R.id.image_adapter);
         img.setImageBitmap(getBitmapFromBase64(mainImage));
         /*File imgFile = new  File("C:/image_projet_mobile/8/11/15.png");
         System.out.println(imgFile.exists());

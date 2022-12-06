@@ -1,6 +1,7 @@
 package com.example.book2run;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.util.Pair;
 
 import android.annotation.SuppressLint;
@@ -27,6 +28,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,8 +59,10 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class ReserveActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button firstDateBtn, reserve;
+    private Button reserve;
+    private AppCompatButton firstDateBtn;
     private ImageView image;
+    private ImageView arrowBack;
     private TextView nom, tarifView;
     float totalTarif, tarif;
     String formattedDateSeconde, formattedDateFirst;
@@ -73,6 +77,20 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve);
+
+        // Cacher le bouton login
+        ImageView login = findViewById(R.id.loginToolbar);
+        login.setVisibility(View.INVISIBLE);
+
+        // Gestion flèche retour
+        arrowBack = findViewById(R.id.flecheRetour);
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         Intent intent = getIntent();
         // dateText = findViewById(R.id.reserve_debut_btn);
         firstDateBtn = findViewById(R.id.reserve_debut_btn);
@@ -108,7 +126,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
 
 
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
-        builder.setTitleText("Selectionnez date de départ et de fin");
+        builder.setTitleText("Sélectionnez une date de départ et de fin");
         builder.setCalendarConstraints(constrainBuilder.build());
         materialDatePicker = builder.build();
 
@@ -135,7 +153,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 long diff = dateSeconde.getTime() - dateFirst.getTime();
                 long daysDifference = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                 totalTarif =  tarif * daysDifference;
-                tarifView.setText("Tarif total : " + totalTarif);
+                tarifView.setText("Prix total : " + totalTarif);
             }
         });
 
@@ -150,10 +168,10 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 if(totalTarif > 0){
                     reserveCircuit();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    Toast.makeText(getApplicationContext(), "Votre circuit a été réservé avec succés .", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Votre circuit a été réservé avec succès", Toast.LENGTH_LONG).show();
                     startActivity(intent);
                 } else{
-                    Toast.makeText(getApplicationContext(), "Veuillez selectionner des dates.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Veuillez sélectionner vos dates", Toast.LENGTH_LONG).show();
                 }
                 break;
         }
