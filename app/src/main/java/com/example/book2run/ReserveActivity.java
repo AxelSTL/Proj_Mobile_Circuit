@@ -6,6 +6,7 @@ import androidx.core.util.Pair;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.icu.util.Calendar;
@@ -117,16 +118,23 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
         reserve.setOnClickListener(this);
 
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-
         calendar.clear();
         long today = materialDatePicker.todayInUtcMilliseconds();
         CalendarConstraints.Builder constrainBuilder = new CalendarConstraints.Builder();
         constrainBuilder.setOpenAt(today);
         constrainBuilder.setValidator(DateValidatorPointForward.now());
 
+        Locale locale = new Locale("FR");
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getApplicationContext().getResources().updateConfiguration(config, null);
 
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTitleText("Sélectionnez une date de départ et de fin");
+        builder.setNegativeButtonText("Annuler");
+        builder.setPositiveButtonText("Valider");
+        builder.setTheme(R.style.MaterialCalendarTheme);
         builder.setCalendarConstraints(constrainBuilder.build());
         materialDatePicker = builder.build();
 
@@ -153,7 +161,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 long diff = dateSeconde.getTime() - dateFirst.getTime();
                 long daysDifference = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                 totalTarif =  tarif * daysDifference;
-                tarifView.setText("Prix total : " + totalTarif);
+                tarifView.setText("Prix total : " + totalTarif + "€");
             }
         });
 

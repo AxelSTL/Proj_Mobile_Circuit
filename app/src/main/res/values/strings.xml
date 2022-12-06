@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Book2Run</string>
     <string name="title_recherche">Recherche</string>
     <string name="title_circuit">Mes circuits</string>
@@ -19,10 +19,18 @@
     <string name="scrollview_circuitview">scrollviewCircuitView</string>
     <string name="bouton_connexion">Bouton connexion</string>
     <string name="bouton_inscription">Pas de compte ? Inscrivez-vous ici</string>
-    <string name="nomcircuit">Nom du circuit...</string>
+    <string name="nomcircuit">Nom du circuit…</string>
     <string name="ville">Ma Ville</string>
     <string name="prix">0000</string>
     <string name="codePostal">12000</string>
     <string name="nomAnnonce">Nom</string>
     <string name="boutonReserver">Reserver</string>
+    <string name="mtrl_picker_range_header_unselected" tools:override="true"
+        description="Placeholders for two dates separated by a dash representing a range [CHAR_LIMIT=60]">Date de début - Date de fin</string>
+    <string name="mtrl_picker_range_header_only_start_selected" tools:override="true"
+        description="Placeholders for two dates separated by a dash representing a range where start date has been selected [CHAR_LIMIT=60]">%1$s – Date de fin</string>
+    <string name="mtrl_picker_range_header_only_end_selected" tools:override="true"
+        description="Placeholders for two dates separated by a dash representing a range where end date has been selected [CHAR_LIMIT=60]">Date de début – %1$s</string>
+    <string name="mtrl_picker_range_header_selected" tools:override="true"
+        description="Two dates separated by a dash representing a range [CHAR_LIMIT=60]">%1$s – %2$s</string>
 </resources>

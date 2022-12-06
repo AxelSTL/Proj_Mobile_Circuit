@@ -46,18 +46,25 @@
 
         <TextView
             android:id="@+id/tarifTotal_txtView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:text="Tarif total :"/>
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="Prix total :"
+            android:textAlignment="gravity"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:background="@drawable/border_black"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/reserve_reserve_btn"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:text="RESERVER"
             android:textColor="@color/white"
             android:textAlignment="center"

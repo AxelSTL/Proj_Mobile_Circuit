@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Book2Run"
         android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustResize"
         tools:targetApi="31">
         <activity
             android:name=".CircuitViewActivity"
