@@ -8,6 +8,7 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 public class RegisterActivity extends AppCompatActivity {
 
     EditText nom, prenom, tel, adresse, codepostal, email, ville, mdp, pseudo;
-    Button validate;
+    ImageButton validate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/utilisateur";
+            String requestURL = "http://192.168.2.118:8180/utilisateur";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");

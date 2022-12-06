@@ -1,18 +1,36 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Book2Run</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_recherche">Recherche</string>
+    <string name="title_circuit">Mes circuits</string>
+    <string name="title_compte">Mon compte</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_mail">Mail</string>
+    <string name="prompt_pseudo">Pseudo</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="prompt_search">Rechercher…</string>
+    <string name="description_image1">Image principale</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome!"</string>
+    <string name="welcome">"Bienvenue "</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="scrollview_circuitview">scrollviewCircuitView</string>
+    <string name="bouton_connexion">Bouton connexion</string>
+    <string name="bouton_inscription">Pas de compte ? Inscrivez-vous ici</string>
+    <string name="nomcircuit">Nom du circuit…</string>
+    <string name="ville">Ma Ville</string>
+    <string name="prix">0000</string>
+    <string name="codePostal">12000</string>
+    <string name="nomAnnonce">Nom</string>
+    <string name="boutonReserver">Reserver</string>
+    <string name="mtrl_picker_range_header_unselected" tools:override="true"
+        description="Placeholders for two dates separated by a dash representing a range [CHAR_LIMIT=60]">Date de début - Date de fin</string>
+    <string name="mtrl_picker_range_header_only_start_selected" tools:override="true"
+        description="Placeholders for two dates separated by a dash representing a range where start date has been selected [CHAR_LIMIT=60]">%1$s – Date de fin</string>
+    <string name="mtrl_picker_range_header_only_end_selected" tools:override="true"
+        description="Placeholders for two dates separated by a dash representing a range where end date has been selected [CHAR_LIMIT=60]">Date de début – %1$s</string>
+    <string name="mtrl_picker_range_header_selected" tools:override="true"
+        description="Two dates separated by a dash representing a range [CHAR_LIMIT=60]">%1$s – %2$s</string>
 </resources>

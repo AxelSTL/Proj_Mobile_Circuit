@@ -1,210 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
-    <ScrollView
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">    </ScrollView>
-
-    <TextView
-        android:id="@+id/title_register_txtview"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="136dp"
-        android:text="Formulaire d'inscription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:context=".RegisterActivity">
 
-    <EditText
-        android:id="@+id/nom_register_txtEdit"
-        android:layout_width="149dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nom_register_txtview"></EditText>
+        <include layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-    <EditText
-        android:id="@+id/prenom_register_txtEdit"
-        android:layout_width="202dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/nom_register_txtEdit"
-        app:layout_constraintTop_toBottomOf="@+id/prenom_register_txtview"></EditText>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-    <EditText
-        android:id="@+id/mail_register_txtEdit"
-        android:layout_width="302dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_register_txtview"></EditText>
+            <TextView
+                android:id="@+id/title_register_txtview"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp"
+                android:text="Formulaire d'inscription"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/arround_corners_indigo"/>
 
-    <TextView
-        android:id="@+id/email_register_txtview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="13dp"
-        android:text="Email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nom_register_txtEdit" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="30dp">
 
-    <EditText
-        android:id="@+id/tel_register_txtEdit"
-        android:layout_width="302dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tel_register_txtview"></EditText>
+                <EditText
+                    android:id="@+id/nom_register_txtEdit"
+                    android:layout_width="150dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="Nom"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:background="@drawable/arround_corners_cyan">
 
-    <EditText
-        android:id="@+id/codepostal_register_txtEdit"
-        android:layout_width="302dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codepostal_register_txtview"></EditText>
+                </EditText>
 
-    <TextView
-        android:id="@+id/ville_register_txtview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="28dp"
-        android:text="Ville"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adresse_register_txtEdit" />
+                <EditText
+                    android:id="@+id/prenom_register_txtEdit"
+                    android:layout_width="150dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="10dp"
+                    android:hint="Prénom"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:background="@drawable/arround_corners_cyan">
 
-    <TextView
-        android:id="@+id/adresse_register_txtview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="4dp"
-        android:text="Adresse"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tel_register_txtEdit" />
+                </EditText>
 
-    <EditText
-        android:id="@+id/adresse_register_txtEdit"
-        android:layout_width="302dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adresse_register_txtview"></EditText>
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/tel_register_txtview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="38dp"
-        android:text="numéro de téléphone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mdp_register_txtView" />
+            <EditText
+                android:id="@+id/mail_register_txtEdit"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
+                android:hint="Mail"
+                android:textColorHint="@color/grey"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:background="@drawable/arround_corners_cyan">
 
-    <Button
-        android:id="@+id/validate_register_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="10dp"
-        android:text="S'inscrire"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codepostal_register_txtEdit" />
+            </EditText>
 
-    <EditText
-        android:id="@+id/ville_register_txtEdit"
-        android:layout_width="302dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ville_register_txtview"></EditText>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="15dp">
 
-    <TextView
-        android:id="@+id/codepostal_register_txtview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="16dp"
-        android:text="Code postal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ville_register_txtEdit" />
-
-    <TextView
-        android:id="@+id/nom_register_txtview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="72dp"
-        android:text="Nom"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/prenom_register_txtview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="72dp"
-        android:text="Prenom"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/mdp_register_txtView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="7dp"
-        android:text="Mot de passe"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mail_register_txtEdit" />
-
-    <EditText
-        android:id="@+id/mdp_register_txtEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="3dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mdp_register_txtView" />
-
-    <TextView
-        android:id="@+id/pseudo_register_txtView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="7dp"
-        android:text="Pseudo"
-        app:layout_constraintStart_toEndOf="@+id/mdp_register_txtView"
-        app:layout_constraintTop_toBottomOf="@+id/mail_register_txtEdit" />
-
-    <EditText
-        android:id="@+id/pseudo_register_txtEdit"
-        android:layout_width="131dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="7dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/mdp_register_txtEdit"
-        app:layout_constraintTop_toBottomOf="@+id/pseudo_register_txtView" />
+                <EditText
+                    android:id="@+id/mdp_register_txtEdit"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:hint="Mot de passe"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/arround_corners_cyan"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/pseudo_register_txtEdit"
+                    android:layout_width="150dp"
+                    android:layout_height="48dp"
+                    android:ems="10"
+                    android:hint="Pseudo"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:inputType="textPersonName"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/arround_corners_cyan"/>
+
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/tel_register_txtEdit"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:hint="Téléphone"
+                android:textColorHint="@color/grey"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:background="@drawable/arround_corners_cyan">
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/adresse_register_txtEdit"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:hint="Adresse"
+                android:textColorHint="@color/grey"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:background="@drawable/arround_corners_cyan">
+
+            </EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/ville_register_txtEdit"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="4dp"
+                    android:hint="Ville"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:background="@drawable/arround_corners_cyan">
+
+                </EditText>
+
+                <EditText
+                    android:id="@+id/codepostal_register_txtEdit"
+                    android:layout_width="150dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="4dp"
+                    android:hint="Code postal"
+                    android:textColorHint="@color/grey"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:background="@drawable/arround_corners_cyan">
+
+                </EditText>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/validate_register_button"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:text="S'inscrire"
+                android:contentDescription="S'inscrire"
+                android:background="@drawable/arround_button_indigo"
+                app:srcCompat="@drawable/ic_register"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

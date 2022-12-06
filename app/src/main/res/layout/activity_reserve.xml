@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReserveActivity">
+
+    <include layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/reserve_name_view"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:layout_marginTop="70dp"/>
+
+        <ImageView
+            android:id="@+id/reserve_image"
+            android:layout_width="410dp"
+            android:layout_height="346dp"
+            android:layout_marginTop="8dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reserve_debut_btn"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="Sélection des dates"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:background="@drawable/arround_button_black2"/>
+
+        <TextView
+            android:id="@+id/tarifTotal_txtView"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="Prix total :"
+            android:textAlignment="gravity"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:background="@drawable/border_black"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reserve_reserve_btn"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="RESERVER"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:background="@drawable/arround_button_black2"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

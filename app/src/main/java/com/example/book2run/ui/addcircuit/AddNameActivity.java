@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,12 +13,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.book2run.MainActivity;
 import com.example.book2run.R;
+import com.example.book2run.ui.dashboard.DashboardFragment;
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
 
 public class AddNameActivity extends AppCompatActivity {
     ImageButton validate;
+
+    private ImageButton arrowBack;
     EditText name, description, adresse, codePostal, city, price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +30,22 @@ public class AddNameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_name);
 
         // Cacher le bouton login
-        ImageView login = findViewById(R.id.login5);
-        TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername);
+        ImageView login = findViewById(R.id.loginToolbar);
+        //(!savoir qu'on est connecté)TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername);
         LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
         if(user.isLoggedIn()){
-            userNameToolBar.setText("Bonjour " + user.username);
+            //(!savoir qu'on est connecté)userNameToolBar.setText("Bonjour " + user.username);
             login.setVisibility(View.INVISIBLE);
         }
+
+        // Gestion flèche retour
+        arrowBack = findViewById(R.id.flecheRetour);
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         validate = findViewById(R.id.addcircuitTitleDesc_btn);
         name = findViewById(R.id.addcircuitName_input);

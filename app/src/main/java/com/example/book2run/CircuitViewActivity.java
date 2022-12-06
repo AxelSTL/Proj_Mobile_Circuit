@@ -1,7 +1,11 @@
 package com.example.book2run;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static java.security.AccessController.getContext;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,8 +13,15 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.book2run.ui.data.LoginDataSource;
+import com.example.book2run.ui.data.LoginRepository;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,17 +39,37 @@ public class CircuitViewActivity extends AppCompatActivity {
 
 
     boolean isMine = true;
-    TextView nom,desc, adresse, ville, postal, pseudo;
-
+    TextView nom,desc, adresse, ville, postal, pseudo, price;
+    AppCompatButton validate;
+    ImageButton arrowBack;
+    ImageView login;
+    private LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
     ImageView image;
     JSONObject circuit;
     JSONArray images;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circuit_view);
         Intent intent = getIntent();
+
+        // Cacher le bouton login
+        login = findViewById(R.id.loginToolbar);
+        if (user.isLoggedIn()) {
+            login.setVisibility(View.INVISIBLE);
+        }
+
+        // Gestion flèche retour
+        arrowBack = findViewById(R.id.flecheRetour);
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         int code = intent.getIntExtra("code", 0);
 
         isMine = Boolean.parseBoolean(intent.getStringExtra("isMine"));
@@ -49,20 +80,21 @@ public class CircuitViewActivity extends AppCompatActivity {
         ville = findViewById(R.id.circuitviewCity_view);
         postal = findViewById(R.id.circuitviewPostal_view);
         pseudo = findViewById(R.id.circuitviewPseudoonwer_view);
-
+        validate = findViewById(R.id.circuitviewValidate_btn);
         image = findViewById(R.id.circuitviewImg_imageview);
-
+        price = findViewById(R.id.circuitviewPrice_view);
         circuit = loadCircuitValues(code);
         try {
             images = loadImageFromCircuit(code);
-
 
             nom.setText(circuit.getString("nom"));
             desc.setText(circuit.getString("description"));
             adresse.setText(circuit.getString("adresse"));
             ville.setText(circuit.getJSONObject("ville").getString("nom"));
             postal.setText(circuit.getJSONObject("ville").getString("codePostal"));
-            pseudo.setText(circuit.getJSONObject("utilisateur").getString("pseudo"));
+            pseudo.setText("avec comme propriétaire " + circuit.getJSONObject("utilisateur").getString("pseudo"));
+            price.setText(circuit.getString("tarif"));
+            // + "€" (dans price)
 
             image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(0).getString("lien")));
 
@@ -72,20 +104,38 @@ public class CircuitViewActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        validate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(user.isLoggedIn()){
+                    Intent intent = new Intent(getApplicationContext(), ReserveActivity.class);
+                    intent.putExtra("nom", nom.getText());
+                    intent.putExtra("code", code);
+                    float tarif = Float.parseFloat(price.getText().toString());
+                    intent.putExtra("tarif", tarif);
+//                    String tarif = (String.valueOf(price.getText()));
+//                    intent.putExtra("tarif", tarif);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Toast.makeText(getApplicationContext(), "Vous devez être connecté pour réaliser cette action", Toast.LENGTH_LONG).show();
+                    startActivity(intent);
+                }
 
+            }
+        });
 
-
+        if(isMine){
+            validate.setVisibility(View.INVISIBLE);
+        }
     }
-
-
-
 
     public JSONObject loadCircuitValues(int code){
         JSONObject circuits = new JSONObject();
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/" + code;
+            String requestURL = "http://192.168.2.118:8180/circuits/" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -111,7 +161,7 @@ public class CircuitViewActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
+            String requestURL = "http://192.168.2.118:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
