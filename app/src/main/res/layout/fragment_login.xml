@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey">
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
@@ -15,6 +15,7 @@
         <include layout="@layout/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +23,6 @@
             android:padding="10dp"
             tools:layout_editor_absoluteX="4dp"
             app:layout_constraintBottom_toTopOf="@+id/login">
-
 
             <EditText
                 android:id="@+id/username"
@@ -32,14 +32,16 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="128dp"
                 android:layout_marginEnd="24dp"
-                android:background="@drawable/arround_corners_cyan"
-                android:hint="@string/prompt_email"
+                android:background="@drawable/border_indigo"
+                android:hint="@string/prompt_pseudo"
                 android:inputType="textEmailAddress"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:selectAllOnFocus="true"
-                android:textColor="@color/white"
-                android:textColorHint="@color/grey" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/blackHint"
+                android:textSize="20sp"
+                android:autofillHints="username"/>
 
             <EditText
                 android:id="@+id/password"
@@ -48,18 +50,20 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:background="@drawable/arround_corners_cyan"
-                android:hint="Mot de passe"
+                android:background="@drawable/border_indigo"
+                android:hint="@string/prompt_password"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:selectAllOnFocus="true"
-                android:textColor="@color/white"
-                android:textColorHint="@color/grey" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/blackHint"
+                android:textSize="20sp"
+                android:autofillHints="password"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/login"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
@@ -68,10 +72,10 @@
                 android:layout_marginTop="150dp"
                 android:layout_marginEnd="48dp"
                 android:layout_marginBottom="150dp"
-                android:background="@drawable/arround_button_indigo"
                 android:enabled="false"
-                android:text="Se connecter"
-                app:srcCompat="@drawable/ic_register" />
+                android:contentDescription="@string/bouton_connexion"
+                android:background="@drawable/arround_button_black"
+                app:srcCompat="@drawable/ic_login2"/>
 
             <ProgressBar
                 android:id="@+id/loading"
@@ -82,19 +86,19 @@
                 android:layout_marginTop="64dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="64dp"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/register_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pas de compte ? Inscrivez-vous ici" />
+                android:text="@string/bouton_inscription"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:background="@drawable/arround_corners_cyan"/>
 
         </LinearLayout>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </ScrollView>

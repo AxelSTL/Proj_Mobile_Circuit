@@ -5,18 +5,37 @@ public class Circuit {
     String nom;
     String adresse;
     String description;
-
+    String ville;
+    int codePostal;
+    int price;
     String mainImg;
-    /*String image2;
+    String dateDebut;
+    String dateFin;
+
+/*String image2;
     String image3;
     String image4;*/
 
-    public Circuit(int code, String nom, String adresse, String description, String mainImg) {
+    public Circuit(int code, String nom, String adresse, String description, String ville, int codePostal, String mainImg, int price) {
+        this.code = code;
+        this.nom = nom;
+        this.adresse = adresse;
+        this.description = description;
+        this.ville = ville;
+        this.codePostal = codePostal;
+        this.mainImg = mainImg;
+        this.price = price;
+    }
+
+    public Circuit(int code, String nom, String adresse, String description, String mainImg, int price, String dateDebut, String dateFin) {
         this.code = code;
         this.nom = nom;
         this.adresse = adresse;
         this.description = description;
         this.mainImg = mainImg;
+        this.price = price;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
     }
 
     public int getCode() {
@@ -51,12 +70,53 @@ public class Circuit {
         this.description = description;
     }
 
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public int getCodePostal() {
+        return codePostal;
+    }
+
+    public void setCodePostal(int codePostal) {
+        this.codePostal = codePostal;
+    }
+
     public String getMainImg() {
         return mainImg;
     }
 
     public void setMainImg(String mainImg) {
         this.mainImg = mainImg;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+
+    public String getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(String dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public String getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(String dateFin) {
+        this.dateFin = dateFin;
     }
 
     /*public String getImage2() {

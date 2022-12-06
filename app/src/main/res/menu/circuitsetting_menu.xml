@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/deleteCircuit"
+        android:title="Supprimer le circuit" />
+
+    <item
+        android:id="@+id/modifyCircuit"
+        android:title="Modifier le circuit" />
+
+    <item
+        android:id="@+id/seeCircuit"
+        android:title="Voir le circuit" />
+</menu>
