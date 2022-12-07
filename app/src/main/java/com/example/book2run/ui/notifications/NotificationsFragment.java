@@ -80,10 +80,12 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                                 "",
                                 circuitObj.getInt("tarif"),
                                 "",
-                                "");
+                                "",
+                                0);
                         this.circuits[i].setDateDebut(reservationList.getJSONObject(i).getString("dateDebut"));
                         this.circuits[i].setDateFin(reservationList.getJSONObject(i).getString("dateFin"));
                         this.circuits[i].setPrice(reservationList.getJSONObject(i).getInt("prixFinal"));
+                        this.circuits[i].setCodeResa(reservationList.getJSONObject(i).getInt("code"));
                         this.circuits[i].setMainImg(mainImage);
 
                     } catch (JSONException e) {
@@ -210,7 +212,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
     public void loadRecyclerView(Circuit[] circuits){
         List<Circuit> circuitList = new ArrayList<>();
         for(int i = 0; i < circuits.length; i++){
-            circuitList.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getMainImg(), circuits[i].getPrice(), circuits[i].getDateDebut(),circuits[i].getDateFin()));
+            circuitList.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getMainImg(), circuits[i].getPrice(), circuits[i].getDateDebut(),circuits[i].getDateFin(), circuits[i].getCodeResa()));
         }
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(horizontalLayoutManager);

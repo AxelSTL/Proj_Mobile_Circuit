@@ -6,7 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.StrictMode;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,9 +26,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.book2run.CircuitViewActivity;
 import com.example.book2run.MainActivity;
 import com.example.book2run.R;
+import com.example.book2run.ReserveActivity;
 import com.example.book2run.model.Circuit;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +82,7 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
         holder.image.setImageBitmap(getBitmapFromBase64(circuit.getMainImg()));
         holder.date.setText("Arrivé : " + circuit.getDateDebut()+ "      Départ : " + circuit.getDateFin());
         holder.code.setText(String.valueOf(circuit.getCode()));
+        holder.codeResa.setText(String.valueOf(circuit.getCodeResa()));
        // holder.myTextView.setText(animal);
     }
 
@@ -75,7 +95,7 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView image;
-        TextView prix, nom, date,code;
+        TextView prix, nom, date,code, codeResa;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -84,6 +104,7 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
             nom = itemView.findViewById(R.id.name_recycler);
             date = itemView.findViewById(R.id.date_recycler);
             code = itemView.findViewById(R.id.code_txtview);
+            codeResa = itemView.findViewById(R.id.codeResa_txtview);
 
             //myTextView = itemView.findViewById(R.id.tvAnimalName);
 
@@ -105,11 +126,21 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
                                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                                    //cancelReservation(circuits.get(whichButton).getCode());
+                                                    try {
+                                                        cancelReservation((String) codeResa.getText());
+                                                        //TODO REFRESH LE BAIL CHACAL
+                                                    } catch (IOException | JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
                                                 }})
                                             .setNegativeButton(android.R.string.no, null).show();
                                     break;
                                 case R.id.modify_reservationmenu:
+                                    Intent intent = new Intent(context, ReserveActivity.class);
+                                    intent.putExtra("codeCircuit", code.getText());
+                                    intent.putExtra("modifyResa", true);
+                                    intent.putExtra("codeResa", codeResa.getText());
+                                    v.getContext().startActivity(intent);
                                     break;
                             }
                             return false;
@@ -160,6 +191,35 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         return decodedByte;
+    }
+
+    public void cancelReservation(String code) throws IOException, JSONException {
+        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(gfgPolicy);
+        String requestURL = "http://10.0.2.2:8180/reservation";
+        URL url = new URL(requestURL);
+        System.out.println("code de la resa a delete : " + code);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("DELETE");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.connect();
+        OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
+        JSONObject id = new JSONObject();
+        id.put("code", code);
+        writer.write(id.toString());
+        writer.flush();
+        writer.close();
+
+        InputStream stream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        StringBuffer buffer = new StringBuffer();
+        String line = "";
+
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
+
     }
 
     /**

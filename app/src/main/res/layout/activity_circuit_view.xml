@@ -154,6 +154,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
+
             <ImageView
                 android:id="@+id/stars2_circuitView"
                 android:layout_width="46dp"
