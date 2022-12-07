@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         tools:context=".ui.home.HomeFragment">
 
@@ -27,14 +27,14 @@
                 android:layout_gravity="center"
                 android:paddingStart="12dp"
                 android:paddingEnd="10dp"
-                android:hint="@string/prompt_search"
-                android:textColorHint="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:singleLine="true"
                 android:autofillHints="all"
                 android:inputType="text"
-                android:background="@drawable/arround_search_button"/>
+                android:drawableStart="@drawable/ic_search_black"
+                android:background="@drawable/arround_search_button"
+                app:boxBackgroundMode="none"/>
 
 
             <ListView

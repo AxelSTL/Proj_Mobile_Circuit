@@ -119,6 +119,11 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(s.toString().length() > 0) {
+                    search.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                } else {
+                    search.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_black, 0, 0, 0);
+                }
             }
         });
         return root;

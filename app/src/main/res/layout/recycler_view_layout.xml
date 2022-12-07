@@ -13,33 +13,42 @@
 
         <ImageView
             android:id="@+id/image_recycler"
-            android:layout_width="match_parent"
+            android:layout_width="208dp"
             android:layout_height="144dp" />
 
         <TextView
             android:id="@+id/name_recycler"
             android:layout_width="match_parent"
-            android:layout_height="41dp"
-            android:text="Nom" />
+            android:layout_height="25dp"
+            android:gravity="bottom|center|start"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:paddingStart="5dp"
+            android:paddingEnd="2dp"
+            android:text="@string/nomAnnonce" />
 
         <TextView
             android:id="@+id/date_recycler"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="date" />
+            android:gravity="start|center"
+            android:paddingStart="5dp"
+            android:paddingEnd="2dp"
+            android:text="date"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/prix_recycler"
             android:layout_width="match_parent"
-            android:layout_height="34dp"
-            android:text="prix" />
-
-        <TextView
-            android:id="@+id/code_txtview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="30dp"
+            android:gravity="center|top|start"
+            android:paddingStart="5dp"
+            android:paddingEnd="2dp"
+            android:text="prix"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
     </LinearLayout>
-
 </LinearLayout>
