@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView login = findViewById(R.id.toolbar_buttonLogin);
         //TextView userNameToolBar = findViewById(R.id.toolbar_loggedUsername2);
         LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         //Log.i("Username mainact", user.username);
         if(user.isLoggedIn()){
             //userNameToolBar.setText("Bonjour " + user.username);
