@@ -38,7 +38,7 @@ import java.net.URL;
 public class CircuitViewActivity extends AppCompatActivity {
 
 
-    boolean isMine = true;
+    boolean isMine, isResa = true;
     TextView nom,desc, adresse, ville, postal, pseudo, price;
     AppCompatButton validate;
     ImageButton arrowBack;
@@ -47,6 +47,7 @@ public class CircuitViewActivity extends AppCompatActivity {
     ImageView image;
     JSONObject circuit;
     JSONArray images;
+    Button postCommentary;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -73,7 +74,12 @@ public class CircuitViewActivity extends AppCompatActivity {
         int code = intent.getIntExtra("code", 0);
 
         isMine = Boolean.parseBoolean(intent.getStringExtra("isMine"));
+        isResa = Boolean.parseBoolean(intent.getStringExtra("resa"));
 
+
+
+
+        postCommentary = findViewById(R.id.post_avis);
         nom = findViewById(R.id.circuitviewName_view);
         desc = findViewById(R.id.circuitviewDescrption_view);
         adresse = findViewById(R.id.circuitviewAdresse_view);
@@ -93,7 +99,10 @@ public class CircuitViewActivity extends AppCompatActivity {
             ville.setText(circuit.getJSONObject("ville").getString("nom"));
             postal.setText(circuit.getJSONObject("ville").getString("codePostal"));
             pseudo.setText("avec comme propriétaire " + circuit.getJSONObject("utilisateur").getString("pseudo"));
-            price.setText(circuit.getString("tarif"));
+            if(isResa){
+                price.setText(intent.getStringExtra("prixResa"));
+            }
+
             // + "€" (dans price)
 
             image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(0).getString("lien")));
@@ -124,9 +133,25 @@ public class CircuitViewActivity extends AppCompatActivity {
 
             }
         });
+        postCommentary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CommentaryPost.class);
+                try {
+                    intent.putExtra("code", circuit.getInt("code"));
+                    intent.putExtra("nom", circuit.getString("nom"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                startActivity(intent);
 
-        if(isMine){
+            }
+        });
+
+        if(isMine || isResa){
             validate.setVisibility(View.INVISIBLE);
+        } else {
+            postCommentary.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -135,7 +160,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.118:8180/circuits/" + code;
+            String requestURL = "http://10.0.2.2:8180/circuits/" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -161,7 +186,7 @@ public class CircuitViewActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://192.168.2.118:8180/images?code=" + idCircuit;
+            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();

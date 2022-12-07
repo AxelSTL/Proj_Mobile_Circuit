@@ -1,6 +1,9 @@
 package com.example.book2run.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -18,6 +21,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.book2run.CircuitViewActivity;
+import com.example.book2run.MainActivity;
 import com.example.book2run.R;
 import com.example.book2run.model.Circuit;
 
@@ -37,7 +42,6 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
         this.mInflater = LayoutInflater.from(context);
         this.circuits = circuits;
         this.context = context;
-        System.out.println("test : " + circuits.get(0).getDateDebut());
     }
 
     // inflates the row layout from xml when needed
@@ -58,6 +62,7 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
         holder.nom.setText(circuit.getNom());
         holder.image.setImageBitmap(getBitmapFromBase64(circuit.getMainImg()));
         holder.date.setText("Arrivé : " + circuit.getDateDebut()+ "      Départ : " + circuit.getDateFin());
+        holder.code.setText(String.valueOf(circuit.getCode()));
        // holder.myTextView.setText(animal);
     }
 
@@ -70,7 +75,7 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView image;
-        TextView prix, nom, date;
+        TextView prix, nom, date,code;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -78,33 +83,60 @@ public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircu
             prix = itemView.findViewById(R.id.prix_recycler);
             nom = itemView.findViewById(R.id.name_recycler);
             date = itemView.findViewById(R.id.date_recycler);
+            code = itemView.findViewById(R.id.code_txtview);
+
             //myTextView = itemView.findViewById(R.id.tvAnimalName);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    PopupMenu reservation = new PopupMenu(context, v);
+                    reservation.getMenuInflater().inflate(R.menu.reservation_menu, reservation.getMenu());
+                    reservation.show();
+                    reservation.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch(item.getItemId()){
+                                case R.id.cancel_reservationmenu:
+                                    new AlertDialog.Builder(context)
+                                            .setTitle("Voulez vous vraiment annuler votre reservation ?")
+                                            .setMessage("Votre reservation sera définitivement annuler")
+                                            .setIcon(android.R.drawable.ic_dialog_alert)
+                                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                                public void onClick(DialogInterface dialog, int whichButton) {
+                                                    //cancelReservation(circuits.get(whichButton).getCode());
+                                                }})
+                                            .setNegativeButton(android.R.string.no, null).show();
+                                    break;
+                                case R.id.modify_reservationmenu:
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    return false;
+                }
+            });
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
 
-            PopupMenu reservation = new PopupMenu(context, view);
-            reservation.getMenuInflater().inflate(R.menu.reservation_menu, reservation.getMenu());
-            reservation.show();
-            reservation.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-
-                    if(item.getTitle().equals("Annuler")){
-                        //todo delete la resa
-                        System.out.println("mdr");
-                    }
-                    return false;
-                }
-            });
-
-
+            Intent intent = new Intent(context, CircuitViewActivity.class);
+            intent.putExtra("code",Integer.parseInt((String) code.getText()));
+            intent.putExtra("prixResa", prix.getText());
+            intent.putExtra("isMine", "true");
+            intent.putExtra("resa", "true");
+            intent.putExtra("date", date.getText());
+            view.getContext().startActivity(intent);
             if (mClickListener != null){
                 mClickListener.onItemClick(view, getAdapterPosition());
             }
         }
+
+
     }
 
     // convenience method for getting data at click position
