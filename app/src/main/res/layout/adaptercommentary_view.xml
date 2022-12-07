@@ -7,49 +7,49 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/stars1"
-            android:layout_width="46dp"
-            android:layout_height="44dp"
-            android:background="@drawable/ic_stars" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_star_rate_24" />
 
         <ImageView
             android:id="@+id/stars2"
-            android:layout_width="46dp"
-            android:layout_height="44dp"
-            android:background="@drawable/ic_stars" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_star_rate_24" />
 
         <ImageView
             android:id="@+id/stars3"
-            android:layout_width="46dp"
-            android:layout_height="44dp"
-            android:background="@drawable/ic_stars" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_star_rate_24" />
 
         <ImageView
             android:id="@+id/stars4"
-            android:layout_width="46dp"
-            android:layout_height="44dp"
-            android:background="@drawable/ic_stars" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_star_rate_24" />
 
         <ImageView
             android:id="@+id/stars5"
-            android:layout_width="46dp"
-            android:layout_height="44dp"
-            android:background="@drawable/ic_stars" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_star_rate_24" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/commentary_nom"
+        android:id="@+id/commentaryadapter_pseudo"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="32dp"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/commentaryadapter_message"
         android:layout_width="match_parent"
-        android:layout_height="112dp"
+        android:layout_height="78dp"
         android:text="TextView" />
 
 </LinearLayout>

@@ -1,8 +1,10 @@
 package com.example.book2run.adapters;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.Image;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -34,7 +36,7 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
      * Holds variables in a View
      */
     private static class ViewHolder {
-        TextView nom;
+        TextView pseudo;
         TextView message;
         ImageView etoile1, etoile2, etoile3, etoile4, etoile5;
 
@@ -57,6 +59,10 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        String pseudo = getItem(position).getNom();
+        String message = getItem(position).getMessage();
+        int etoiles = getItem(position).getEtoiles();
+
         final View result;
 
         //ViewHolder object
@@ -67,8 +73,8 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(mResource, parent, false);
             holder = new ListCommentaryAdapter.ViewHolder();
-            holder.nom = (TextView) convertView.findViewById(R.id.nom_adapter_circuit);
-            holder.message = convertView.findViewById(R.id.message_commentary);
+            holder.pseudo = (TextView) convertView.findViewById(R.id.commentaryadapter_pseudo);
+            holder.message = convertView.findViewById(R.id.commentaryadapter_message);
             holder.etoile1 = convertView.findViewById(R.id.stars1);
             holder.etoile2 = convertView.findViewById(R.id.stars2);
             holder.etoile3 = convertView.findViewById(R.id.stars3);
@@ -83,6 +89,56 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
             holder = (ListCommentaryAdapter.ViewHolder) convertView.getTag();
             result = convertView;
         }
+
+        holder.pseudo.setText(pseudo);
+        holder.message.setText(message);
+
+        if(etoiles == 0){
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+        }
+        if(etoiles == 1){
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+        }
+        if(etoiles == 2){
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+
+        }
+        if(etoiles == 3){
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+;
+        }
+        if(etoiles == 4){
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+        }
+        if(etoiles == 5){
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+        }
+
+
 
 
         Animation animation = AnimationUtils.loadAnimation(mContext,

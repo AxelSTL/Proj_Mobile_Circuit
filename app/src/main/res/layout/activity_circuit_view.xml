@@ -114,8 +114,8 @@
 
             <TextView
                 android:id="@+id/circuitviewPrice_view"
-                android:layout_width="120dp"
-                android:layout_height="30dp"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border_black"
@@ -150,7 +150,7 @@
                 android:id="@+id/stars1_circuitView"
                 android:layout_width="46dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_stars"
+                android:background="@drawable/ic_baseline_star_rate_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -159,7 +159,7 @@
                 android:layout_width="46dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="1dp"
-                android:background="@drawable/ic_stars"
+                android:background="@drawable/ic_baseline_star_rate_24"
                 app:layout_constraintStart_toEndOf="@+id/stars1_circuitView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -167,7 +167,7 @@
                 android:id="@+id/stars4_circuitView"
                 android:layout_width="46dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_stars"
+                android:background="@drawable/ic_baseline_star_rate_24"
                 app:layout_constraintStart_toEndOf="@+id/stars3_circuitView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -175,7 +175,7 @@
                 android:id="@+id/stars5_circuitView"
                 android:layout_width="46dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_stars"
+                android:background="@drawable/ic_baseline_star_rate_24"
                 app:layout_constraintStart_toEndOf="@+id/stars4_circuitView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -183,7 +183,7 @@
                 android:id="@+id/stars3_circuitView"
                 android:layout_width="46dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_stars"
+                android:background="@drawable/ic_baseline_star_rate_24"
                 app:layout_constraintStart_toEndOf="@+id/stars2_circuitView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -203,6 +203,8 @@
                 android:layout_height="252dp"
                 android:layout_marginStart="1dp"
                 android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/avis_txtView" />

@@ -2,17 +2,36 @@ package com.example.book2run;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class CommentaryPost extends AppCompatActivity implements View.OnClickListener{
 
@@ -22,6 +41,7 @@ public class CommentaryPost extends AppCompatActivity implements View.OnClickLis
     private LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
     int circuitCode;
     TextView circuitName;
+    int etoiles = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,55 +64,104 @@ public class CommentaryPost extends AppCompatActivity implements View.OnClickLis
         stars3.setOnClickListener(this);
         stars4.setOnClickListener(this);
         stars5.setOnClickListener(this);
-
-        stars1.setOnHoverListener(new View.OnHoverListener() {
-            @Override
-            public boolean onHover(View v, MotionEvent event) {
-
-                return false;
-            }
-        });
+        validate.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.stars1_PostCommentary:
-                stars1.setBackgroundColor(Color.rgb(255,255,0));
-                stars2.setBackgroundColor(Color.rgb(255,255,255));
-                stars3.setBackgroundColor(Color.rgb(255,255,255));
-                stars4.setBackgroundColor(Color.rgb(255,255,255));
-                stars5.setBackgroundColor(Color.rgb(255,255,255));
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                etoiles = 1;
                 break;
             case R.id.stars2_PostCommentary:
-                stars1.setBackgroundColor(Color.rgb(255,255,0));
-                stars2.setBackgroundColor(Color.rgb(255,255,0));
-                stars3.setBackgroundColor(Color.rgb(255,255,255));
-                stars4.setBackgroundColor(Color.rgb(255,255,255));
-                stars5.setBackgroundColor(Color.rgb(255,255,255));
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                etoiles = 2;
                 break;
             case R.id.stars3_PostCommentary:
-                stars1.setBackgroundColor(Color.rgb(255,255,0));
-                stars2.setBackgroundColor(Color.rgb(255,255,0));
-                stars3.setBackgroundColor(Color.rgb(255,255,0));
-                stars4.setBackgroundColor(Color.rgb(255,255,255));
-                stars5.setBackgroundColor(Color.rgb(255,255,255));
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                etoiles = 3;
                 break;
             case R.id.stars4_PostCommentary:
-                stars1.setBackgroundColor(Color.rgb(255,255,0));
-                stars2.setBackgroundColor(Color.rgb(255,255,0));
-                stars3.setBackgroundColor(Color.rgb(255,255,0));
-                stars4.setBackgroundColor(Color.rgb(255,255,0));
-                stars5.setBackgroundColor(Color.rgb(255,255,255));
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                etoiles = 4;
                 break;
             case R.id.stars5_PostCommentary:
-                stars1.setBackgroundColor(Color.rgb(255,255,0));
-                stars2.setBackgroundColor(Color.rgb(255,255,0));
-                stars3.setBackgroundColor(Color.rgb(255,255,0));
-                stars4.setBackgroundColor(Color.rgb(255,255,0));
-                stars5.setBackgroundColor(Color.rgb(255,255,0));
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                etoiles = 5;
                 break;
+            case R.id.validate_postcommentary:
+                if(message.getText().length() < 0){
+                    Toast.makeText(getApplicationContext(), "Saissisez un avis svp", Toast.LENGTH_LONG).show();
+                } else{
+                    postCommentary();
+                    onBackPressed();
+                }
         }
 
+    }
+
+
+    public void postCommentary(){
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/avis";
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.connect();
+            OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+            Log.i("commentaryJSonToString",jsonConstructorCommentary().toString());
+            writer.write(jsonConstructorCommentary().toString());
+            writer.flush();
+            writer.close();
+
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public JSONObject jsonConstructorCommentary() throws JSONException {
+        JSONObject commentary = new JSONObject();
+        commentary.put("codeCircuit", circuitCode);
+        commentary.put("codeUtilisateur", user.code);
+        commentary.put("message", message.getText());
+        commentary.put("etoiles", etoiles);
+        return commentary;
     }
 }

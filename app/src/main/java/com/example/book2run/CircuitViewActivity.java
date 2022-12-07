@@ -7,8 +7,10 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Base64;
@@ -17,9 +19,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.book2run.adapters.ListCommentaryAdapter;
+import com.example.book2run.adapters.ListViewCircuitAdapter;
+import com.example.book2run.model.Circuit;
+import com.example.book2run.model.Commentary;
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
 
@@ -34,6 +41,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class CircuitViewActivity extends AppCompatActivity {
 
@@ -47,7 +55,11 @@ public class CircuitViewActivity extends AppCompatActivity {
     ImageView image;
     JSONObject circuit;
     JSONArray images;
+    JSONArray avis;
     Button postCommentary;
+    ListView listViewCommentary;
+    ImageView etoile1, etoile2, etoile3, etoile4, etoile5;
+    int etoilesTot = 0;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -76,7 +88,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         isMine = Boolean.parseBoolean(intent.getStringExtra("isMine"));
         isResa = Boolean.parseBoolean(intent.getStringExtra("resa"));
 
-
+        listViewCommentary = findViewById(R.id.listView_commentary);
 
 
         postCommentary = findViewById(R.id.post_avis);
@@ -89,10 +101,24 @@ public class CircuitViewActivity extends AppCompatActivity {
         validate = findViewById(R.id.circuitviewValidate_btn);
         image = findViewById(R.id.circuitviewImg_imageview);
         price = findViewById(R.id.circuitviewPrice_view);
+        etoile1 = findViewById(R.id.stars1_circuitView);
+        etoile2 = findViewById(R.id.stars2_circuitView);
+        etoile3 = findViewById(R.id.stars3_circuitView);
+        etoile4 = findViewById(R.id.stars4_circuitView);
+        etoile5 = findViewById(R.id.stars5_circuitView);
+
         circuit = loadCircuitValues(code);
+        avis = loadCircuitAvis(code);
+        if(avis.length() > 0){
+            try {
+                loadListViewAvis();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
             images = loadImageFromCircuit(code);
-
             nom.setText(circuit.getString("nom"));
             desc.setText(circuit.getString("description"));
             adresse.setText(circuit.getString("adresse"));
@@ -101,6 +127,8 @@ public class CircuitViewActivity extends AppCompatActivity {
             pseudo.setText("avec comme propriétaire " + circuit.getJSONObject("utilisateur").getString("pseudo"));
             if(isResa){
                 price.setText(intent.getStringExtra("prixResa"));
+            } else {
+                price.setText(circuit.getString("tarif") + "€/Jours");
             }
 
             // + "€" (dans price)
@@ -209,10 +237,111 @@ public class CircuitViewActivity extends AppCompatActivity {
     }
 
 
+
+    public JSONArray loadCircuitAvis(int code){
+        JSONArray avis = new JSONArray();
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/avis/" + code;
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            Log.i("bufferAvis", buffer.toString());
+            avis = new JSONArray(buffer.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return avis;
+    }
+
+
+    public void loadListViewAvis() throws JSONException {
+        Commentary[] commentarys = new Commentary[avis.length()];
+        for(int i = 0; i < avis.length(); i++){
+            commentarys[i] = new Commentary(avis.getJSONObject(i).getString("codeUtilisateur"),
+                                            avis.getJSONObject(i).getInt("etoiles"),
+                                            avis.getJSONObject(i).getString("message"));
+            etoilesTot += avis.getJSONObject(i).getInt("etoiles");
+        }
+        etoileMoyenne(avis.length());
+        ArrayList<Commentary> commentaryArrayList = new ArrayList<>();
+        for(int i = 0; i < commentarys.length; i++){
+            commentaryArrayList.add(new Commentary(commentarys[i].getNom(), commentarys[i].getEtoiles(), commentarys[i].getMessage()));
+        }
+
+
+        ListCommentaryAdapter adapter = new ListCommentaryAdapter(this, R.layout.adaptercommentary_view, commentaryArrayList);
+        System.out.println(adapter);
+        listViewCommentary.setAdapter(adapter);
+    }
+
+
+
     public Bitmap getBitmapFromBase64(String base64){
         byte[] decodedString = Base64.decode(base64.getBytes(), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         return decodedByte;
+    }
+
+    public void etoileMoyenne(int nbAvis){
+        float etoileMoyenne = etoilesTot / nbAvis;
+        System.out.println("etoile moyenne " +  etoileMoyenne);
+        System.out.println("etoilesTot " +  etoilesTot);
+        System.out.println("nbAvis " +  nbAvis);
+        if(etoileMoyenne < 1){
+            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+        }
+        if(etoileMoyenne >= 1){
+            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+        }
+        if(etoileMoyenne >= 2){
+            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+
+        }
+        if(etoileMoyenne >= 3){
+            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+
+        }
+        if(etoileMoyenne >= 4){
+            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+        }
+        if(etoileMoyenne == 5){
+            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+        }
     }
 }

@@ -1,22 +1,22 @@
 package com.example.book2run.model;
 
 public class Commentary {
-    String nom;
+    String pseudo;
     int etoiles;
     String message;
 
-    public Commentary(String nom, int etoiles, String message) {
-        this.nom = nom;
+    public Commentary(String pseudo, int etoiles, String message) {
+        this.pseudo = pseudo;
         this.etoiles = etoiles;
         this.message = message;
     }
 
     public String getNom() {
-        return nom;
+        return pseudo;
     }
 
     public void setNom(String nom) {
-        this.nom = nom;
+        this.pseudo = nom;
     }
 
     public int getEtoiles() {
