@@ -70,6 +70,8 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
     int code;
     JSONArray images;
     MaterialDatePicker materialDatePicker;
+    boolean isModifyResa;
+    int codeResa;
     private LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
 
 
@@ -91,17 +93,32 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 onBackPressed();
             }
         });
-
-        Intent intent = getIntent();
-        // dateText = findViewById(R.id.reserve_debut_btn);
         firstDateBtn = findViewById(R.id.reserve_debut_btn);
         reserve = findViewById(R.id.reserve_reserve_btn);
         image = findViewById(R.id.reserve_image);
         nom = findViewById(R.id.reserve_name_view);
         tarifView = findViewById(R.id.tarifTotal_txtView);
-        nom.setText(intent.getStringExtra("nom"));
-        code = intent.getIntExtra("code", 0);
-        tarif = intent.getFloatExtra("tarif", 0);
+
+
+
+        Intent intent = getIntent();
+        isModifyResa = intent.getBooleanExtra("modifyResa",false);
+        if(isModifyResa){
+            JSONObject circuitObj = loadCircuitFromModifyResa(Integer.parseInt(intent.getStringExtra("codeCircuit")));
+            try {
+                nom.setText(circuitObj.getString("nom"));
+                code = Integer.parseInt(intent.getStringExtra("codeCircuit"));
+                tarif = circuitObj.getInt("tarif");
+                codeResa = Integer.parseInt(intent.getStringExtra("codeResa"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else {
+            // dateText = findViewById(R.id.reserve_debut_btn);
+            nom.setText(intent.getStringExtra("nom"));
+            code = intent.getIntExtra("code", 0);
+            tarif = intent.getFloatExtra("tarif", 0);
+        }
         try {
             images = loadImageFromCircuit(code);
         } catch (IOException e) {
@@ -160,7 +177,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
 //DIFFRENCE
                 long diff = dateSeconde.getTime() - dateFirst.getTime();
                 long daysDifference = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-                totalTarif =  tarif * daysDifference;
+                totalTarif =  (tarif * daysDifference);
                 tarifView.setText("Prix total : " + totalTarif + "€");
             }
         });
@@ -174,6 +191,12 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.reserve_reserve_btn:
                 if(totalTarif > 0){
+                    if(isModifyResa){
+                        modifResa();
+                        Toast.makeText(getApplicationContext(), "Votre reservation a été effectué avec succés, vous serez rembourser de votre précédente reservation", Toast.LENGTH_LONG).show();
+                    }else {
+
+                    }
                     reserveCircuit();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     Toast.makeText(getApplicationContext(), "Votre circuit a été réservé avec succès", Toast.LENGTH_LONG).show();
@@ -258,6 +281,66 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+
+
+    public JSONObject loadCircuitFromModifyResa(int codeCircuit){
+        JSONObject circuitObj = null;
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/circuits/" + codeCircuit;
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            circuitObj = new JSONObject(buffer.toString());
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return circuitObj;
+    }
+
+    public void modifResa(){
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/reservation";
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.connect();
+            OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+
+            Log.i("circuitToString",JSONModifyReservationConstructor().toString());
+            writer.write(JSONModifyReservationConstructor().toString());
+            writer.flush();
+            writer.close();
+
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public JSONObject JSONReservationConstructor() throws JSONException {
         JSONObject reservation = new JSONObject();
         reservation.put("codeUtilisateur", user.code);
@@ -265,6 +348,17 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
         reservation.put("dateDebut", formattedDateFirst);
         reservation.put("dateFin", formattedDateSeconde);
         reservation.put("prixFinal", totalTarif);
+        return reservation;
+    }
+
+    public JSONObject JSONModifyReservationConstructor() throws JSONException{
+        JSONObject reservation = new JSONObject();
+        reservation.put("codeUtilisateur", user.code);
+        reservation.put("codeCircuit", code);
+        reservation.put("dateDebut", formattedDateFirst);
+        reservation.put("dateFin", formattedDateSeconde);
+        reservation.put("prixFinal", totalTarif);
+        reservation.put("code", codeResa);
         return reservation;
     }
 }

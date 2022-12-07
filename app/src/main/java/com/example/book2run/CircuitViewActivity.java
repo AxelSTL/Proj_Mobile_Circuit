@@ -60,6 +60,7 @@ public class CircuitViewActivity extends AppCompatActivity {
     ListView listViewCommentary;
     ImageView etoile1, etoile2, etoile3, etoile4, etoile5;
     int etoilesTot = 0;
+    float prix = 0;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -128,6 +129,7 @@ public class CircuitViewActivity extends AppCompatActivity {
             if(isResa){
                 price.setText(intent.getStringExtra("prixResa"));
             } else {
+                prix = Float.parseFloat(circuit.getString("tarif"));
                 price.setText(circuit.getString("tarif") + "€/Jours");
             }
 
@@ -148,8 +150,8 @@ public class CircuitViewActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ReserveActivity.class);
                     intent.putExtra("nom", nom.getText());
                     intent.putExtra("code", code);
-                    float tarif = Float.parseFloat(price.getText().toString());
-                    intent.putExtra("tarif", tarif);
+                    //float tarif = Float.parseFloat(price.getText().toString());
+                    intent.putExtra("tarif", prix);
 //                    String tarif = (String.valueOf(price.getText()));
 //                    intent.putExtra("tarif", tarif);
                     startActivity(intent);
