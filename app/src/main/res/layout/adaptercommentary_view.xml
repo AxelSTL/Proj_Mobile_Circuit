@@ -7,49 +7,64 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/commentaryadapter_pseudo"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="TextView" />
 
         <ImageView
             android:id="@+id/stars1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@drawable/ic_baseline_star_rate_24" />
 
         <ImageView
             android:id="@+id/stars2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@drawable/ic_baseline_star_rate_24" />
 
         <ImageView
             android:id="@+id/stars3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@drawable/ic_baseline_star_rate_24" />
 
         <ImageView
             android:id="@+id/stars4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@drawable/ic_baseline_star_rate_24" />
 
         <ImageView
             android:id="@+id/stars5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@drawable/ic_baseline_star_rate_24" />
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/commentaryadapter_pseudo"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:text="TextView" />
+
+        </LinearLayout>
 
     <TextView
         android:id="@+id/commentaryadapter_message"
         android:layout_width="match_parent"
         android:layout_height="78dp"
-        android:text="TextView" />
+        android:layout_gravity="center"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="TextView"
+        android:textStyle="italic"/>
 
 </LinearLayout>
