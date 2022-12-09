@@ -42,6 +42,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 public class AddCircuitSummaryActivity extends AppCompatActivity implements View.OnClickListener{
     String name, description, adresse, codePostal, city, price, image1, image2, image3, image4;
@@ -222,7 +223,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public JSONObject jSonConstructorCircuit() throws JSONException {;
         JSONObject circuitDetails = new JSONObject();
 
-        circuitDetails.put("nom", name);
+        circuitDetails.put("nom", name.toLowerCase(Locale.ROOT));
         circuitDetails.put("adresse", this.adresse);
         circuitDetails.put("description", this.description);
         circuitDetails.put("tarif", price);
