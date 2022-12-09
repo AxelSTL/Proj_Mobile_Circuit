@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
@@ -62,6 +63,7 @@ public class CircuitViewActivity extends AppCompatActivity {
     Button postCommentary;
     ListView listViewCommentary;
     ImageView etoile1, etoile2, etoile3, etoile4, etoile5;
+    Runnable runnable;
     int etoilesTot = 0;
     float prix = 0;
     int numberImage = 0;
@@ -112,7 +114,7 @@ public class CircuitViewActivity extends AppCompatActivity {
 
         circuit = loadCircuitValues(code);
         avis = loadCircuitAvis(code);
-        if(avis.length() > 0){
+        if (avis.length() > 0) {
             try {
                 loadListViewAvis();
             } catch (JSONException e) {
@@ -128,7 +130,7 @@ public class CircuitViewActivity extends AppCompatActivity {
             ville.setText(circuit.getJSONObject("ville").getString("nom"));
             postal.setText(circuit.getJSONObject("ville").getString("codePostal"));
             pseudo.setText("avec comme propriétaire " + circuit.getJSONObject("utilisateur").getString("pseudo"));
-            if(isResa){
+            if (isResa) {
                 price.setText(intent.getStringExtra("prixResa"));
             } else {
                 prix = Float.parseFloat(circuit.getString("tarif"));
@@ -148,7 +150,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(user.isLoggedIn()){
+                if (user.isLoggedIn()) {
                     Intent intent = new Intent(getApplicationContext(), ReserveActivity.class);
                     intent.putExtra("nom", nom.getText());
                     intent.putExtra("code", code);
@@ -180,18 +182,17 @@ public class CircuitViewActivity extends AppCompatActivity {
             }
         });
 
-        if(isMine || isResa){
+        if (isMine || isResa) {
             validate.setVisibility(View.INVISIBLE);
         } else {
             postCommentary.setVisibility(View.INVISIBLE);
         }
 
 
-
         ArrayList<String> imageList = new ArrayList<>();
         //numberImage = images.length();
         System.out.println(images.length());
-        for(int i = 0; i < images.length(); i++){
+        for (int i = 0; i < images.length(); i++) {
             try {
                 imageList.add(images.getJSONObject(i).getString("lien"));
             } catch (JSONException e) {
@@ -199,10 +200,9 @@ public class CircuitViewActivity extends AppCompatActivity {
             }
         }
         if(images.length() > 1) {
-            new Timer().scheduleAtFixedRate(new TimerTask() {
-                @Override
+            Handler handler = new Handler();
+            handler.postDelayed(runnable = new Runnable() {
                 public void run() {
-                    System.out.println("changmeent");
                     if (images.length() == 2) {
                         try {
                             int relative = 0;
@@ -242,40 +242,36 @@ public class CircuitViewActivity extends AppCompatActivity {
 
                     }
                     if (images.length() == 4) {
-                        System.out.println("changement a 4 ");
                         try {
                             int relative = 0;
                             if(numberImage == 0){
-                                System.out.println("changement a 4 1");
                                 image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(0).getString("lien")));
                                 relative = 1;
                             }
                             if(numberImage == 1){
-                                System.out.println("changement a 4 2");
                                 image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(1).getString("lien")));
                                 relative = 2;
                             }
                             if(numberImage == 2){
-                                System.out.println("changement a 4 3");
                                 image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(2).getString("lien")));
                                 relative = 3;
                             }
                             if(numberImage == 3){
-                                System.out.println("changement a 4 4");
                                 image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(3).getString("lien")));
                                 relative = 0;
                             }
                             numberImage = relative;
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-
+                    handler.postDelayed(runnable, 3000);
                     //your method
                 }
-            }, 0, 3000);//put here time 1000 milliseconds=1 second
+            }, 3000);
         }
+        super.onResume();
+
 
     }
 
