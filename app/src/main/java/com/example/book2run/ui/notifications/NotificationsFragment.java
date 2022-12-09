@@ -1,8 +1,10 @@
 package com.example.book2run.ui.notifications;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Base64;
@@ -53,7 +55,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
     Circuit[] circuitsReservation, circuitsOwn;
     RecyclerView recyclerViewReservation, recyclerViewCircuits;
     TextView myResTxtView, myCircuitTxtView, nomUtilisateurTxtView, utilisateurRateTxtView, nbCircuitsTextView, nbAvisTextView;
-    ImageView avatarImageView;
+    ImageView avatarImageView, stars1,stars2,stars3,stars4,stars5;;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +76,12 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         nbCircuitsTextView = root.findViewById(R.id.nbCircuits_textview);
 
         avatarImageView = root.findViewById(R.id.avatar_view);
+
+        stars1 = root.findViewById(R.id.stars1_profil);
+        stars2 = root.findViewById(R.id.stars2_profil);
+        stars3 = root.findViewById(R.id.stars3_profil);
+        stars4 = root.findViewById(R.id.stars4_profil);
+        stars5 = root.findViewById(R.id.stars5_profil);
 
         recyclerViewReservation = root.findViewById(R.id.reservation_recycler);
         recyclerViewReservation.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -173,7 +181,10 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             connectionRate.connect();
             InputStream streamRate = connectionRate.getInputStream();
             BufferedReader readerRate = new BufferedReader(new InputStreamReader(streamRate));
-            utilisateurRateTxtView.setText(readerRate.readLine());
+            String rate = readerRate.readLine();
+            utilisateurRateTxtView.setText((rate.equals("\"NaN\"") ? "" : rate));
+            if(!rate.equals("\"NaN\"")) { setStar(Float.parseFloat(rate)); }
+
 
             String requestURLLoc = "http://10.0.2.2:8180/circuits/nb?user=" + code;
             URL urlLoc = new URL(requestURLLoc);
@@ -181,8 +192,10 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             connectionLoc.connect();
             InputStream streamLoc = connectionLoc.getInputStream();
             BufferedReader readerLoc = new BufferedReader(new InputStreamReader(streamLoc));
-            String s = (Integer.parseInt(readerLoc.readLine()) > 1) ? "s" : "";
-            nbCircuitsTextView.setText(((readerLoc.readLine() == null) ?  "0" : readerLoc.readLine()) + " circuit" + s +" en locations");
+            String nb = readerLoc.readLine();
+            String s = (Integer.parseInt(nb) > 1) ? "s" : "";
+            System.out.println(readerLoc.readLine());
+            nbCircuitsTextView.setText(nb + " circuit" + s +" en location");
 
             String requestURLAvis = "http://10.0.2.2:8180/avis/nb?user=" + code;
             URL urlAvis = new URL(requestURLAvis);
@@ -193,6 +206,48 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             nbAvisTextView.setText(readerAvis.readLine() + " avis");
         } catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    public void setStar(float average) {
+        int rate = Math.round(average);
+        System.out.println("---------------------------------- " + rate);
+        switch(rate){
+            case 1:
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                break;
+            case 2:
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                break;
+            case 3:
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                break;
+            case 4:
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+                break;
+            case 5:
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                break;
         }
     }
 
