@@ -10,9 +10,9 @@
     <color name="blackHint">#272525</color>
     <color name="white">#FFFFFFFF</color>
     <color name="cyan">#ED2675AE</color>
-    <color name="indigo">#1E2761</color>
+    <color name="indigo">#263593</color>
     <color name="indigoEffect">#3543A3</color>
     <color name="red">#7A2048</color>
     <color name="redEffect">#B3306A</color>
-    <color name="grey">#F6F0F0</color>
+    <color name="grey">#959090</color>
 </resources>

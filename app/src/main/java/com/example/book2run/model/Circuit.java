@@ -11,6 +11,7 @@ public class Circuit {
     String mainImg;
     String dateDebut;
     String dateFin;
+    int codeResa;
 
 /*String image2;
     String image3;
@@ -27,7 +28,7 @@ public class Circuit {
         this.price = price;
     }
 
-    public Circuit(int code, String nom, String adresse, String description, String mainImg, int price, String dateDebut, String dateFin) {
+    public Circuit(int code, String nom, String adresse, String description, String mainImg, int price, String dateDebut, String dateFin, int codeResa) {
         this.code = code;
         this.nom = nom;
         this.adresse = adresse;
@@ -36,6 +37,7 @@ public class Circuit {
         this.price = price;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
+        this.codeResa = codeResa;
     }
 
     public int getCode() {
@@ -117,6 +119,14 @@ public class Circuit {
 
     public void setDateFin(String dateFin) {
         this.dateFin = dateFin;
+    }
+
+    public int getCodeResa() {
+        return codeResa;
+    }
+
+    public void setCodeResa(int codeResa) {
+        this.codeResa = codeResa;
     }
 
     /*public String getImage2() {

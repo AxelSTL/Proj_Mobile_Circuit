@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/message_commentary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/stars1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_star_rate_24" />
+
+        <ImageView
+            android:id="@+id/stars2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_star_rate_24" />
+
+        <ImageView
+            android:id="@+id/stars3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_star_rate_24" />
+
+        <ImageView
+            android:id="@+id/stars4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_star_rate_24" />
+
+        <ImageView
+            android:id="@+id/stars5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_star_rate_24" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/commentaryadapter_pseudo"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/commentaryadapter_message"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:text="TextView" />
+
+</LinearLayout>

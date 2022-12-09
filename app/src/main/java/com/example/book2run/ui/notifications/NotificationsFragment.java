@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,7 +40,7 @@ import java.util.List;
 public class NotificationsFragment extends Fragment implements View.OnClickListener{
 
     private FragmentNotificationsBinding binding;
-    private Button deconnexion;
+    private AppCompatButton deconnexion;
     private LoginRepository user;
     JSONArray reservationList;
     Circuit[] circuits;
@@ -56,7 +57,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         deconnexion = root.findViewById(R.id.home_deconnexion_btn);
         deconnexion.setOnClickListener(this);
 
-
+        TextView myResTxtView = root.findViewById(R.id.myreservation_txtview);
         recyclerView = root.findViewById(R.id.reservation_recycler);
 
         if(user.isLoggedIn()){
@@ -65,42 +66,42 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
 
             getReservation(user.code);
             System.out.println(reservationList);
-            this.circuits = new Circuit[reservationList.length()];
-            for(int i = 0; i < reservationList.length(); i++){
-                try {
-                    System.out.println("mdr");
-                    String mainImage = getMainImage(reservationList.getJSONObject(i).getInt("codeCircuit"));
-                    JSONObject circuitObj = getCircuitFromReservation(reservationList.getJSONObject(i).getInt("codeCircuit"));
-                    System.out.println("circuit obj : " + circuitObj.getInt("tarif"));
-                    this.circuits[i] = new Circuit(
-                            circuitObj.getInt("code"),
-                            circuitObj.getString("nom"),
-                            circuitObj.getString("adresse"),
-                            circuitObj.getString("description"),
-                            "",
-                            circuitObj.getInt("tarif"),
-                            "",
-                            "");
-                    this.circuits[i].setDateDebut(reservationList.getJSONObject(i).getString("dateDebut"));
-                    this.circuits[i].setDateFin(reservationList.getJSONObject(i).getString("dateFin"));
-                    this.circuits[i].setPrice(reservationList.getJSONObject(i).getInt("prixFinal"));
-                    this.circuits[i].setMainImg(mainImage);
+            if(reservationList.length() > 0 ) {
+                this.circuits = new Circuit[reservationList.length()];
+                for (int i = 0; i < reservationList.length(); i++) {
+                    try {
+                        String mainImage = getMainImage(reservationList.getJSONObject(i).getInt("codeCircuit"));
+                        JSONObject circuitObj = getCircuitFromReservation(reservationList.getJSONObject(i).getInt("codeCircuit"));
+                        this.circuits[i] = new Circuit(
+                                circuitObj.getInt("code"),
+                                circuitObj.getString("nom"),
+                                circuitObj.getString("adresse"),
+                                circuitObj.getString("description"),
+                                "",
+                                circuitObj.getInt("tarif"),
+                                "",
+                                "",
+                                0);
+                        this.circuits[i].setDateDebut(reservationList.getJSONObject(i).getString("dateDebut"));
+                        this.circuits[i].setDateFin(reservationList.getJSONObject(i).getString("dateFin"));
+                        this.circuits[i].setPrice(reservationList.getJSONObject(i).getInt("prixFinal"));
+                        this.circuits[i].setCodeResa(reservationList.getJSONObject(i).getInt("code"));
+                        this.circuits[i].setMainImg(mainImage);
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+                loadRecyclerView(this.circuits);
+                //this.circuits = circuits;
+
+
+            } else {
+                myResTxtView.setVisibility(View.INVISIBLE);
             }
-            loadRecyclerView(this.circuits);
-            //this.circuits = circuits;
-
-
-
-
-
-
-
         } else {
             deconnexion.setVisibility(View.INVISIBLE);
+            myResTxtView.setVisibility(View.INVISIBLE);
         }
 
         return root;
@@ -130,7 +131,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.118:8180/reservation?user=" + code;
+            String requestURL = "http://10.0.2.2:8180/reservation?user=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -154,7 +155,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try{
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.118:8180/images?code=" + codeCircuit;
+            String requestURL = "http://10.0.2.2:8180/images?code=" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -180,15 +181,13 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
     }
 
 
-
-
     private JSONObject getCircuitFromReservation(int codeCircuit) {
         JSONObject circuit = null;
         System.out.println("code circuit resa : " + codeCircuit);
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.118:8180/circuits/" + codeCircuit;
+            String requestURL = "http://10.0.2.2:8180/circuits/" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -212,26 +211,14 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
 
     public void loadRecyclerView(Circuit[] circuits){
         List<Circuit> circuitList = new ArrayList<>();
-
         for(int i = 0; i < circuits.length; i++){
-            circuitList.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getMainImg(), circuits[i].getPrice(), circuits[i].getDateDebut(),circuits[i].getDateFin()));
+            circuitList.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getMainImg(), circuits[i].getPrice(), circuits[i].getDateDebut(),circuits[i].getDateFin(), circuits[i].getCodeResa()));
         }
-
-        LinearLayoutManager horizontalLayoutManager
-                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(horizontalLayoutManager);
-
         ListViewCircuitRecycler adapter;
-
         adapter = new ListViewCircuitRecycler(getContext(), circuitList);
-        //adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-
-
-
-       /* ListViewCircuitRecycler adapter = new ListViewCircuitRecycler(getActivity() ,R.layout.recycler_view_layout, circuit);
-        System.out.println("ADAPATER EST : "+ adapter);
-        recyclerView.setAdapter(adapter);*/
 
     }
 }
