@@ -49,7 +49,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircuitRecycler.ViewHolder>{
+public class  ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCircuitRecycler.ViewHolder>{
 
     private List<Circuit> circuits;
     private LayoutInflater mInflater;
