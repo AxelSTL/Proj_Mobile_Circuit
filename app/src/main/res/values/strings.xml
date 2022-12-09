@@ -37,5 +37,6 @@
         description="Two dates separated by a dash representing a range [CHAR_LIMIT=60]">%1$s – %2$s</string>
     <string name="mesReservations">Mes réservations</string>
     <string name="mesCircuits">Mes circuits</string>
+    <string name="monCompte">Mon compte</string>
     <string name="logout">Se déconnecter</string>
 </resources>

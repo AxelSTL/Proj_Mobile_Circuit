@@ -15,6 +15,7 @@ public class LoginRepository {
     public String lastName;
     public int code;
     public String mail;
+    public String image;
 
 
 
@@ -44,6 +45,7 @@ public class LoginRepository {
         lastName = null;
         code = 0;
         mail = null;
+        image = null;
         dataSource.logout();
     }
 
