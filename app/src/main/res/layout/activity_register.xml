@@ -183,6 +183,29 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/title_image_user"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="Choississez une image d'utilisateur"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/arround_corners_indigo"/>
+
+            <ImageView
+                android:id="@+id/image_user"
+                android:layout_width="182dp"
+                android:layout_height="182dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/arround_image_indigo"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_add_image_foreground" />
+
             <ImageButton
                 android:id="@+id/validate_register_button"
                 android:layout_width="150dp"
@@ -193,6 +216,8 @@
                 android:contentDescription="S'inscrire"
                 android:background="@drawable/arround_button_indigo"
                 app:srcCompat="@drawable/ic_register"/>
+
+
 
         </LinearLayout>
 

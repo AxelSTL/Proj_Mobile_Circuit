@@ -63,10 +63,12 @@ public class CircuitViewActivity extends AppCompatActivity {
     Button postCommentary;
     ListView listViewCommentary;
     ImageView etoile1, etoile2, etoile3, etoile4, etoile5;
+    ImageView favImage;
     Runnable runnable;
     int etoilesTot = 0;
     float prix = 0;
     int numberImage = 0;
+    boolean isFavorite = false;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -77,8 +79,10 @@ public class CircuitViewActivity extends AppCompatActivity {
 
         // Cacher le bouton login
         login = findViewById(R.id.loginToolbar);
+        favImage = findViewById(R.id.fav_imageView_circuitView);
         if (user.isLoggedIn()) {
             login.setVisibility(View.INVISIBLE);
+            favImage.setVisibility(View.INVISIBLE);
         }
 
         // Gestion flèche retour
@@ -272,6 +276,25 @@ public class CircuitViewActivity extends AppCompatActivity {
         }
         super.onResume();
 
+        if(isFavorite){
+            favImage.setBackground(getResources().getDrawable(R.drawable.ic_fav));
+        } else{
+            favImage.setBackground(getResources().getDrawable(R.drawable.ic_unfav));
+        }
+        getIsFavCircuit(code);
+        favImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isFavorite){
+                    favImage.setBackground(getResources().getDrawable(R.drawable.ic_fav));
+                    isFavorite= false;
+                } else{
+                    favImage.setBackground(getResources().getDrawable(R.drawable.ic_unfav));
+                    isFavorite = true;
+                }
+
+            }
+        });
 
     }
 
@@ -354,6 +377,32 @@ public class CircuitViewActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return avis;
+    }
+
+    public void getIsFavCircuit(int code){
+        JSONArray favorite = new JSONArray();
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/avis/" + code;
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            Log.i("bufferAvis", buffer.toString());
+            avis = new JSONArray(buffer.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
