@@ -115,7 +115,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
     public void onClick(View v){
         switch (v.getId()){
             case R.id.home_deconnexion_btn:
-                String goodbye = "Aurevoir " + user.username + ".";
+                String goodbye = "A bientôt " + user.username + " !";
                 user.logout();
                 Toast.makeText(getContext().getApplicationContext(), goodbye, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), MainActivity.class);

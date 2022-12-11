@@ -54,7 +54,6 @@
             android:layout_gravity="center"
             android:background="@drawable/ic_baseline_star_rate_24" />
 
-
         </LinearLayout>
 
     <TextView

@@ -56,7 +56,7 @@ public class CircuitViewActivity extends AppCompatActivity {
     JSONObject circuit;
     JSONArray images;
     JSONArray avis;
-    Button postCommentary;
+    AppCompatButton postCommentary;
     ListView listViewCommentary;
     ImageView etoile1, etoile2, etoile3, etoile4, etoile5;
     int etoilesTot = 0;

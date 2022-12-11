@@ -6,101 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".CommentaryPost">
 
-    <ImageView
-        android:id="@+id/stars2_PostCommentary"
-        android:layout_width="46dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/ic_baseline_star_rate_24"
-        app:layout_constraintStart_toEndOf="@+id/stars1_PostCommentary"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/stars1_PostCommentary"
-        android:layout_width="46dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/ic_baseline_star_rate_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/circuitname_postCommentary"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginTop="19dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/stars3_PostCommentary"
-        android:layout_width="46dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/ic_baseline_star_rate_24"
-        app:layout_constraintStart_toEndOf="@+id/stars2_PostCommentary"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
 
-    <ImageView
-        android:id="@+id/stars4_PostCommentary"
-        android:layout_width="46dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/ic_baseline_star_rate_24"
-        app:layout_constraintStart_toEndOf="@+id/stars3_PostCommentary"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/stars1_PostCommentary"
+                android:layout_width="46dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="76dp"
+                android:background="@drawable/ic_baseline_star_rate_24" />
 
-    <ImageView
-        android:id="@+id/stars5_PostCommentary"
-        android:layout_width="46dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/ic_baseline_star_rate_24"
-        app:layout_constraintStart_toEndOf="@+id/stars4_PostCommentary"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/stars2_PostCommentary"
+                android:layout_width="46dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/ic_baseline_star_rate_24" />
 
-    <TextView
-        android:id="@+id/circuitname_postCommentary"
-        android:layout_width="220dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="93dp"
-        android:text="Nom du circuit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/stars3_PostCommentary"
+                android:layout_width="46dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/ic_baseline_star_rate_24" />
 
-    <EditText
-        android:id="@+id/avis_PostCommentary"
-        android:layout_width="381dp"
-        android:layout_height="116dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="41dp"
-        android:background="@drawable/border_black"
-        android:hint="Votre avis..."
-        android:maxLength="30"
-        android:paddingStart="12dp"
-        android:paddingEnd="10dp"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textColorHint="@color/blackHint"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stars2_PostCommentary"
-        tools:ignore="SmallSp">
+            <ImageView
+                android:id="@+id/stars4_PostCommentary"
+                android:layout_width="46dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/ic_baseline_star_rate_24" />
 
-    </EditText>
+            <ImageView
+                android:id="@+id/stars5_PostCommentary"
+                android:layout_width="46dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/ic_baseline_star_rate_24" />
 
-    <Button
-        android:id="@+id/validate_postcommentary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="149dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="168dp"
-        android:text="Valider votre avis"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avis_PostCommentary" />
+        </LinearLayout>
 
+        <EditText
+            android:id="@+id/avis_PostCommentary"
+            android:layout_width="381dp"
+            android:layout_height="116dp"
+            android:layout_gravity="center"
+            android:gravity="start"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/border_black"
+            android:hint="Votre avis..."
+            android:maxLength="120"
+            android:paddingTop="12dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="10dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/blackHint"
+            android:textSize="20sp"
+            tools:ignore="SmallSp"></EditText>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/validate_postcommentary"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:text="Valider votre avis"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:background="@drawable/arround_button_black2" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
