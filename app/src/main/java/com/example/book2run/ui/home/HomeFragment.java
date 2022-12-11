@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getString("nom"),
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getInt("codePostal"),
                                             imgList.getJSONObject(0).getString("lien"),
-                                            circuitsArray.getJSONObject(i).getInt("tarif"));
+                                            circuitsArray.getJSONObject(i).getInt("tarif"), false);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -246,7 +246,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getString("nom"),
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getInt("codePostal"),
                                             imgList.getJSONObject(0).getString("lien"),
-                                            circuitsArray.getJSONObject(i).getInt("tarif"));
+                                            circuitsArray.getJSONObject(i).getInt("tarif"),
+                                            false);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -296,7 +297,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getString("nom"),
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getInt("codePostal"),
                                             imgList.getJSONObject(0).getString("lien"),
-                                            circuitsArray.getJSONObject(i).getInt("tarif"));
+                                            circuitsArray.getJSONObject(i).getInt("tarif"),
+                                            false);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -413,7 +415,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void loadListViewCircuits(Circuit[] circuits) {
         ArrayList<Circuit> circuit = new ArrayList<>();
         for (int i = 0; i < circuits.length; i++) {
-            circuit.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getVille(), circuits[i].getCodePostal(), circuits[i].getMainImg(), circuits[i].getPrice()));
+            circuit.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getVille(), circuits[i].getCodePostal(), circuits[i].getMainImg(), circuits[i].getPrice(), false));
         }
 
         ListViewCircuitAdapter adapter = new ListViewCircuitAdapter(getActivity(), R.layout.adaptercircuit_view_layout, circuit);

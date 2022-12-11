@@ -36,6 +36,7 @@
     <string name="mtrl_picker_range_header_selected" tools:override="true"
         description="Two dates separated by a dash representing a range [CHAR_LIMIT=60]">%1$s – %2$s</string>
     <string name="mesReservations">Mes réservations</string>
+    <string name="mesCircuitsFav">Mes circuits favoris</string>
     <string name="mesCircuits">Mes circuits</string>
     <string name="bestCircuits">Meilleurs circuits</string>
     <string name="monCompte">Mon compte</string>

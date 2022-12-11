@@ -8,9 +8,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,12 +24,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.book2run.LoginActivity;
 import com.example.book2run.MainActivity;
 import com.example.book2run.R;
 import com.example.book2run.adapters.ListViewCircuitRecycler;
 import com.example.book2run.adapters.RecyclerViewCircuit;
 import com.example.book2run.databinding.FragmentNotificationsBinding;
 import com.example.book2run.model.Circuit;
+import com.example.book2run.ui.addcircuit.AddNameActivity;
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
 
@@ -91,6 +95,8 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         recyclerViewCircuits.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerViewCircuit adapterCircuits = new RecyclerViewCircuit(null);
         recyclerViewCircuits.setAdapter(adapterCircuits);
+        ImageButton addCircuitBtn = root.findViewById(R.id.addCircuit_btn);
+        addCircuitBtn.setOnClickListener(this);
 
         if(user.isLoggedIn()){
             deconnexion.setVisibility(View.VISIBLE);
@@ -140,6 +146,17 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 Toast.makeText(getContext().getApplicationContext(), goodbye, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.addCircuit_btn:
+                Log.i("BntAddCircuit", "Ajout d'un circuit");
+                Intent intentAdd;
+                if(user.isLoggedIn()){
+                    intentAdd = new Intent(getActivity(), AddNameActivity.class);
+                } else {
+                    intentAdd = new Intent(getActivity(), LoginActivity.class);
+                    intentAdd.putExtra("userLogged", false);
+                }
+                startActivity(intentAdd);
 
         }
     }
