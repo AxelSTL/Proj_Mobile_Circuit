@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.book2run.ui.dashboard.DashboardFragment"
-        android:label="@string/title_circuit"
+        android:label="@string/mesCircuitsFav"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment

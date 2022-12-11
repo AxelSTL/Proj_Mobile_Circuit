@@ -498,7 +498,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             commentaryArrayList.add(new Commentary(commentarys[i].getNom(), commentarys[i].getEtoiles(), commentarys[i].getMessage()));
         }
 
-
+        System.out.println("Start loadListViewAvis");
         ListCommentaryAdapter adapter = new ListCommentaryAdapter(getActivity(), R.layout.adaptercommentary_view, commentaryArrayList);
         listViewCommentary.setAdapter(adapter);
     }

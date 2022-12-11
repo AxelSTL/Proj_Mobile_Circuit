@@ -261,7 +261,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
             OutputStream out = new BufferedOutputStream(connection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
 
-            Log.i("circuitToString",JSONReservationConstructor().toString());
+            Log.i("circuitToStringReservation",JSONReservationConstructor().toString());
             writer.write(JSONReservationConstructor().toString());
             writer.flush();
             writer.close();

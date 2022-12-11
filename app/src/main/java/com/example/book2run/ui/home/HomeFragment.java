@@ -324,6 +324,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getCicuits(CharSequence nom) {
         try {
+            recyclerViewBest.setVisibility(View.GONE);
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             String requestURL = "http://10.0.2.2:8180/circuits/search?nom=" + nom;
@@ -351,6 +352,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
     public boolean searchWithFilter(){
+        recyclerViewBest.setVisibility(View.GONE);
         boolean isExist = false;
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

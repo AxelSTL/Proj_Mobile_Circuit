@@ -192,6 +192,7 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
+            System.out.println("buffer dans list comment adapter" + buffer);
             userInfos = new JSONObject(String.valueOf(buffer));
         } catch (Exception e) {
             e.printStackTrace();
