@@ -19,11 +19,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.book2run.CircuitViewActivity;
 import com.example.book2run.MainActivity;
 import com.example.book2run.R;
 import com.example.book2run.adapters.ListViewCircuitAdapter;
+import com.example.book2run.adapters.ListViewCircuitRecycler;
+import com.example.book2run.adapters.RecyclerViewCircuit;
 import com.example.book2run.databinding.FragmentHomeBinding;
 import com.example.book2run.model.Circuit;
 import com.example.book2run.ui.addcircuit.AddCircuitSummaryActivity;
@@ -39,18 +43,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private FragmentHomeBinding binding;
 
     EditText search;
 
-    JSONArray circuitsArray;
+    JSONArray circuitsArray, bestCircuitList;
 
     ListView listViewCircuits;
 
-    Circuit[] circuits;
+    Circuit[] circuits, bestCircuits;
+
+    TextView bestCircuitTxtView;
+    RecyclerView recyclerViewBest;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +71,16 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         search = root.findViewById(R.id.searchCircuit_home_input);
         listViewCircuits = root.findViewById(R.id.listView_home);
+
+        bestCircuitTxtView = root.findViewById(R.id.bestCircuits_txtview);
+
+        recyclerViewBest = root.findViewById(R.id.bestCircuits_recycler);
+        recyclerViewBest.setLayoutManager(new LinearLayoutManager(getActivity()));
+        RecyclerViewCircuit adapterReservation = new RecyclerViewCircuit(null);
+        recyclerViewBest.setAdapter(adapterReservation);
+        // reservations
+        getBestCircuits();
+        setBestCircuits();
 
         listViewCircuits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,14 +94,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
-        // final TextView textView = binding.textHome;
-
-
-        // homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
-        //  final EditText searchInput = binding.searchInput;
 
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -190,10 +201,102 @@ public class HomeFragment extends Fragment {
             circuit.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getVille(), circuits[i].getCodePostal(), circuits[i].getMainImg(), circuits[i].getPrice()));
         }
 
-
         ListViewCircuitAdapter adapter = new ListViewCircuitAdapter(getActivity(), R.layout.adaptercircuit_view_layout, circuit);
         System.out.println(adapter);
         listViewCircuits.setAdapter(adapter);
+
+    }
+
+
+
+    public void getBestCircuits(){
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/circuits/rating";
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            bestCircuitList = new JSONArray(buffer.toString());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setBestCircuits()  {
+        if(bestCircuitList.length() > 0 ) {
+            this.bestCircuits = new Circuit[bestCircuitList.length()];
+            for (int i = 0; i < bestCircuitList.length(); i++) {
+                try {
+                    String mainImage = getMainImage(bestCircuitList.getJSONObject(i).getInt("code"));
+                    this.bestCircuits[i] = new Circuit(
+                            bestCircuitList.getJSONObject(i).getInt("code"),
+                            bestCircuitList.getJSONObject(i).getString("nom"),
+                            bestCircuitList.getJSONObject(i).getString("adresse"),
+                            bestCircuitList.getJSONObject(i).getString("description"),
+                            "",
+                            bestCircuitList.getJSONObject(i).getInt("tarif"),
+                            "",
+                            "",
+                            0);
+                    this.bestCircuits[i].setMainImg(mainImage);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            loadRecyclerViewBestCircuit(this.bestCircuits);
+        }
+    }
+
+    public void loadRecyclerViewBestCircuit(Circuit[] circuits){
+        List<Circuit> circuitList = new ArrayList<>();
+        for(int i = 0; i < circuits.length; i++){
+            circuitList.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getMainImg(), circuits[i].getPrice(), circuits[i].getDateDebut(),circuits[i].getDateFin(), circuits[i].getCodeResa()));
+        }
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewBest.setLayoutManager(horizontalLayoutManager);
+        ListViewCircuitRecycler adapter;
+        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true);
+        recyclerViewBest.setAdapter(adapter);
+    }
+
+
+    private String getMainImage(int codeCircuit){
+        String mainImage = null;
+        try{
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/images?code=" + codeCircuit;
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            System.out.println("Img buffer " + buffer);
+            JSONArray imgList = new JSONArray(buffer.toString());
+            mainImage = imgList.getJSONObject(0).getString("lien");
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return mainImage;
 
     }
 
@@ -203,47 +306,9 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }
-
-
-
-
-
-//TODO A VOIR SI ON GARDE PSK C PLUS RAPIDE ON DIRAIT
-/*
-if(start > 1){
-        ArrayList<JSONObject> circuitToShow = new ArrayList();
-        for(int i = 0; i < circuitsArray.length(); i++){
-        try {
-        String nomCircuit = circuitsArray.getJSONObject(i).getString("nom");
-        if(nomCircuit.toLowerCase().contains(s.toString().toLowerCase())){
-        circuitToShow.add(circuitsArray.getJSONObject(i));
-        }
-        } catch (JSONException e) {
-        e.printStackTrace();
-        }
-        }
-        System.out.println("=============================");
-        Log.i("circuit to show", String.valueOf(circuitToShow));
-        System.out.println("=============================");
-
-        Circuit[] circuits = new Circuit[circuitToShow.size()];
-        for(int i = 0; i < circuitToShow.size(); i++){
-        try {
-        JSONArray imgList = loadImageFromCircuit(circuitToShow.get(i).getInt("code"));
-        circuits[i] = new Circuit
-        (circuitToShow.get(i).getInt("code"),
-        circuitToShow.get(i).getString("nom"),
-        circuitToShow.get(i).getString("adresse"),
-        circuitToShow.get(i).getString("description"),
-        imgList.getJSONObject(0).getString("lien"));
-
-        } catch (IOException e) {
-        e.printStackTrace();
-        } catch (JSONException e) {
-        e.printStackTrace();
-        }
-        }
-        loadListViewCircuits(circuits);
-
-        }*/

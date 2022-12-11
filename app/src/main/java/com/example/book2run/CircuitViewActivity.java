@@ -199,6 +199,7 @@ public class CircuitViewActivity extends AppCompatActivity {
             }
         }
         if(images.length() > 1) {
+            /*
             new Timer().scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
@@ -274,7 +275,7 @@ public class CircuitViewActivity extends AppCompatActivity {
 
                     //your method
                 }
-            }, 0, 3000);//put here time 1000 milliseconds=1 second
+            }, 0, 3000);//put here time 1000 milliseconds=1 second*/
         }
 
     }

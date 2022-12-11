@@ -13,39 +13,75 @@
         tools:context=".ui.home.HomeFragment">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="16dp">
 
             <EditText
                 android:id="@+id/searchCircuit_home_input"
                 android:layout_width="366dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:autofillHints="all"
+                android:background="@drawable/arround_search_button"
+                android:drawableStart="@drawable/ic_search_black"
+                android:inputType="text"
                 android:paddingStart="12dp"
                 android:paddingEnd="10dp"
+                android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:singleLine="true"
-                android:autofillHints="all"
-                android:inputType="text"
-                android:drawableStart="@drawable/ic_search_black"
-                android:background="@drawable/arround_search_button"
-                app:boxBackgroundMode="none"/>
+                app:boxBackgroundMode="none" />
 
 
             <ListView
                 android:id="@+id/listView_home"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:minHeight="600dp"
-                android:layout_marginTop="35dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="100dp"/>
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="100dp"
+                android:minHeight="600dp" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/bestCircuits_txtview"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="130dp"
+            android:gravity="start"
+            android:text="@string/bestCircuits"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlCompat" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bestCircuits_recycler"
+            android:layout_width="392dp"
+            android:layout_height="342dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="650dp"
+            android:layout_marginEnd="400dp"
+            android:layout_marginBottom="99dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/bestCircuits_txtview">
+
+        </androidx.recyclerview.widget.RecyclerView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -11,7 +11,6 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,8 +43,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class NotificationsFragment extends Fragment implements View.OnClickListener, RecyclerViewCircuit.OnItemClickListener{
+public class NotificationsFragment extends Fragment implements View.OnClickListener{
 
     private FragmentNotificationsBinding binding;
     private AppCompatButton deconnexion;
@@ -86,19 +85,17 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         recyclerViewReservation = root.findViewById(R.id.reservation_recycler);
         recyclerViewReservation.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerViewCircuit adapterReservation = new RecyclerViewCircuit(null);
-        adapterReservation.setItemClickListener(this);
         recyclerViewReservation.setAdapter(adapterReservation);
 
-        recyclerViewCircuits = root.findViewById(R.id.mescircuits_recycler);
+        recyclerViewCircuits = root.findViewById(R.id.bestCircuits_recycler);
         recyclerViewCircuits.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerViewCircuit adapterCircuits = new RecyclerViewCircuit(null);
-        adapterCircuits.setItemClickListener(this);
-        recyclerViewReservation.setAdapter(adapterCircuits);
+        recyclerViewCircuits.setAdapter(adapterCircuits);
 
         if(user.isLoggedIn()){
             deconnexion.setVisibility(View.VISIBLE);
 
-            nomUtilisateurTxtView.setText(user.username + " " + user.lastName);
+            nomUtilisateurTxtView.setText(user.username.toUpperCase(Locale.ROOT) + " " + user.lastName.toUpperCase());
             avatarImageView.setImageBitmap(getBitmapFromBase64(user.image));
 
             // reservations
@@ -182,8 +179,17 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             InputStream streamRate = connectionRate.getInputStream();
             BufferedReader readerRate = new BufferedReader(new InputStreamReader(streamRate));
             String rate = readerRate.readLine();
-            utilisateurRateTxtView.setText((rate.equals("\"NaN\"") ? "" : rate));
-            if(!rate.equals("\"NaN\"")) { setStar(Float.parseFloat(rate)); }
+            if((rate != null) && !rate.equals("\"NaN\"")) {
+                utilisateurRateTxtView.setText((rate.equals("\"NaN\"") ? "" : rate));
+                setStar(Float.parseFloat(rate));
+            } else {
+                stars1.setVisibility(View.INVISIBLE);
+                stars2.setVisibility(View.INVISIBLE);
+                stars3.setVisibility(View.INVISIBLE);
+                stars4.setVisibility(View.INVISIBLE);
+                stars5.setVisibility(View.INVISIBLE);
+                utilisateurRateTxtView.setVisibility(View.INVISIBLE);
+            }
 
 
             String requestURLLoc = "http://10.0.2.2:8180/circuits/nb?user=" + code;
@@ -406,7 +412,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewReservation.setLayoutManager(horizontalLayoutManager);
         ListViewCircuitRecycler adapter;
-        adapter = new ListViewCircuitRecycler(getContext(), circuitList);
+        adapter = new ListViewCircuitRecycler(getContext(), circuitList, false);
         recyclerViewReservation.setAdapter(adapter);
     }
 
@@ -418,19 +424,9 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewCircuits.setLayoutManager(horizontalLayoutManager);
         ListViewCircuitRecycler adapter;
-        adapter = new ListViewCircuitRecycler(getContext(), circuitList);
+        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true);
         recyclerViewCircuits.setAdapter(adapter);
     }
 
     public void getUser() {}
-
-    @Override
-    public void onItemClick(View v, int position) {
-        System.out.println("test");
-    }
-
-    @Override
-    public void onItemLongClick(View v, int position) {
-
-    }
 }

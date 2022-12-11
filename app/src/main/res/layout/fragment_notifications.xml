@@ -35,7 +35,7 @@
 
             <ImageView
                 android:id="@+id/avatar_view"
-                android:layout_width="253dp"
+                android:layout_width="172dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
@@ -52,21 +52,21 @@
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="267dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/nomUtilisateur_textview"
-                        android:layout_width="104dp"
+                        android:layout_width="108dp"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="Paul Ricard"
                         android:textAlignment="textStart"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold"
+                        android:textStyle="normal"
                         tools:ignore="RtlCompat" />
 
                     <ImageView
@@ -128,7 +128,7 @@
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="15sp"
-                    android:textStyle="bold"
+                    android:textStyle="italic"
                     tools:ignore="RtlCompat" />
 
 
@@ -141,12 +141,34 @@
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="15sp"
-                    android:textStyle="bold"
+                    android:textStyle="italic"
                     tools:ignore="RtlCompat" />
 
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/mycircuits_txtview"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="0dp"
+            android:gravity="start"
+            android:text="@string/mesCircuits"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            tools:ignore="RtlCompat" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bestCircuits_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="209dp"
+            android:layout_marginTop="10dp" >
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <TextView
             android:id="@+id/myreservation_txtview"
@@ -166,26 +188,6 @@
             android:id="@+id/reservation_recycler"
             android:layout_width="match_parent"
             android:layout_height="215dp"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:id="@+id/mycircuits_txtview"
-            android:layout_width="match_parent"
-            android:layout_height="34dp"
-            android:layout_gravity="start"
-            android:layout_marginTop="0dp"
-            android:gravity="start"
-            android:text="@string/mesCircuits"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            tools:ignore="RtlCompat" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mescircuits_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="209dp"
             android:layout_marginTop="10dp" />
 
 
