@@ -74,56 +74,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         listViewCircuits = root.findViewById(R.id.listView_dashboard);
 
-        listViewCircuits.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                PopupMenu circuitSettings = new PopupMenu(getActivity(), view);
-                circuitSettings.getMenuInflater().inflate(R.menu.circuitsetting_menu, circuitSettings.getMenu());
-                circuitSettings.show();
-                circuitSettings.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch(item.getItemId()){
-                            case R.id.deleteCircuit:
-                                new AlertDialog.Builder(getActivity())
-                                        .setTitle("Voulez vous vraiment supprimer votre annonce ?")
-                                        .setMessage("Votre annonce sera dÃ©finitivement supprimer")
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                                            public void onClick(DialogInterface dialog, int whichButton) {
-                                                try {
-                                                    deleteCircuit(circuits[position].getCode());
-                                                    Intent intentDelete = new Intent(getActivity(), MainActivity.class);
-                                                    startActivity(intentDelete);
-                                                } catch (IOException e) {
-                                                    e.printStackTrace();
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }})
-                                        .setNegativeButton(android.R.string.no, null).show();
-                                break;
-                            case R.id.modifyCircuit:
-                                Intent intentModify = new Intent(getActivity(), AddNameActivity.class);
-                                intentModify.putExtra("code",circuits[position].getCode());
-                                intentModify.putExtra("isModify", true);
-                                startActivity(intentModify);
-                                break;
-                            case R.id.seeCircuit:
-                                Intent intent = new Intent(getActivity(), CircuitViewActivity.class);
-                                intent.putExtra("code",circuits[position].getCode());
-                                intent.putExtra("isMine", "true");
-                                startActivity(intent);
-                                break;
-                        }
-                        return false;
-                    }
-                });
-                return false;
-            }
-        });
 
         listViewCircuits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -239,36 +190,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
 
-    public void deleteCircuit(int code) throws IOException, JSONException {
-        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://10.0.2.2:8180/circuits";
-        URL url = new URL(requestURL);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("DELETE");
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.connect();
-        OutputStream out = new BufferedOutputStream(connection.getOutputStream());
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
 
-        JSONObject circuitDelete = new JSONObject();
-        circuitDelete.put("code", code);
-
-        Log.i("circuitDelete",circuitDelete.toString());
-        writer.write(circuitDelete.toString());
-        writer.flush();
-        writer.close();
-
-        InputStream stream = connection.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        StringBuffer buffer = new StringBuffer();
-        String line = "";
-
-        while ((line = reader.readLine()) != null) {
-            buffer.append(line);
-        }
-
-    }
 
 
 
