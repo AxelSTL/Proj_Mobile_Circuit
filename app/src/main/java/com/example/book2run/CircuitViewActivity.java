@@ -1,7 +1,5 @@
 package com.example.book2run;
 
-import static java.security.AccessController.getContext;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -25,8 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.book2run.adapters.ListCommentaryAdapter;
-import com.example.book2run.adapters.ListViewCircuitAdapter;
-import com.example.book2run.model.Circuit;
 import com.example.book2run.model.Commentary;
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
@@ -45,13 +41,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class CircuitViewActivity extends AppCompatActivity {
 
@@ -108,7 +100,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         isMine = Boolean.parseBoolean(intent.getStringExtra("isMine"));
         isResa = Boolean.parseBoolean(intent.getStringExtra("resa"));
 
-        listViewCommentary = findViewById(R.id.listView_commentary);
+        listViewCommentary = findViewById(R.id.listView_commentary_moncompte);
         postCommentary = findViewById(R.id.post_avis);
         nom = findViewById(R.id.circuitviewName_view);
         desc = findViewById(R.id.circuitviewDescrption_view);

@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         layoutFilter.setVisibility(View.INVISIBLE);
 
 
-        bestCircuitTxtView = root.findViewById(R.id.bestCircuits_txtview);
+//        bestCircuitTxtView = root.findViewById(R.id.bestCircuits_txtview);
 
         recyclerViewBest = root.findViewById(R.id.bestCircuits_recycler);
         recyclerViewBest.setLayoutManager(new LinearLayoutManager(getActivity()));
