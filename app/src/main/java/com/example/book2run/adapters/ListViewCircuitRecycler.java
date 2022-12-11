@@ -55,19 +55,21 @@ public class  ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCirc
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context context;
+    private boolean isMyCircuit;
 
     // data is passed into the constructor
-    public ListViewCircuitRecycler(Context context, List<Circuit> circuits) {
+    public ListViewCircuitRecycler(Context context, List<Circuit> circuits, boolean isMyCircuit) {
         this.mInflater = LayoutInflater.from(context);
         this.circuits = circuits;
         this.context = context;
+        this.isMyCircuit = isMyCircuit;
     }
 
     // inflates the row layout from xml when needed
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recycler_view_layout, parent, false);
+        View view = mInflater.inflate((isMyCircuit) ? R.layout.recycler_view_mycircuit_layout : R.layout.recycler_view_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -77,10 +79,11 @@ public class  ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCirc
         Circuit circuit = circuits.get(position);
 
 
-        holder.prix.setText("Montant réglé : " + String.valueOf(circuit.getPrice()) + "€");
-        holder.nom.setText(circuit.getNom());
+        holder.prix.setText(isMyCircuit ? String.valueOf(circuit.getPrice()) + "€" : "Montant réglé : " + String.valueOf(circuit.getPrice()) + "€");
+        String circuitNom = circuit.getNom().substring(0, 1).toUpperCase() + circuit.getNom().substring(1).toLowerCase();
+        holder.nom.setText(circuitNom);
         holder.image.setImageBitmap(getBitmapFromBase64(circuit.getMainImg()));
-        holder.date.setText("Arrivé : " + circuit.getDateDebut()+ "      Départ : " + circuit.getDateFin());
+        if(!isMyCircuit) holder.date.setText("Arrivé : " + circuit.getDateDebut()+ "      Départ : " + circuit.getDateFin());
         holder.code.setText(String.valueOf(circuit.getCode()));
         holder.codeResa.setText(String.valueOf(circuit.getCodeResa()));
        // holder.myTextView.setText(animal);
@@ -160,7 +163,7 @@ public class  ListViewCircuitRecycler  extends RecyclerView.Adapter<ListViewCirc
             intent.putExtra("prixResa", prix.getText());
             intent.putExtra("isMine", "true");
             intent.putExtra("resa", "true");
-            intent.putExtra("date", date.getText());
+            if(!isMyCircuit) intent.putExtra("date", date.getText());
             view.getContext().startActivity(intent);
             if (mClickListener != null){
                 mClickListener.onItemClick(view, getAdapterPosition());
