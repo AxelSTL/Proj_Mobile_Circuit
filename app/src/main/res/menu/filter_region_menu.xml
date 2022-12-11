@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/occitanie_filtermenu"
+        android:title="Occitanie" />
+    <item
+        android:id="@+id/centreval_filtermenu"
+        android:title="Centre-Val de Loire" />
+    <item
+        android:id="@+id/AuvergneRA_filtermenu"
+        android:title="Auvergne-Rhône-Alpes" />
+    <item
+        android:id="@+id/hautdefrance_filtermenu"
+        android:title="Hauts-de-France" />
+    <item
+        android:id="@+id/provalpesazur_filtermenu"
+        android:title="Provence-Alpes-Côte d'Azur" />
+    <item
+        android:id="@+id/grandest_filtermenu"
+        android:title="Grand Est" />
+    <item
+        android:id="@+id/normandie_filtermenu"
+        android:title="Normandie" />
+    <item
+        android:id="@+id/nouvelleaqui_filtermenu"
+        android:title="Nouvelle-Aquitaine" />
+    <item
+        android:id="@+id/bourgogne_filtermenu"
+        android:title="Bourgogne-Franche-Comté" />
+    <item
+        android:id="@+id/bretagne_filtermenu"
+        android:title="Bretagne" />
+    <item
+        android:id="@+id/paysdelaloire_filtermenu"
+        android:title="Pays de la Loire" />
+    <item
+        android:id="@+id/Corse_filtermenu"
+        android:title="Corse" />
+    <item
+        android:id="@+id/IDF_filtermenu"
+        android:title="Ile-de-France" />
+</menu>

@@ -12,22 +12,28 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.home.HomeFragment">
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="16dp">
+
+
+
+            <ImageView
+                android:id="@+id/filter_imgView"
+                android:layout_width="39dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="52dp"
+                android:background="@drawable/ic_filter"
+                app:layout_constraintStart_toEndOf="@+id/searchCircuit_home_input"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </ImageView>
 
             <EditText
                 android:id="@+id/searchCircuit_home_input"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="47dp"
                 android:layout_width="366dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
                 android:autofillHints="all"
                 android:background="@drawable/arround_search_button"
                 android:drawableStart="@drawable/ic_search_black"
@@ -37,19 +43,66 @@
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:boxBackgroundMode="none" />
-
+                app:boxBackgroundMode="none"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ListView
                 android:id="@+id/listView_home"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_width="383dp"
+                android:layout_height="405dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="35dp"
-                android:layout_marginBottom="100dp"
-                android:minHeight="600dp" />
+                android:layout_marginTop="236dp"
+                android:minHeight="600dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.571"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/filter_layout"
+                android:layout_width="match_parent"
+                android:layout_height="133dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_black"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchCircuit_home_input">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_prix"
+                    android:layout_width="313dp"
+                    android:layout_height="49dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/border_black"
+                    android:contentDescription="Prix"
+                    android:stepSize="50"
+                    android:valueFrom="0"
+
+                    android:valueTo="5000"
+                    app:haloColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tickColor="@color/black"></com.google.android.material.slider.Slider>
+
+                <TextView
+                    android:id="@+id/region_txtView"
+                    android:layout_width="250dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="68dp"
+                    android:layout_marginBottom="14dp"
+                    android:background="@drawable/border_black"
+                    android:gravity="center"
+                    android:text="Région"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/bestCircuits_txtview"
@@ -83,5 +136,4 @@
             app:layout_constraintTop_toBottomOf="@+id/bestCircuits_txtview">
 
         </androidx.recyclerview.widget.RecyclerView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
