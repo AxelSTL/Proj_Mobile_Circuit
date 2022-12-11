@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.Image;
+import android.os.StrictMode;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,16 @@ import com.example.book2run.R;
 import com.example.book2run.model.Circuit;
 import com.example.book2run.model.Commentary;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
@@ -32,6 +42,8 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
     private int mResource;
     private int lastPosition = -1;
 
+    private JSONObject userInfos;
+
     /**
      * Holds variables in a View
      */
@@ -39,8 +51,7 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
         TextView pseudo;
         TextView message;
         ImageView etoile1, etoile2, etoile3, etoile4, etoile5;
-
-
+        ImageView imageUser;
     }
 
     /**
@@ -60,8 +71,10 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         String pseudo = getItem(position).getNom();
-        String message = getItem(position).getMessage();
+        String message = "\"" + getItem(position).getMessage() + "\"";
         int etoiles = getItem(position).getEtoiles();
+
+        this.getUsersInfo(Integer.parseInt(pseudo));
 
         final View result;
 
@@ -80,6 +93,7 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
             holder.etoile3 = convertView.findViewById(R.id.stars3);
             holder.etoile4 = convertView.findViewById(R.id.stars4);
             holder.etoile5 = convertView.findViewById(R.id.stars5);
+            holder.imageUser = convertView.findViewById(R.id.commentaryadapter_imageview);
 
             result = convertView;
 
@@ -90,8 +104,14 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
             result = convertView;
         }
 
-        holder.pseudo.setText(pseudo);
-        holder.message.setText(message);
+        try {
+            System.out.println(userInfos);
+            holder.pseudo.setText(userInfos.getString("pseudo"));
+            holder.message.setText(message);
+            holder.imageUser.setImageBitmap(getBitmapFromBase64(userInfos.getString("image")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         if(etoiles == 0){
             holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
@@ -154,5 +174,27 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         return decodedByte;
+    }
+
+    public void getUsersInfo(int code){
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/utilisateur/" + code;
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            userInfos = new JSONObject(String.valueOf(buffer));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

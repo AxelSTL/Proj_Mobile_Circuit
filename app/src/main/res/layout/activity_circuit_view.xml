@@ -216,7 +216,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/stars1_circuitView" />
 
             <ListView
-                android:id="@+id/listView_commentary"
+                android:id="@+id/listView_commentary_moncompte"
                 android:layout_width="410dp"
                 android:layout_height="252dp"
                 android:layout_marginStart="1dp"
@@ -234,7 +234,7 @@
                 android:layout_marginEnd="1dp"
                 android:layout_marginBottom="39dp"
                 android:text="Ajouter un avis"
-                app:layout_constraintBottom_toTopOf="@+id/listView_commentary"
+                app:layout_constraintBottom_toTopOf="@+id/listView_commentary_moncompte"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +28,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.book2run.LoginActivity;
 import com.example.book2run.MainActivity;
 import com.example.book2run.R;
+import com.example.book2run.adapters.ListCommentaryAdapter;
 import com.example.book2run.adapters.ListViewCircuitRecycler;
 import com.example.book2run.adapters.RecyclerViewCircuit;
 import com.example.book2run.databinding.FragmentNotificationsBinding;
 import com.example.book2run.model.Circuit;
 import com.example.book2run.ui.addcircuit.AddNameActivity;
+import com.example.book2run.model.Commentary;
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
 
@@ -54,11 +57,12 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
     private FragmentNotificationsBinding binding;
     private AppCompatButton deconnexion;
     private LoginRepository user;
-    JSONArray reservationList, ownCircuitList;
+    JSONArray reservationList, ownCircuitList, avis;
     Circuit[] circuitsReservation, circuitsOwn;
     RecyclerView recyclerViewReservation, recyclerViewCircuits;
     TextView myResTxtView, myCircuitTxtView, nomUtilisateurTxtView, utilisateurRateTxtView, nbCircuitsTextView, nbAvisTextView;
-    ImageView avatarImageView, stars1,stars2,stars3,stars4,stars5;;
+    ImageView avatarImageView, stars1,stars2,stars3,stars4,stars5;
+    ListView listViewCommentary;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -98,6 +102,8 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         ImageButton addCircuitBtn = root.findViewById(R.id.addCircuit_btn);
         addCircuitBtn.setOnClickListener(this);
 
+        listViewCommentary = root.findViewById(R.id.listView_commentary_moncompte);
+
         if(user.isLoggedIn()){
             deconnexion.setVisibility(View.VISIBLE);
 
@@ -114,6 +120,15 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
 
             // user infos
             getUserInfos(user.code);
+
+            avis = loadUtilisateurAvis(user.code);
+            if (avis.length() > 0) {
+                try {
+                    loadListViewAvis();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
         } else {
             deconnexion.setVisibility(View.INVISIBLE);
@@ -420,6 +435,32 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         return circuit;
     }
 
+    public JSONArray loadUtilisateurAvis(int code){
+        JSONArray avis = new JSONArray();
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/avis?user=" + code;
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            Log.i("bufferAvis", buffer.toString());
+            avis = new JSONArray(buffer.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return avis;
+    }
+
 
     public void loadRecyclerViewReservation(Circuit[] circuits){
         List<Circuit> circuitList = new ArrayList<>();
@@ -443,6 +484,23 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         ListViewCircuitRecycler adapter;
         adapter = new ListViewCircuitRecycler(getContext(), circuitList, true);
         recyclerViewCircuits.setAdapter(adapter);
+    }
+
+    public void loadListViewAvis() throws JSONException {
+        Commentary[] commentarys = new Commentary[avis.length()];
+        for(int i = 0; i < avis.length(); i++){
+            commentarys[i] = new Commentary(avis.getJSONObject(i).getString("codeUtilisateur"),
+                    avis.getJSONObject(i).getInt("etoiles"),
+                    avis.getJSONObject(i).getString("message"));
+        }
+        ArrayList<Commentary> commentaryArrayList = new ArrayList<>();
+        for(int i = 0; i < commentarys.length; i++){
+            commentaryArrayList.add(new Commentary(commentarys[i].getNom(), commentarys[i].getEtoiles(), commentarys[i].getMessage()));
+        }
+
+
+        ListCommentaryAdapter adapter = new ListCommentaryAdapter(getActivity(), R.layout.adaptercommentary_view, commentaryArrayList);
+        listViewCommentary.setAdapter(adapter);
     }
 
     public void getUser() {}
