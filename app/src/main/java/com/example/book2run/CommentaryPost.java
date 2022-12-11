@@ -2,6 +2,7 @@ package com.example.book2run;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.book2run.model.Circuit;
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
 
@@ -115,7 +117,11 @@ public class CommentaryPost extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(getApplicationContext(), "Saissisez un avis svp", Toast.LENGTH_LONG).show();
                 } else{
                     postCommentary();
-                    onBackPressed();
+                    Intent intent = new Intent(getApplicationContext(), CircuitViewActivity.class);
+                    intent.putExtra("code", circuitCode);
+                    intent.putExtra("isResa", true);
+                    intent.putExtra("isResa", true);
+                    startActivity(intent);
                 }
         }
 

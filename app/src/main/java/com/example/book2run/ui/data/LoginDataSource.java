@@ -111,6 +111,7 @@ public class LoginDataSource {
         user.mail = userFromPost.getString("email");
         user.lastName = userFromPost.getString("nom");
         user.username = userFromPost.getString("prenom");
+        user.image = userFromPost.getString("image");
         prenom = user.username;
         //Log.i("L'utilisateur existe ? ", buffer.toString());
         if(buffer.toString().equals("true")){

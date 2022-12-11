@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
@@ -19,15 +20,28 @@ import com.example.book2run.ui.dashboard.DashboardFragment;
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class AddNameActivity extends AppCompatActivity {
     ImageButton validate;
 
     private ImageButton arrowBack;
     EditText name, description, adresse, codePostal, city, price;
+    boolean isModify = false;
+    int codeCircuit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_name);
+
+
 
         // Cacher le bouton login
         ImageView login = findViewById(R.id.loginToolbar);
@@ -54,7 +68,12 @@ public class AddNameActivity extends AppCompatActivity {
         codePostal = findViewById(R.id.addcircuitPostal_input);
         city = findViewById(R.id.addcircuitCity_input);
         price = findViewById(R.id.addcircuitPrice_input);
-
+        Intent intent = getIntent();
+        isModify = intent.getBooleanExtra("isModify", false);
+        if (isModify){
+            codeCircuit = intent.getIntExtra("code", 0);
+            getCircuit(codeCircuit);
+        }
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +86,10 @@ public class AddNameActivity extends AppCompatActivity {
                     intent.putExtra("codePostal", codePostal.getText().toString());
                     intent.putExtra("city", city.getText().toString());
                     intent.putExtra("price", price.getText().toString());
-
+                    if(isModify){
+                        intent.putExtra("isModify", true);
+                        intent.putExtra("code",codeCircuit);
+                    }
 
 
                     startActivity(intent);
@@ -76,5 +98,37 @@ public class AddNameActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void getCircuit(int code){
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/circuits/" + code;
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            Log.i("Circuit a modifier ", buffer.toString());
+
+            JSONObject circuit = new JSONObject(buffer.toString());
+            name.setText(circuit.getString("nom").toString());
+            description.setText(circuit.getString("description"));
+            adresse.setText(circuit.getString("adresse"));
+            codePostal.setText(circuit.getJSONObject("ville").get("codePostal").toString());
+            city.setText(circuit.getJSONObject("ville").getString("nom"));
+            price.setText(circuit.getString("tarif"));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

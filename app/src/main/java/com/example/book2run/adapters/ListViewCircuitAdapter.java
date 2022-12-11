@@ -42,6 +42,7 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
         TextView adresse;
         ImageView image;
         TextView prix;
+        ImageView fav;
     }
 
     /**
@@ -69,6 +70,7 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
         String codePostal = String.valueOf(getItem(position).getCodePostal());
         String mainImage = getItem(position).getMainImg();
         String prix = String.valueOf(getItem(position).getPrice());
+        Boolean fav = getItem(position).isFav();
 
         /*String img2Url = getItem(position).getImage1();
         String img3Url = getItem(position).getImage1();
@@ -91,7 +93,10 @@ public class ListViewCircuitAdapter extends ArrayAdapter<Circuit> {
             holder.ville = (TextView) convertView.findViewById(R.id.ville_adapter_circuit);
             holder.codePostal = (TextView) convertView.findViewById(R.id.codepostal_adapter_circuit);
             holder.image = (ImageView) convertView.findViewById(R.id.image_adapter);
-
+            holder.fav = (ImageView) convertView.findViewById(R.id.fav_adaptercircuit);
+            if(!fav){
+                holder.fav.setVisibility(View.INVISIBLE);
+            }
             holder.prix = (TextView) convertView.findViewById(R.id.prix_adapter_circuit);
 
             result = convertView;

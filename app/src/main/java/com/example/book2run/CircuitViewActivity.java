@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Base64;
 import android.util.Log;
@@ -34,14 +35,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CircuitViewActivity extends AppCompatActivity {
 
@@ -59,7 +69,13 @@ public class CircuitViewActivity extends AppCompatActivity {
     AppCompatButton postCommentary;
     ListView listViewCommentary;
     ImageView etoile1, etoile2, etoile3, etoile4, etoile5;
+    ImageView favImage;
+    Runnable runnable;
     int etoilesTot = 0;
+    float prix = 0;
+    int numberImage = 0;
+    boolean isFavorite = false;
+    int codeFavoris;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -70,8 +86,12 @@ public class CircuitViewActivity extends AppCompatActivity {
 
         // Cacher le bouton login
         login = findViewById(R.id.loginToolbar);
+        favImage = findViewById(R.id.fav_imageView_circuitView);
         if (user.isLoggedIn()) {
             login.setVisibility(View.INVISIBLE);
+
+        } else {
+            favImage.setVisibility(View.INVISIBLE);
         }
 
         // Gestion flèche retour
@@ -89,8 +109,6 @@ public class CircuitViewActivity extends AppCompatActivity {
         isResa = Boolean.parseBoolean(intent.getStringExtra("resa"));
 
         listViewCommentary = findViewById(R.id.listView_commentary);
-
-
         postCommentary = findViewById(R.id.post_avis);
         nom = findViewById(R.id.circuitviewName_view);
         desc = findViewById(R.id.circuitviewDescrption_view);
@@ -109,7 +127,7 @@ public class CircuitViewActivity extends AppCompatActivity {
 
         circuit = loadCircuitValues(code);
         avis = loadCircuitAvis(code);
-        if(avis.length() > 0){
+        if (avis.length() > 0) {
             try {
                 loadListViewAvis();
             } catch (JSONException e) {
@@ -125,10 +143,11 @@ public class CircuitViewActivity extends AppCompatActivity {
             ville.setText(circuit.getJSONObject("ville").getString("nom"));
             postal.setText(circuit.getJSONObject("ville").getString("codePostal"));
             pseudo.setText("avec comme propriétaire " + circuit.getJSONObject("utilisateur").getString("pseudo"));
-            if(isResa){
+            if (isResa) {
                 price.setText(intent.getStringExtra("prixResa"));
             } else {
-                price.setText(circuit.getString("tarif"));
+                prix = Float.parseFloat(circuit.getString("tarif"));
+                price.setText(circuit.getString("tarif") + "€/Jours");
             }
 
             // + "€" (dans price)
@@ -144,12 +163,12 @@ public class CircuitViewActivity extends AppCompatActivity {
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(user.isLoggedIn()){
+                if (user.isLoggedIn()) {
                     Intent intent = new Intent(getApplicationContext(), ReserveActivity.class);
                     intent.putExtra("nom", nom.getText());
                     intent.putExtra("code", code);
-                    float tarif = Float.parseFloat(price.getText().toString());
-                    intent.putExtra("tarif", tarif);
+                    //float tarif = Float.parseFloat(price.getText().toString());
+                    intent.putExtra("tarif", prix);
 //                    String tarif = (String.valueOf(price.getText()));
 //                    intent.putExtra("tarif", tarif);
                     startActivity(intent);
@@ -176,11 +195,131 @@ public class CircuitViewActivity extends AppCompatActivity {
             }
         });
 
-        if(isMine || isResa){
+        if (isMine || isResa) {
             validate.setVisibility(View.INVISIBLE);
         } else {
             postCommentary.setVisibility(View.INVISIBLE);
         }
+
+
+        ArrayList<String> imageList = new ArrayList<>();
+        //numberImage = images.length();
+        System.out.println(images.length());
+        for (int i = 0; i < images.length(); i++) {
+            try {
+                imageList.add(images.getJSONObject(i).getString("lien"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if(images.length() > 1) {
+            Handler handler = new Handler();
+            handler.postDelayed(runnable = new Runnable() {
+                public void run() {
+                    if (images.length() == 2) {
+                        try {
+                            int relative = 0;
+                            if(numberImage == 0){
+                                image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(0).getString("lien")));
+                                relative = 1;
+                            }
+                            if(numberImage == 1){
+                                image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(1).getString("lien")));
+                                relative = 0;
+                            }
+                            numberImage = relative;
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (images.length() == 3) {
+                        int relative = 0;
+                        try {
+                            if(numberImage == 0){
+                                image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(0).getString("lien")));
+                                relative = 1;
+                            }
+                            if(numberImage == 1){
+                                image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(1).getString("lien")));
+                                relative = 2;
+                            }
+                            if(numberImage == 2){
+                                image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(2).getString("lien")));
+                                relative = 0;
+                            }
+                            numberImage = relative;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    if (images.length() == 4) {
+                        try {
+                            int relative = 0;
+                            if(numberImage == 0){
+                                image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(0).getString("lien")));
+                                relative = 1;
+                            }
+                            if(numberImage == 1){
+                                image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(1).getString("lien")));
+                                relative = 2;
+                            }
+                            if(numberImage == 2){
+                                image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(2).getString("lien")));
+                                relative = 3;
+                            }
+                            if(numberImage == 3){
+                                image.setImageBitmap(getBitmapFromBase64(images.getJSONObject(3).getString("lien")));
+                                relative = 0;
+                            }
+                            numberImage = relative;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    handler.postDelayed(runnable, 3000);
+                    //your method
+                }
+            }, 3000);
+        }
+        super.onResume();
+        isFavorite = getIsFavCircuit(code);
+        if(isFavorite){
+            favImage.setBackground(getResources().getDrawable(R.drawable.ic_fav));
+        } else{
+            favImage.setBackground(getResources().getDrawable(R.drawable.ic_unfav));
+        }
+       // getIsFavCircuit();
+        favImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isFavorite){
+                    favImage.setBackground(getResources().getDrawable(R.drawable.ic_fav));
+                    try {
+                        postFavorisCircuit(code);
+                        System.out.println("Circuit en fav");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    isFavorite= false;
+                } else{
+                    favImage.setBackground(getResources().getDrawable(R.drawable.ic_unfav));
+                    isFavorite = true;
+                    try {
+                        postDeleteFavorisCircuit(codeFavoris);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        });
+
     }
 
     public JSONObject loadCircuitValues(int code){
@@ -188,7 +327,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.169:8180/circuits/" + code;
+            String requestURL = "http://10.0.2.2:8180/circuits/" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -214,7 +353,7 @@ public class CircuitViewActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://192.168.2.169:8180/images?code=" + idCircuit;
+            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -243,7 +382,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.169:8180/avis/" + code;
+            String requestURL = "http://10.0.2.2:8180/avis/" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -262,6 +401,106 @@ public class CircuitViewActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return avis;
+    }
+
+    public boolean getIsFavCircuit(int code){
+        boolean isFavorite = false;
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/favoris/check?codeUtilisateur=" + user.code + "&codeCircuit=" + code;
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            System.out.println("buffer de is favoris " + buffer.toString());
+            System.out.println(buffer.toString().isBlank());
+            if(!buffer.toString().isBlank()){
+                codeFavoris = Integer.parseInt(buffer.toString());
+                isFavorite = true;
+            }
+            //avis = new JSONArray(buffer.toString());
+            //isFavorite = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    return isFavorite;
+    }
+
+
+    public void postFavorisCircuit(int code) throws IOException, JSONException {
+        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(gfgPolicy);
+        String requestURL = "http://10.0.2.2:8180/favoris";
+        URL url = new URL(requestURL);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.connect();
+        OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
+
+        JSONObject favoris = new JSONObject();
+
+        favoris.put("codeUtilisateur", user.code);
+        favoris.put("codeCircuit", code);
+        Log.i("favoris",favoris.toString());
+        writer.write(favoris.toString());
+        writer.flush();
+        writer.close();
+
+        InputStream stream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        StringBuffer buffer = new StringBuffer();
+        String line = "";
+
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
+
+    }
+
+
+    public void postDeleteFavorisCircuit(int code) throws IOException, JSONException {
+        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(gfgPolicy);
+        String requestURL = "http://10.0.2.2:8180/favoris";
+        URL url = new URL(requestURL);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("DELETE");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.connect();
+        OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
+
+        JSONObject favoris = new JSONObject();
+        favoris.put("code", code);
+
+        Log.i("favoris",favoris.toString());
+        writer.write(favoris.toString());
+        writer.flush();
+        writer.close();
+
+        InputStream stream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        StringBuffer buffer = new StringBuffer();
+        String line = "";
+
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
+
+    }
+
+    public void getFavoris(){
+
     }
 
 
