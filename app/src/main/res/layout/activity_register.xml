@@ -29,10 +29,10 @@
                 android:layout_marginTop="70dp"
                 android:text="Formulaire d'inscription"
                 android:textSize="16sp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:background="@drawable/arround_corners_indigo"/>
+                android:background="@drawable/border_black"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,9 +48,9 @@
                     android:layout_marginEnd="10dp"
                     android:hint="Nom"
                     android:textColorHint="@color/grey"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
-                    android:background="@drawable/arround_corners_cyan">
+                    android:background="@drawable/border_indigo">
 
                 </EditText>
 
@@ -61,9 +61,9 @@
                     android:layout_marginStart="10dp"
                     android:hint="Prénom"
                     android:textColorHint="@color/grey"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
-                    android:background="@drawable/arround_corners_cyan">
+                    android:background="@drawable/border_indigo">
 
                 </EditText>
 
@@ -77,9 +77,9 @@
                 android:layout_gravity="center"
                 android:hint="Mail"
                 android:textColorHint="@color/grey"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAlignment="center"
-                android:background="@drawable/arround_corners_cyan">
+                android:background="@drawable/border_indigo">
 
             </EditText>
 
@@ -98,10 +98,10 @@
                     android:inputType="textPassword"
                     android:hint="Mot de passe"
                     android:textColorHint="@color/grey"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:layout_marginEnd="4dp"
-                    android:background="@drawable/arround_corners_cyan"/>
+                    android:background="@drawable/border_indigo"/>
 
 
                 <EditText
@@ -111,11 +111,11 @@
                     android:ems="10"
                     android:hint="Pseudo"
                     android:textColorHint="@color/grey"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
                     android:inputType="textPersonName"
                     android:layout_marginStart="4dp"
-                    android:background="@drawable/arround_corners_cyan"/>
+                    android:background="@drawable/border_indigo"/>
 
             </LinearLayout>
 
@@ -128,9 +128,9 @@
                 android:layout_gravity="center"
                 android:hint="Téléphone"
                 android:textColorHint="@color/grey"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAlignment="center"
-                android:background="@drawable/arround_corners_cyan">
+                android:background="@drawable/border_indigo">
 
             </EditText>
 
@@ -142,9 +142,9 @@
                 android:layout_gravity="center"
                 android:hint="Adresse"
                 android:textColorHint="@color/grey"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textAlignment="center"
-                android:background="@drawable/arround_corners_cyan">
+                android:background="@drawable/border_indigo">
 
             </EditText>
 
@@ -162,9 +162,9 @@
                     android:layout_marginEnd="4dp"
                     android:hint="Ville"
                     android:textColorHint="@color/grey"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
-                    android:background="@drawable/arround_corners_cyan">
+                    android:background="@drawable/border_indigo">
 
                 </EditText>
 
@@ -175,9 +175,9 @@
                     android:layout_marginStart="4dp"
                     android:hint="Code postal"
                     android:textColorHint="@color/grey"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textAlignment="center"
-                    android:background="@drawable/arround_corners_cyan">
+                    android:background="@drawable/border_indigo">
 
                 </EditText>
 
@@ -191,7 +191,7 @@
                 android:layout_marginTop="40dp"
                 android:text="S'inscrire"
                 android:contentDescription="S'inscrire"
-                android:background="@drawable/arround_button_indigo"
+                android:background="@drawable/arround_button_black"
                 app:srcCompat="@drawable/ic_register"/>
 
         </LinearLayout>

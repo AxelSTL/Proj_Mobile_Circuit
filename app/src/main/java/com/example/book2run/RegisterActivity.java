@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText nom, prenom, tel, adresse, codepostal, email, ville, mdp, pseudo;
     ImageButton validate;
+    ImageButton arrowBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,21 @@ public class RegisterActivity extends AppCompatActivity {
         mdp = findViewById(R.id.mdp_register_txtEdit);
         pseudo = findViewById(R.id.pseudo_register_txtEdit);
 
+
+        // Cacher bouton login
+        ImageView login = findViewById(R.id.loginToolbar);
+        login.setVisibility(View.INVISIBLE);
+
+        // Gestion flèche retour
+        arrowBack = findViewById(R.id.flecheRetour);
+        arrowBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
         validate = findViewById(R.id.validate_register_button);
         validate.setOnClickListener(v -> {
             registerAccount();
@@ -59,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/utilisateur";
+            String requestURL = "http://192.168.2.169:8180/utilisateur";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");

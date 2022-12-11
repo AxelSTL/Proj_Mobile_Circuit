@@ -160,11 +160,10 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
 //DIFFRENCE
                 long diff = dateSeconde.getTime() - dateFirst.getTime();
                 long daysDifference = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-                totalTarif =  tarif * daysDifference;
+                totalTarif =  tarif * (daysDifference + 1);
                 tarifView.setText("Prix total : " + totalTarif + "€");
             }
         });
-
     }
 
     public void onClick(View v) {
@@ -202,7 +201,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
+            String requestURL = "http://192.168.2.169:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -229,7 +228,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/reservation";
+            String requestURL = "http://192.168.2.169:8180/reservation";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");

@@ -20,8 +20,6 @@ public class LoginActivity extends AppCompatActivity {
 
     //private com.example.book2run.databinding.FragmentLoginBinding binding;
 
-    private ImageButton arrowBack;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
