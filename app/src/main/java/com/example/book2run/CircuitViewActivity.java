@@ -75,6 +75,7 @@ public class CircuitViewActivity extends AppCompatActivity {
     float prix = 0;
     int numberImage = 0;
     boolean isFavorite = false;
+    int codeFavoris;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -283,7 +284,7 @@ public class CircuitViewActivity extends AppCompatActivity {
             }, 3000);
         }
         super.onResume();
-        isFavorite = getIsFavCircuit();
+        isFavorite = getIsFavCircuit(code);
         if(isFavorite){
             favImage.setBackground(getResources().getDrawable(R.drawable.ic_fav));
         } else{
@@ -293,7 +294,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         favImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isFavorite){
+                if(!isFavorite){
                     favImage.setBackground(getResources().getDrawable(R.drawable.ic_fav));
                     try {
                         postFavorisCircuit(code);
@@ -307,7 +308,13 @@ public class CircuitViewActivity extends AppCompatActivity {
                 } else{
                     favImage.setBackground(getResources().getDrawable(R.drawable.ic_unfav));
                     isFavorite = true;
-                    postDeleteFavorisCircuit(code);
+                    try {
+                        postDeleteFavorisCircuit(codeFavoris);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -396,12 +403,12 @@ public class CircuitViewActivity extends AppCompatActivity {
         return avis;
     }
 
-    public boolean getIsFavCircuit(){
+    public boolean getIsFavCircuit(int code){
         boolean isFavorite = false;
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/favoris/" + user.code;
+            String requestURL = "http://10.0.2.2:8180/favoris/check?codeUtilisateur=" + user.code + "&codeCircuit=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -413,9 +420,14 @@ public class CircuitViewActivity extends AppCompatActivity {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            Log.i("bufferAvis", buffer.toString());
-            avis = new JSONArray(buffer.toString());
-            isFavorite = true;
+            System.out.println("buffer de is favoris " + buffer.toString());
+            System.out.println(buffer.toString().isBlank());
+            if(!buffer.toString().isBlank()){
+                codeFavoris = Integer.parseInt(buffer.toString());
+                isFavorite = true;
+            }
+            //avis = new JSONArray(buffer.toString());
+            //isFavorite = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -436,9 +448,9 @@ public class CircuitViewActivity extends AppCompatActivity {
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
 
         JSONObject favoris = new JSONObject();
+
         favoris.put("codeUtilisateur", user.code);
         favoris.put("codeCircuit", code);
-
         Log.i("favoris",favoris.toString());
         writer.write(favoris.toString());
         writer.flush();
@@ -456,7 +468,34 @@ public class CircuitViewActivity extends AppCompatActivity {
     }
 
 
-    public void postDeleteFavorisCircuit(int code){
+    public void postDeleteFavorisCircuit(int code) throws IOException, JSONException {
+        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(gfgPolicy);
+        String requestURL = "http://10.0.2.2:8180/favoris";
+        URL url = new URL(requestURL);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("DELETE");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.connect();
+        OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
+
+        JSONObject favoris = new JSONObject();
+        favoris.put("code", code);
+
+        Log.i("favoris",favoris.toString());
+        writer.write(favoris.toString());
+        writer.flush();
+        writer.close();
+
+        InputStream stream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        StringBuffer buffer = new StringBuffer();
+        String line = "";
+
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
 
     }
 

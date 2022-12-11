@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.book2run.CircuitViewActivity;
 import com.example.book2run.LoginActivity;
+import com.example.book2run.MainActivity;
 import com.example.book2run.R;
 import com.example.book2run.adapters.ListViewCircuitAdapter;
 import com.example.book2run.databinding.FragmentDashboardBinding;
@@ -37,13 +38,20 @@ import com.example.book2run.ui.data.LoginRepository;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener {
@@ -85,7 +93,15 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                                             public void onClick(DialogInterface dialog, int whichButton) {
-                                                deleteCircuit(circuits[position].getCode());
+                                                try {
+                                                    deleteCircuit(circuits[position].getCode());
+                                                    Intent intentDelete = new Intent(getActivity(), MainActivity.class);
+                                                    startActivity(intentDelete);
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
                                             }})
                                         .setNegativeButton(android.R.string.no, null).show();
                                 break;
@@ -232,8 +248,34 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
 
-    public void deleteCircuit(int code){
-//TODO faire le post delete circuit
+    public void deleteCircuit(int code) throws IOException, JSONException {
+        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(gfgPolicy);
+        String requestURL = "http://10.0.2.2:8180/circuits";
+        URL url = new URL(requestURL);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("DELETE");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.connect();
+        OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
+
+        JSONObject circuitDelete = new JSONObject();
+        circuitDelete.put("code", code);
+
+        Log.i("circuitDelete",circuitDelete.toString());
+        writer.write(circuitDelete.toString());
+        writer.flush();
+        writer.close();
+
+        InputStream stream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        StringBuffer buffer = new StringBuffer();
+        String line = "";
+
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
 
     }
 
