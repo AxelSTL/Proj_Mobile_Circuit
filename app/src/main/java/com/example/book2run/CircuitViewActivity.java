@@ -35,13 +35,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -82,6 +88,8 @@ public class CircuitViewActivity extends AppCompatActivity {
         favImage = findViewById(R.id.fav_imageView_circuitView);
         if (user.isLoggedIn()) {
             login.setVisibility(View.INVISIBLE);
+
+        } else {
             favImage.setVisibility(View.INVISIBLE);
         }
 
@@ -275,22 +283,31 @@ public class CircuitViewActivity extends AppCompatActivity {
             }, 3000);
         }
         super.onResume();
-
+        isFavorite = getIsFavCircuit();
         if(isFavorite){
             favImage.setBackground(getResources().getDrawable(R.drawable.ic_fav));
         } else{
             favImage.setBackground(getResources().getDrawable(R.drawable.ic_unfav));
         }
-        getIsFavCircuit(code);
+       // getIsFavCircuit();
         favImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isFavorite){
                     favImage.setBackground(getResources().getDrawable(R.drawable.ic_fav));
+                    try {
+                        postFavorisCircuit(code);
+                        System.out.println("Circuit en fav");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     isFavorite= false;
                 } else{
                     favImage.setBackground(getResources().getDrawable(R.drawable.ic_unfav));
                     isFavorite = true;
+                    postDeleteFavorisCircuit(code);
                 }
 
             }
@@ -379,12 +396,12 @@ public class CircuitViewActivity extends AppCompatActivity {
         return avis;
     }
 
-    public void getIsFavCircuit(int code){
-        JSONArray favorite = new JSONArray();
+    public boolean getIsFavCircuit(){
+        boolean isFavorite = false;
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/avis/" + code;
+            String requestURL = "http://10.0.2.2:8180/favoris/" + user.code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -398,10 +415,52 @@ public class CircuitViewActivity extends AppCompatActivity {
             }
             Log.i("bufferAvis", buffer.toString());
             avis = new JSONArray(buffer.toString());
-
+            isFavorite = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+    return isFavorite;
+    }
+
+
+    public void postFavorisCircuit(int code) throws IOException, JSONException {
+        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(gfgPolicy);
+        String requestURL = "http://10.0.2.2:8180/favoris";
+        URL url = new URL(requestURL);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.connect();
+        OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
+
+        JSONObject favoris = new JSONObject();
+        favoris.put("codeUtilisateur", user.code);
+        favoris.put("codeCircuit", code);
+
+        Log.i("favoris",favoris.toString());
+        writer.write(favoris.toString());
+        writer.flush();
+        writer.close();
+
+        InputStream stream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        StringBuffer buffer = new StringBuffer();
+        String line = "";
+
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
+
+    }
+
+
+    public void postDeleteFavorisCircuit(int code){
+
+    }
+
+    public void getFavoris(){
 
     }
 

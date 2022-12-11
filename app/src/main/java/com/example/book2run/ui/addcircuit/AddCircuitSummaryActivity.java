@@ -51,10 +51,11 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     Button validate;
     private ImageButton arrowBack;
     LoginRepository user;
-
     int indexImage = 0;
-
     int idCircuit = 0;
+    boolean isModify = false;
+    int codeCircuit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,10 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         image3 = intent.getStringExtra("image3");
         image4 = intent.getStringExtra("image4");
         price = intent.getStringExtra("price");
+        isModify = intent.getBooleanExtra("isModify", false);
+        if (isModify){
+            codeCircuit = intent.getIntExtra("code", 0);
+        }
         Log.i("name", this.name);
 
         // Cacher bouton login
@@ -237,6 +242,10 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         JSONObject utilisateur = new JSONObject();
         // TODO : à changer
         utilisateur.put("code", user.code);
+        System.out.println("isModif est egale a " + isModify);
+            if(isModify){
+            circuitDetails.put("code", codeCircuit);
+        }
 
 
         ville.put("departement", departement);

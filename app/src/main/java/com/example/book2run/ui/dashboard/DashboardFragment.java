@@ -54,6 +54,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private LoginRepository user = LoginRepository.getInstance(new LoginDataSource());
     Circuit[] circuits;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -89,6 +90,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                                         .setNegativeButton(android.R.string.no, null).show();
                                 break;
                             case R.id.modifyCircuit:
+                                Intent intentModify = new Intent(getActivity(), AddNameActivity.class);
+                                intentModify.putExtra("code",circuits[position].getCode());
+                                intentModify.putExtra("isModify", true);
+                                startActivity(intentModify);
                                 break;
                             case R.id.seeCircuit:
                                 Intent intent = new Intent(getActivity(), CircuitViewActivity.class);
