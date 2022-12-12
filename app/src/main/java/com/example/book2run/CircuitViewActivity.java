@@ -91,7 +91,9 @@ public class CircuitViewActivity extends AppCompatActivity {
         arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -277,6 +279,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         }
         super.onResume();
         isFavorite = getIsFavCircuit(code);
+        System.out.println("Is fav est a " + isFavorite);
         if(isFavorite){
             favImage.setBackground(getResources().getDrawable(R.drawable.ic_fav));
         } else{
