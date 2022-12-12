@@ -166,7 +166,7 @@
                 android:id="@+id/stars1_circuitView"
                 android:layout_width="46dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_baseline_star_rate_24"
+                android:background="@drawable/ic_star_vide"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -177,7 +177,7 @@
                 android:layout_width="46dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="1dp"
-                android:background="@drawable/ic_baseline_star_rate_24"
+                android:background="@drawable/ic_star_vide"
                 app:layout_constraintStart_toEndOf="@+id/stars1_circuitView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -185,7 +185,7 @@
                 android:id="@+id/stars4_circuitView"
                 android:layout_width="46dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_baseline_star_rate_24"
+                android:background="@drawable/ic_star_vide"
                 app:layout_constraintStart_toEndOf="@+id/stars3_circuitView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -193,7 +193,7 @@
                 android:id="@+id/stars5_circuitView"
                 android:layout_width="46dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_baseline_star_rate_24"
+                android:background="@drawable/ic_star_vide"
                 app:layout_constraintStart_toEndOf="@+id/stars4_circuitView"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -201,7 +201,7 @@
                 android:id="@+id/stars3_circuitView"
                 android:layout_width="46dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_baseline_star_rate_24"
+                android:background="@drawable/ic_star_vide"
                 app:layout_constraintStart_toEndOf="@+id/stars2_circuitView"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -538,41 +538,71 @@ public class CircuitViewActivity extends AppCompatActivity {
             etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
         }
         if(etoileMoyenne >= 1){
-            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+
+            etoile1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile2.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+            etoile3.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+            etoile4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+            etoile5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
             etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+
         }
         if(etoileMoyenne >= 2){
-            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile3.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+            etoile4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+            etoile5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+             etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
             etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
 
         }
         if(etoileMoyenne >= 3){
-            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+            etoile5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+             etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
             etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
 
         }
         if(etoileMoyenne >= 4){
-            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile4.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
             etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
         }
         if(etoileMoyenne == 5){
-            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            etoile1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile4.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+            etoile5.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+            etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
         }
     }
 }

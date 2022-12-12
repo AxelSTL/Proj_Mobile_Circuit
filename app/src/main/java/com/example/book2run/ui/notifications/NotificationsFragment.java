@@ -252,6 +252,13 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         System.out.println("---------------------------------- " + rate);
         switch(rate){
             case 1:
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
                 stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
@@ -259,6 +266,14 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 break;
             case 2:
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+
                 stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
@@ -266,6 +281,14 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 break;
             case 3:
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+
                 stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
@@ -273,6 +296,14 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 break;
             case 4:
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+
                 stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
@@ -280,6 +311,12 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 break;
             case 5:
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
                 stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));

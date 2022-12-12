@@ -73,7 +73,14 @@ public class CommentaryPost extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.stars1_PostCommentary:
-                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
@@ -81,35 +88,68 @@ public class CommentaryPost extends AppCompatActivity implements View.OnClickLis
                 etoiles = 1;
                 break;
             case R.id.stars2_PostCommentary:
-                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 etoiles = 2;
                 break;
             case R.id.stars3_PostCommentary:
-                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 etoiles = 3;
                 break;
             case R.id.stars4_PostCommentary:
-                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 etoiles = 4;
                 break;
             case R.id.stars5_PostCommentary:
-                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+                stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 etoiles = 5;
                 break;
             case R.id.validate_postcommentary:
