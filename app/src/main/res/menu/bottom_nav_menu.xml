@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_search_white"
         android:title="@string/title_recherche" />
 
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_circuit"
-        android:title="@string/title_circuit" />
+        android:title="@string/mesCircuitsFav" />
 
     <item
         android:id="@+id/navigation_notifications"

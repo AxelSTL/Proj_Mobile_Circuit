@@ -42,6 +42,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 public class AddCircuitSummaryActivity extends AppCompatActivity implements View.OnClickListener{
     String name, description, adresse, codePostal, city, price, image1, image2, image3, image4;
@@ -50,10 +51,11 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     Button validate;
     private ImageButton arrowBack;
     LoginRepository user;
-
     int indexImage = 0;
-
     int idCircuit = 0;
+    boolean isModify = false;
+    int codeCircuit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,10 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         image3 = intent.getStringExtra("image3");
         image4 = intent.getStringExtra("image4");
         price = intent.getStringExtra("price");
+        isModify = intent.getBooleanExtra("isModify", false);
+        if (isModify){
+            codeCircuit = intent.getIntExtra("code", 0);
+        }
         Log.i("name", this.name);
 
         // Cacher bouton login
@@ -179,7 +185,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.118:8180/circuits";
+            String requestURL = "http://10.0.2.2:8180/circuits";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -222,7 +228,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public JSONObject jSonConstructorCircuit() throws JSONException {;
         JSONObject circuitDetails = new JSONObject();
 
-        circuitDetails.put("nom", name);
+        circuitDetails.put("nom", name.toLowerCase(Locale.ROOT));
         circuitDetails.put("adresse", this.adresse);
         circuitDetails.put("description", this.description);
         circuitDetails.put("tarif", price);
@@ -236,6 +242,10 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
         JSONObject utilisateur = new JSONObject();
         // TODO : à changer
         utilisateur.put("code", user.code);
+        System.out.println("isModif est egale a " + isModify);
+            if(isModify){
+            circuitDetails.put("code", codeCircuit);
+        }
 
 
         ville.put("departement", departement);
@@ -251,7 +261,7 @@ public class AddCircuitSummaryActivity extends AppCompatActivity implements View
     public void postImageCircuit() throws IOException, JSONException {
         StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://192.168.2.118:8180/images";
+        String requestURL = "http://10.0.2.2:8180/images";
         URL url = new URL(requestURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");

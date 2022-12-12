@@ -61,7 +61,7 @@ public class LoginDataSource {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.118:8180/login?user=" + username + "&mdp=" + password;
+            String requestURL = "http://10.0.2.2:8180/login?user=" + username + "&mdp=" + password;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -92,7 +92,7 @@ public class LoginDataSource {
         try {
         StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://192.168.2.118:8180/utilisateur?user=" + username;
+        String requestURL = "http://10.0.2.2:8180/utilisateur?user=" + username;
         URL url = new URL(requestURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.connect();
@@ -111,6 +111,7 @@ public class LoginDataSource {
         user.mail = userFromPost.getString("email");
         user.lastName = userFromPost.getString("nom");
         user.username = userFromPost.getString("prenom");
+        user.image = userFromPost.getString("image");
         prenom = user.username;
         //Log.i("L'utilisateur existe ? ", buffer.toString());
         if(buffer.toString().equals("true")){

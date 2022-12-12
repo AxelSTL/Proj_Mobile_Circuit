@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:weightSum="100">
 
     <LinearLayout
@@ -13,26 +13,54 @@
 
         <ImageView
             android:id="@+id/image_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="144dp" />
+            android:layout_width="145dp"
+            android:layout_height="137dp" />
 
         <TextView
             android:id="@+id/name_recycler"
             android:layout_width="match_parent"
-            android:layout_height="41dp"
-            android:text="Nom" />
+            android:layout_height="25dp"
+            android:gravity="bottom|center|start"
+            android:paddingStart="5dp"
+            android:paddingEnd="2dp"
+            android:text="@string/nomAnnonce"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/date_recycler"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="date" />
+            android:layout_height="30dp"
+            android:gravity="start|center"
+            android:paddingStart="5dp"
+            android:paddingEnd="2dp"
+            android:text="date"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/prix_recycler"
             android:layout_width="match_parent"
-            android:layout_height="34dp"
-            android:text="prix" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:gravity="center|top|start"
+            android:paddingStart="5dp"
+            android:paddingEnd="2dp"
+            android:text="prix"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
 
+        <TextView
+            android:id="@+id/code_txtview"
+            android:layout_width="match_parent"
+            android:layout_height="3dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/codeResa_txtview"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
+
+    </LinearLayout>
 </LinearLayout>

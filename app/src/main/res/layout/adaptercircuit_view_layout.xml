@@ -65,7 +65,14 @@
              android:gravity="center|start"
              android:text="@string/prix"
              android:textColor="@color/black"
-             android:textSize="16sp"             />
+             android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/fav_adaptercircuit"
+            android:layout_width="53dp"
+            android:layout_height="44dp"
+            android:layout_gravity="end"
+            android:background="@drawable/ic_fav"></ImageView>
 
     </LinearLayout>
 </LinearLayout>

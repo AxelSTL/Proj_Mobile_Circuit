@@ -1,14 +1,21 @@
 package com.example.book2run;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +23,7 @@ import org.json.JSONObject;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,9 +35,11 @@ import java.nio.charset.StandardCharsets;
 
 
 public class RegisterActivity extends AppCompatActivity {
-
+    private static final int RESULT_LOAD_IMAGE = 1000;
     EditText nom, prenom, tel, adresse, codepostal, email, ville, mdp, pseudo;
     ImageButton validate;
+    ImageView userImg;
+    String img1ToSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.mail_register_txtEdit);
         ville = findViewById(R.id.ville_register_txtEdit);
         mdp = findViewById(R.id.mdp_register_txtEdit);
+        userImg = findViewById(R.id.image_user);
         pseudo = findViewById(R.id.pseudo_register_txtEdit);
 
         validate = findViewById(R.id.validate_register_button);
@@ -52,6 +63,15 @@ public class RegisterActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         });
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        userImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+
+            }
+        });
     }
 
 
@@ -59,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://192.168.2.118:8180/utilisateur";
+            String requestURL = "http://10.0.2.2:8180/utilisateur";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -98,7 +118,8 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("email", email.getText());
         user.put("telephone", tel.getText());
         user.put("adresse", adresse.getText());
-
+        userImg.buildDrawingCache();
+        user.put("image", getEncoded64ImageStringFromBitmap(userImg.getDrawingCache()));
         JSONObject ville = new JSONObject();
 
         ville.put("codePostal", codepostal.getText());
@@ -107,4 +128,25 @@ public class RegisterActivity extends AppCompatActivity {
         return user;
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null){
+            Uri image = data.getData();
+            userImg.setImageURI(image);
+            }
+        }
+
+    public String getEncoded64ImageStringFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        byte[] byteFormat = stream.toByteArray();
+        // get the base 64 string
+        String imgString = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
+        Log.i("ImageToBase62", imgString);
+        return imgString;
+    }
+
+
 }
