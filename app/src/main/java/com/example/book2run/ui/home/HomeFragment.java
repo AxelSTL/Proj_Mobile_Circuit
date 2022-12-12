@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +34,8 @@ import com.example.book2run.adapters.ListViewCircuitRecycler;
 import com.example.book2run.adapters.RecyclerViewCircuit;
 import com.example.book2run.databinding.FragmentHomeBinding;
 import com.example.book2run.model.Circuit;
+import com.example.book2run.ui.data.LoginDataSource;
+import com.example.book2run.ui.data.LoginRepository;
 import com.google.android.material.slider.Slider;
 
 import org.json.JSONArray;
@@ -46,7 +50,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -65,9 +68,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     boolean filterVisible;
     int regionInt = 0;
     JSONArray bestCircuitList;
-    Circuit[] bestCircuits;
-    TextView bestCircuitTxtView;
-    RecyclerView recyclerViewBest;
+    JSONArray regionCircuitsList;
+    Circuit[] bestCircuits, regionCircuits;
+    TextView bestCircuitTxtView, tarifView;
+    RecyclerView recyclerViewBest, recyclerViewRegion;
+    LoginRepository user;
+    SeekBar seekBar;
+    RelativeLayout relativeLayout;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -80,23 +87,36 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         View root = binding.getRoot();
         search = root.findViewById(R.id.searchCircuit_home_input);
         listViewCircuits = root.findViewById(R.id.listView_home);
+
         filterImgView = root.findViewById(R.id.filter_imgView);
-        slider = root.findViewById(R.id.slider_prix);
-        slider.setValue(sliderValue);
+        seekBar = root.findViewById(R.id.seekBar);
         region = root.findViewById(R.id.region_txtView);
-        layoutFilter = root.findViewById(R.id.filter_layout);
-        layoutFilter.setVisibility(View.INVISIBLE);
 
-
-//        bestCircuitTxtView = root.findViewById(R.id.bestCircuits_txtview);
+        user = LoginRepository.getInstance(new LoginDataSource());
 
         recyclerViewBest = root.findViewById(R.id.bestCircuits_recycler);
         recyclerViewBest.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerViewCircuit adapterReservation = new RecyclerViewCircuit(null);
         recyclerViewBest.setAdapter(adapterReservation);
+
+        recyclerViewRegion = root.findViewById(R.id.regionCircuits_recycler); //TODO CHANGE REGIONCIRCUIT
+        recyclerViewRegion.setLayoutManager(new LinearLayoutManager(getActivity()));
+        RecyclerViewCircuit adapterRegion = new RecyclerViewCircuit(null);
+        recyclerViewRegion.setAdapter(adapterRegion);
+
+        relativeLayout = root.findViewById(R.id.relativeLayout);
+
         // reservations
         getBestCircuits();
         setBestCircuits();
+
+        tarifView = root.findViewById(R.id.tarifView);
+        tarifView.setText("Inférieur à 3500 €");
+        seekBar.setProgress(3500);
+        if(user.isLoggedIn()) {
+            getCircuitsAround(user.code);
+            setRegionCircuits();
+        }
 
         listViewCircuits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -124,16 +144,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     filterImgView.setBackground(getResources().getDrawable(R.drawable.ic_filter));
                     filterVisible = false;
                 }
-                System.out.println("defefefe");
             }
         });
-
-        slider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
-                sliderValue = slider.getValue();
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tarifView.setText("Inférieur à " + seekBar.getProgress() + " €");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
                 boolean isExist = searchWithFilter();
                 if(isExist) {
+                    relativeLayout.setVisibility(View.INVISIBLE);
+                    listViewCircuits.setVisibility(View.VISIBLE);
                     circuits = new Circuit[circuitsArray.length()];
                     for (int i = 0; i < circuitsArray.length(); i++) {
                         try {
@@ -154,12 +183,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         }
                     }
                     loadListViewCircuits(circuits);
+                } else if(seekBar.getProgress() == 3500){
+                    System.out.println("non il y arien");
+                    relativeLayout.setVisibility(View.VISIBLE);
+                    listViewCircuits.setVisibility(View.INVISIBLE);
                 }
-            }
-
-            @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-
             }
         });
 
@@ -234,6 +262,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 });
                 boolean isExist = searchWithFilter();
                 if(isExist){
+                    relativeLayout.setVisibility(View.INVISIBLE);
+                    listViewCircuits.setVisibility(View.VISIBLE);
                     circuits = new Circuit[circuitsArray.length()];
                     for (int i = 0; i < circuitsArray.length(); i++) {
                         try {
@@ -278,6 +308,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (start > 1) {
+                    relativeLayout.setVisibility(View.INVISIBLE);
+                    listViewCircuits.setVisibility(View.VISIBLE);
                     if(filterVisible){
                         searchWithFilter();
                     } else {
@@ -304,6 +336,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         }
                     }
                     loadListViewCircuits(circuits);
+                } else {
+                    relativeLayout.setVisibility(View.VISIBLE);
+                    listViewCircuits.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -446,6 +481,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    public void getCircuitsAround(int code){
+        try {
+            StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(gfgPolicy);
+            String requestURL = "http://10.0.2.2:8180/circuits/region/" + code;
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            InputStream stream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer buffer = new StringBuffer();
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+            regionCircuitsList = new JSONArray(buffer.toString());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void setBestCircuits()  {
         if(bestCircuitList.length() > 0 ) {
             this.bestCircuits = new Circuit[bestCircuitList.length()];
@@ -472,6 +529,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    public void setRegionCircuits()  {
+        if(regionCircuitsList.length() > 0 ) {
+            this.regionCircuits = new Circuit[regionCircuitsList.length()];
+            for (int i = 0; i < regionCircuitsList.length(); i++) {
+                try {
+                    String mainImage = getMainImage(regionCircuitsList.getJSONObject(i).getInt("code"));
+                    this.regionCircuits[i] = new Circuit(
+                            regionCircuitsList.getJSONObject(i).getInt("code"),
+                            regionCircuitsList.getJSONObject(i).getString("nom"),
+                            regionCircuitsList.getJSONObject(i).getString("adresse"),
+                            regionCircuitsList.getJSONObject(i).getString("description"),
+                            "",
+                            regionCircuitsList.getJSONObject(i).getInt("tarif"),
+                            "",
+                            "",
+                            0);
+                    this.regionCircuits[i].setMainImg(mainImage);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            loadRecyclerViewRegionCircuit(this.regionCircuits);
+        }
+    }
+
     public void loadRecyclerViewBestCircuit(Circuit[] circuits){
         List<Circuit> circuitList = new ArrayList<>();
         for(int i = 0; i < circuits.length; i++){
@@ -484,6 +567,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         recyclerViewBest.setAdapter(adapter);
     }
 
+    public void loadRecyclerViewRegionCircuit(Circuit[] circuits){
+        List<Circuit> circuitList = new ArrayList<>();
+        for(int i = 0; i < circuits.length; i++){
+            circuitList.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getMainImg(), circuits[i].getPrice(), circuits[i].getDateDebut(),circuits[i].getDateFin(), circuits[i].getCodeResa()));
+        }
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewRegion.setLayoutManager(horizontalLayoutManager);
+        ListViewCircuitRecycler adapter;
+        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true);
+        recyclerViewRegion.setAdapter(adapter);
+    }
 
     private String getMainImage(int codeCircuit){
         String mainImage = null;

@@ -57,7 +57,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
     JSONArray reservationList, ownCircuitList, avis;
     Circuit[] circuitsReservation, circuitsOwn;
     RecyclerView recyclerViewReservation, recyclerViewCircuits;
-    TextView myResTxtView, myCircuitTxtView, nomUtilisateurTxtView, utilisateurRateTxtView, nbCircuitsTextView, nbAvisTextView;
+    TextView myResTxtView, myCircuitTxtView, nomUtilisateurTxtView, utilisateurRateTxtView, nbCircuitsTextView, nbAvisTextView, avisTextView;
     ImageView avatarImageView, stars1,stars2,stars3,stars4,stars5;
     ListView listViewCommentary;
 
@@ -78,6 +78,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         utilisateurRateTxtView = root.findViewById(R.id.utilisateur_rate);
         nbAvisTextView = root.findViewById(R.id.nbAvis_textview);
         nbCircuitsTextView = root.findViewById(R.id.nbCircuits_textview);
+        avisTextView = root.findViewById(R.id.mesAvis_txtview);
 
         avatarImageView = root.findViewById(R.id.avatar_view);
 
@@ -91,13 +92,17 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         recyclerViewReservation.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerViewCircuit adapterReservation = new RecyclerViewCircuit(null);
         recyclerViewReservation.setAdapter(adapterReservation);
+        recyclerViewReservation.setNestedScrollingEnabled(false);
+
 
         recyclerViewCircuits = root.findViewById(R.id.bestCircuits_recycler);
         recyclerViewCircuits.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerViewCircuit adapterCircuits = new RecyclerViewCircuit(null);
         recyclerViewCircuits.setAdapter(adapterCircuits);
+        recyclerViewCircuits.setNestedScrollingEnabled(false);
 
         listViewCommentary = root.findViewById(R.id.listView_commentary_moncompte);
+        listViewCommentary.setNestedScrollingEnabled(false);
 
         if(user.isLoggedIn()){
             deconnexion.setVisibility(View.VISIBLE);
@@ -123,12 +128,26 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            } else {
+                avisTextView.setVisibility(View.GONE);
+                listViewCommentary.setVisibility(View.GONE);
             }
 
         } else {
+
             deconnexion.setVisibility(View.INVISIBLE);
             myResTxtView.setVisibility(View.INVISIBLE);
             myCircuitTxtView.setVisibility(View.INVISIBLE);
+            nomUtilisateurTxtView.setVisibility(View.INVISIBLE);
+            utilisateurRateTxtView.setVisibility(View.INVISIBLE);
+            nbAvisTextView.setVisibility(View.INVISIBLE);
+            nbCircuitsTextView.setVisibility(View.INVISIBLE);
+
+            stars1.setVisibility(View.INVISIBLE);
+            stars2.setVisibility(View.INVISIBLE);
+            stars3.setVisibility(View.INVISIBLE);
+            stars4.setVisibility(View.INVISIBLE);
+            stars5.setVisibility(View.INVISIBLE);
         }
 
         return root;
@@ -304,7 +323,9 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             //this.circuits = circuits;
 
         } else {
-            myResTxtView.setVisibility(View.INVISIBLE);
+            myResTxtView.setVisibility(View.GONE);
+            recyclerViewReservation.setVisibility(View.GONE);
+            recyclerViewReservation.removeAllViews();
         }
     }
 
@@ -356,7 +377,9 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             //this.circuits = circuits;
 
         } else {
-            myCircuitTxtView.setVisibility(View.INVISIBLE);
+            myCircuitTxtView.setVisibility(View.GONE);
+            recyclerViewCircuits.setVisibility(View.GONE);
+            recyclerViewCircuits.removeAllViews();
         }
     }
 

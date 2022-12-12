@@ -71,7 +71,7 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         String pseudo = getItem(position).getNom();
-        String message = "\"" + getItem(position).getMessage() + "\"";
+        String message = "\" " + getItem(position).getMessage() + " \"";
         int etoiles = getItem(position).getEtoiles();
 
         this.getUsersInfo(Integer.parseInt(pseudo));
@@ -121,41 +121,41 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
             holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
         }
         if(etoiles == 1){
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
             holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
         }
         if(etoiles == 2){
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
             holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
 
         }
         if(etoiles == 3){
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
             holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
             holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
 ;
         }
         if(etoiles == 4){
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
             holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
         }
         if(etoiles == 5){
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
-            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(255,255,0)));
+            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
+            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
         }
 
 

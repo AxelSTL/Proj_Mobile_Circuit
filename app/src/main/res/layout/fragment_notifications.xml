@@ -175,7 +175,7 @@
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:layout_gravity="start"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:gravity="start"
             android:text="@string/mesReservations"
             android:textAlignment="textStart"
@@ -192,11 +192,24 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <TextView
+            android:id="@+id/mesAvis_txtview"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:gravity="start"
+            android:text="@string/mesAvis"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            tools:ignore="RtlCompat" />
 
         <ListView
             android:id="@+id/listView_commentary_moncompte"
             android:layout_width="match_parent"
-            android:layout_height="356dp"
+            android:layout_height="210dp"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
@@ -210,7 +223,8 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="86dp"
             android:background="@drawable/arround_button_black"
             android:gravity="center"
             android:text="@string/logout"

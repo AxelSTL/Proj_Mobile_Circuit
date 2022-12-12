@@ -38,6 +38,7 @@
     <string name="mesReservations">Mes réservations</string>
     <string name="mesCircuits">Mes circuits</string>
     <string name="bestCircuits">Meilleurs circuits</string>
+    <string name="mesAvis">Mes avis</string>
     <string name="monCompte">Mon compte</string>
     <string name="logout">Se déconnecter</string>
 </resources>
