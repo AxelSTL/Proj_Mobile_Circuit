@@ -12,14 +12,11 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.home.HomeFragment">
 
-
-
-
             <ImageView
                 android:id="@+id/filter_imgView"
                 android:layout_width="39dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="52dp"
                 android:background="@drawable/ic_filter"
                 app:layout_constraintStart_toEndOf="@+id/searchCircuit_home_input"
@@ -31,7 +28,7 @@
                 android:id="@+id/searchCircuit_home_input"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="47dp"
-                android:layout_width="366dp"
+                android:layout_width="320dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:autofillHints="all"
@@ -52,7 +49,7 @@
                 android:layout_width="383dp"
                 android:layout_height="405dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="236dp"
+                android:layout_marginTop="250dp"
                 android:minHeight="600dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.571"

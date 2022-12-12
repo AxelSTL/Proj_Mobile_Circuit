@@ -355,7 +355,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits?nom=" + search.getText().toString().toLowerCase() + "&codeRegion" + regionInt + "&tarif=" + sliderValue;
+            String requestURL = "http://192.168.2.169:8180/circuits?nom=" + search.getText().toString().toLowerCase() + "&codeRegion" + regionInt + "&tarif=" + sliderValue;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -367,7 +367,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            System.out.println("http://10.0.2.2:8180/circuits?nom=" + search.getText() + "&codeRegion=" + regionInt + "&tarif=" + sliderValue);
+            System.out.println("http://192.168.2.169:8180/circuits?nom=" + search.getText() + "&codeRegion=" + regionInt + "&tarif=" + sliderValue);
             Log.i("tout les circuits ", buffer.toString());
             JSONObject content = new JSONObject(buffer.toString());
 
@@ -430,7 +430,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/rating";
+            String requestURL = "http://192.168.2.169:8180/circuits/rating";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -492,7 +492,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         try{
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/images?code=" + codeCircuit;
+            String requestURL = "http://192.168.2.169:8180/images?code=" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();

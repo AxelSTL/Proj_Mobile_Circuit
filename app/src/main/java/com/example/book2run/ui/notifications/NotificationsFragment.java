@@ -189,7 +189,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
 
-            String requestURLRate = "http://10.0.2.2:8180/avis/user?user=" + code;
+            String requestURLRate = "http://192.168.2.169:8180/avis/user?user=" + code;
             URL urlRate = new URL(requestURLRate);
             HttpURLConnection connectionRate = (HttpURLConnection) urlRate.openConnection();
             connectionRate.connect();
@@ -209,7 +209,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             }
 
 
-            String requestURLLoc = "http://10.0.2.2:8180/circuits/nb?user=" + code;
+            String requestURLLoc = "http://192.168.2.169:8180/circuits/nb?user=" + code;
             URL urlLoc = new URL(requestURLLoc);
             HttpURLConnection connectionLoc = (HttpURLConnection) urlLoc.openConnection();
             connectionLoc.connect();
@@ -220,7 +220,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             System.out.println(readerLoc.readLine());
             nbCircuitsTextView.setText(nb + " circuit" + s +" en location");
 
-            String requestURLAvis = "http://10.0.2.2:8180/avis/nb?user=" + code;
+            String requestURLAvis = "http://192.168.2.169:8180/avis/nb?user=" + code;
             URL urlAvis = new URL(requestURLAvis);
             HttpURLConnection connectionAvis = (HttpURLConnection) urlAvis.openConnection();
             connectionAvis.connect();
@@ -313,7 +313,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/user?user=" + code;
+            String requestURL = "http://192.168.2.169:8180/circuits/user?user=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();

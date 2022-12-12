@@ -224,7 +224,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
+            String requestURL = "http://192.168.2.169:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -251,7 +251,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/reservation";
+            String requestURL = "http://192.168.2.169:8180/reservation";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -287,7 +287,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/" + codeCircuit;
+            String requestURL = "http://192.168.2.169:8180/circuits/" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -311,7 +311,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/reservation";
+            String requestURL = "http://192.168.2.169:8180/reservation";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");

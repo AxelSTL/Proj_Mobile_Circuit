@@ -238,7 +238,7 @@ public class AddImagesActivity extends AppCompatActivity implements View.OnClick
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/images?code=" + code;
+            String requestURL = "http://192.168.2.169:8180/images?code=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
