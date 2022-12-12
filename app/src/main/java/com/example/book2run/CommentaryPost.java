@@ -172,7 +172,7 @@ public class CommentaryPost extends AppCompatActivity implements View.OnClickLis
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/avis";
+            String requestURL = "http://192.168.2.169:8180/avis";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");

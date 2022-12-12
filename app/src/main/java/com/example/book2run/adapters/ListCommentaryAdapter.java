@@ -71,7 +71,7 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         String pseudo = getItem(position).getNom();
-        String message = "\"" + getItem(position).getMessage() + "\"";
+        String message = "\" " + getItem(position).getMessage() + " \"";
         int etoiles = getItem(position).getEtoiles();
 
         this.getUsersInfo(Integer.parseInt(pseudo));
@@ -121,25 +121,13 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
             holder.etoile4.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
             holder.etoile5.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
 
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
-            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
-            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
-            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
         }
         if(etoiles == 1){
-
             holder.etoile1.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
             holder.etoile2.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
             holder.etoile3.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
             holder.etoile4.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
-            holder.etoile5.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
-
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
-            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
-            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
-            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
+            holder.etoile5.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));;
         }
         if(etoiles == 2){
             holder.etoile1.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
@@ -147,12 +135,6 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
             holder.etoile3.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
             holder.etoile4.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
             holder.etoile5.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
-
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
-            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
-            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
 
         }
         if(etoiles == 3){
@@ -162,41 +144,20 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
             holder.etoile4.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
             holder.etoile5.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
 
-
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
-            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
-;
         }
         if(etoiles == 4){
-
             holder.etoile1.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
             holder.etoile2.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
             holder.etoile3.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
             holder.etoile4.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
             holder.etoile5.setBackground(mContext.getResources().getDrawable(R.drawable.ic_star_vide));
-
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
         }
         if(etoiles == 5){
-
             holder.etoile1.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
             holder.etoile2.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
             holder.etoile3.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
             holder.etoile4.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
             holder.etoile5.setBackground(mContext.getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
-
-            holder.etoile1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile4.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
-            holder.etoile5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
         }
 
 
@@ -221,7 +182,7 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/utilisateur/" + code;
+            String requestURL = "http://192.168.2.169:8180/utilisateur/" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -233,7 +194,6 @@ public class ListCommentaryAdapter extends ArrayAdapter<Commentary> {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            System.out.println("buffer dans list comment adapter" + buffer);
             userInfos = new JSONObject(String.valueOf(buffer));
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,127 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/baseline_arrow_back"
         android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            tools:context=".ui.home.HomeFragment">
-
-
-            <ImageView
-                android:id="@+id/filter_imgView"
-                android:layout_width="39dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="48dp"
-                android:background="@drawable/ic_filter"
-                app:layout_constraintStart_toEndOf="@+id/searchCircuit_home_input"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </ImageView>
+            android:layout_height="44dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/searchCircuit_home_input"
-                android:layout_width="326dp"
-                android:layout_height="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="48dp"
                 android:autofillHints="all"
                 android:background="@drawable/arround_search_button"
                 android:drawableStart="@drawable/ic_search_black"
                 android:inputType="text"
                 android:paddingStart="12dp"
-                android:paddingEnd="10dp"
+                android:paddingEnd="12dp"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:boxBackgroundMode="none"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:boxBackgroundMode="none" />
+        </LinearLayout>
 
-            <ListView
-                    android:id="@+id/listView_home"
-                    android:layout_width="383dp"
-                    android:layout_height="405dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="236dp"
-                    android:minHeight="600dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.571"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/filter_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="133dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="2dp"
-                    android:background="@drawable/border_black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/searchCircuit_home_input">
+            <TextView
+                android:id="@+id/tarifView"
+                android:layout_width="118dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Tarif" />
 
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/slider_prix"
-                        android:layout_width="313dp"
-                        android:layout_height="49dp"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/border_black"
-                        android:contentDescription="Prix"
-                        android:stepSize="50"
-                        android:valueFrom="0"
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="280dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:max="3500" />
 
-                        android:valueTo="5000"
-                        app:haloColor="@color/black"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tickColor="@color/black"></com.google.android.material.slider.Slider>
+        </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/region_txtView"
-                        android:layout_width="250dp"
-                        android:layout_height="39dp"
-                        android:layout_marginStart="68dp"
-                        android:layout_marginBottom="14dp"
-                        android:background="@drawable/border_black"
-                        android:gravity="center"
-                        android:text="Région"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/regionView"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Région" />
+
+            <TextView
+                android:id="@+id/region_txtView"
+                android:layout_width="270dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Région" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="476dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/titleRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Circuits réputés"
+                android:textColor="#000000"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/bestCircuits_recycler"
-                android:layout_width="400dp"
-                android:layout_height="342dp"
-                android:layout_marginTop="250dp"
-                android:layout_marginBottom="299dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/filter_layout"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/titleRegion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="230dp"
+                android:text="Circuits dans la région"
+                android:textColor="#000000"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/regionCircuits_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="260dp"></androidx.recyclerview.widget.RecyclerView>
+
+            <ListView
+                android:id="@+id/listView_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+
+        </RelativeLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/filter_imgView"
+        android:layout_width="39dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/ic_filter">
+
+    </ImageView>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

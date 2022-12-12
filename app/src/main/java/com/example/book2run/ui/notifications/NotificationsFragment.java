@@ -60,7 +60,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
     JSONArray reservationList, ownCircuitList, avis;
     Circuit[] circuitsReservation, circuitsOwn;
     RecyclerView recyclerViewReservation, recyclerViewCircuits;
-    TextView myResTxtView, myCircuitTxtView, nomUtilisateurTxtView, utilisateurRateTxtView, nbCircuitsTextView, nbAvisTextView;
+    TextView myResTxtView, myCircuitTxtView, nomUtilisateurTxtView, utilisateurRateTxtView, nbCircuitsTextView, nbAvisTextView, avisTextView;
     ImageView avatarImageView, stars1,stars2,stars3,stars4,stars5;
     ListView listViewCommentary;
 
@@ -81,6 +81,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         utilisateurRateTxtView = root.findViewById(R.id.utilisateur_rate);
         nbAvisTextView = root.findViewById(R.id.nbAvis_textview);
         nbCircuitsTextView = root.findViewById(R.id.nbCircuits_textview);
+        avisTextView = root.findViewById(R.id.mesAvis_txtview);
 
         avatarImageView = root.findViewById(R.id.avatar_view);
 
@@ -94,6 +95,8 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         recyclerViewReservation.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerViewCircuit adapterReservation = new RecyclerViewCircuit(null);
         recyclerViewReservation.setAdapter(adapterReservation);
+        recyclerViewReservation.setNestedScrollingEnabled(false);
+
 
         recyclerViewCircuits = root.findViewById(R.id.bestCircuits_recycler);
         recyclerViewCircuits.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -102,7 +105,10 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         ImageButton addCircuitBtn = root.findViewById(R.id.addCircuit_btn);
         addCircuitBtn.setOnClickListener(this);
 
+        recyclerViewCircuits.setNestedScrollingEnabled(false);
+
         listViewCommentary = root.findViewById(R.id.listView_commentary_moncompte);
+        listViewCommentary.setNestedScrollingEnabled(false);
 
         if(user.isLoggedIn()){
             deconnexion.setVisibility(View.VISIBLE);
@@ -128,12 +134,27 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            } else {
+                avisTextView.setVisibility(View.GONE);
+                listViewCommentary.setVisibility(View.GONE);
             }
 
         } else {
+
             deconnexion.setVisibility(View.INVISIBLE);
             myResTxtView.setVisibility(View.INVISIBLE);
             myCircuitTxtView.setVisibility(View.INVISIBLE);
+            nomUtilisateurTxtView.setVisibility(View.INVISIBLE);
+            utilisateurRateTxtView.setVisibility(View.INVISIBLE);
+            nbAvisTextView.setVisibility(View.INVISIBLE);
+            nbCircuitsTextView.setVisibility(View.INVISIBLE);
+            addCircuitBtn.setVisibility(View.INVISIBLE);
+
+            stars1.setVisibility(View.INVISIBLE);
+            stars2.setVisibility(View.INVISIBLE);
+            stars3.setVisibility(View.INVISIBLE);
+            stars4.setVisibility(View.INVISIBLE);
+            stars5.setVisibility(View.INVISIBLE);
         }
 
         return root;
@@ -181,7 +202,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/reservation?user=" + code;
+            String requestURL = "http://192.168.2.169:8180/reservation?user=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -204,7 +225,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
 
-            String requestURLRate = "http://10.0.2.2:8180/avis/user?user=" + code;
+            String requestURLRate = "http://192.168.2.169:8180/avis/user?user=" + code;
             URL urlRate = new URL(requestURLRate);
             HttpURLConnection connectionRate = (HttpURLConnection) urlRate.openConnection();
             connectionRate.connect();
@@ -224,7 +245,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             }
 
 
-            String requestURLLoc = "http://10.0.2.2:8180/circuits/nb?user=" + code;
+            String requestURLLoc = "http://192.168.2.169:8180/circuits/nb?user=" + code;
             URL urlLoc = new URL(requestURLLoc);
             HttpURLConnection connectionLoc = (HttpURLConnection) urlLoc.openConnection();
             connectionLoc.connect();
@@ -232,10 +253,9 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             BufferedReader readerLoc = new BufferedReader(new InputStreamReader(streamLoc));
             String nb = readerLoc.readLine();
             String s = (Integer.parseInt(nb) > 1) ? "s" : "";
-            System.out.println(readerLoc.readLine());
             nbCircuitsTextView.setText(nb + " circuit" + s +" en location");
 
-            String requestURLAvis = "http://10.0.2.2:8180/avis/nb?user=" + code;
+            String requestURLAvis = "http://192.168.2.169:8180/avis/nb?user=" + code;
             URL urlAvis = new URL(requestURLAvis);
             HttpURLConnection connectionAvis = (HttpURLConnection) urlAvis.openConnection();
             connectionAvis.connect();
@@ -357,7 +377,9 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             //this.circuits = circuits;
 
         } else {
-            myResTxtView.setVisibility(View.INVISIBLE);
+            myResTxtView.setVisibility(View.GONE);
+            recyclerViewReservation.setVisibility(View.GONE);
+            recyclerViewReservation.removeAllViews();
         }
     }
 
@@ -365,7 +387,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/user?user=" + code;
+            String requestURL = "http://192.168.2.169:8180/circuits/user?user=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -409,7 +431,9 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             //this.circuits = circuits;
 
         } else {
-            myCircuitTxtView.setVisibility(View.INVISIBLE);
+            myCircuitTxtView.setVisibility(View.GONE);
+            recyclerViewCircuits.setVisibility(View.GONE);
+            recyclerViewCircuits.removeAllViews();
         }
     }
 
@@ -419,7 +443,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try{
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/images?code=" + codeCircuit;
+            String requestURL = "http://192.168.2.169:8180/images?code=" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -431,7 +455,6 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            System.out.println("Img buffer " + buffer);
             JSONArray imgList = new JSONArray(buffer.toString());
             mainImage = imgList.getJSONObject(0).getString("lien");
 
@@ -451,7 +474,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/" + codeCircuit;
+            String requestURL = "http://192.168.2.169:8180/circuits/" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -477,7 +500,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/avis?user=" + code;
+            String requestURL = "http://192.168.2.169:8180/avis?user=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -507,7 +530,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewReservation.setLayoutManager(horizontalLayoutManager);
         ListViewCircuitRecycler adapter;
-        adapter = new ListViewCircuitRecycler(getContext(), circuitList, false);
+        adapter = new ListViewCircuitRecycler(getContext(), circuitList, false, true);
         recyclerViewReservation.setAdapter(adapter);
     }
 
@@ -519,7 +542,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewCircuits.setLayoutManager(horizontalLayoutManager);
         ListViewCircuitRecycler adapter;
-        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true);
+        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true, false);
         recyclerViewCircuits.setAdapter(adapter);
     }
 

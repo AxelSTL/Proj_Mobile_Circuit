@@ -319,7 +319,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/" + code;
+            String requestURL = "http://192.168.2.169:8180/circuits/" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -345,7 +345,7 @@ public class CircuitViewActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
             Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
+            String requestURL = "http://192.168.2.169:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -374,7 +374,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/avis/" + code;
+            String requestURL = "http://192.168.2.169:8180/avis/" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -400,7 +400,7 @@ public class CircuitViewActivity extends AppCompatActivity {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/favoris/check?codeUtilisateur=" + user.code + "&codeCircuit=" + code;
+            String requestURL = "http://192.168.2.169:8180/favoris/check?codeUtilisateur=" + user.code + "&codeCircuit=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -412,8 +412,6 @@ public class CircuitViewActivity extends AppCompatActivity {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            System.out.println("buffer de is favoris " + buffer.toString());
-            System.out.println(buffer.toString().isBlank());
             if(!buffer.toString().isBlank()){
                 codeFavoris = Integer.parseInt(buffer.toString());
                 isFavorite = true;
@@ -430,7 +428,7 @@ public class CircuitViewActivity extends AppCompatActivity {
     public void postFavorisCircuit(int code) throws IOException, JSONException {
         StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://10.0.2.2:8180/favoris";
+        String requestURL = "http://192.168.2.169:8180/favoris";
         URL url = new URL(requestURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -463,7 +461,7 @@ public class CircuitViewActivity extends AppCompatActivity {
     public void postDeleteFavorisCircuit(int code) throws IOException, JSONException {
         StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(gfgPolicy);
-        String requestURL = "http://10.0.2.2:8180/favoris";
+        String requestURL = "http://192.168.2.169:8180/favoris";
         URL url = new URL(requestURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("DELETE");
