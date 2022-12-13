@@ -63,19 +63,30 @@
                 android:textSize="20sp"
                 android:autofillHints="password"/>
 
-            <ImageButton
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="159dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="220dp"
+                android:layout_marginTop="5dp"
+                android:text="Mot de passe oublié ?" />
+
+            <Button
                 android:id="@+id/login"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="48dp"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="48dp"
                 android:layout_marginBottom="150dp"
-                android:enabled="false"
+                android:background="@drawable/arround_corners_cyan"
                 android:contentDescription="@string/bouton_connexion"
-                android:background="@drawable/arround_button_black"
-                app:srcCompat="@drawable/ic_login2"/>
+                android:enabled="false"
+                android:text="Se connecter"
+                android:textColor="#000000"
+                android:textColorHint="#A11E1E"
+                app:rippleColor="#AC1313" />
 
             <ProgressBar
                 android:id="@+id/loading"
@@ -88,16 +99,24 @@
                 android:layout_marginBottom="64dp"
                 android:visibility="gone"/>
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Vous n'avez toujours pas de compte sur Book2Road ? N'hésitez pas à vous inscrire" />
+
             <Button
                 android:id="@+id/register_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/arround_corners_indigo"
                 android:text="@string/bouton_inscription"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="16sp"
-                android:background="@drawable/arround_corners_cyan"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

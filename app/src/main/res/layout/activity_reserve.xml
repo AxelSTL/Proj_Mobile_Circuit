@@ -35,14 +35,14 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/reserve_debut_btn"
             android:layout_width="190dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
+            android:background="@drawable/arround_button_black2"
             android:text="Sélection des dates"
-            android:textColor="@color/white"
-            android:textSize="16sp"
             android:textAlignment="center"
-            android:background="@drawable/arround_button_black2"/>
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tarifTotal_txtView"

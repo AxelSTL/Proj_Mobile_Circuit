@@ -114,7 +114,7 @@
                 android:id="@+id/titleRegion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="220dp"
+                android:layout_marginTop="230dp"
                 android:text="Circuits dans la région"
                 android:textColor="#000000"
                 android:textSize="17sp"
@@ -124,14 +124,12 @@
                 android:id="@+id/regionCircuits_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="250dp">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_marginTop="260dp"></androidx.recyclerview.widget.RecyclerView>
 
             <ListView
                 android:id="@+id/listView_home"
                 android:layout_width="match_parent"
-                android:layout_height="235dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center" />
 
         </RelativeLayout>

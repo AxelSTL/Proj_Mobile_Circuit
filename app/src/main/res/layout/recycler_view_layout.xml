@@ -14,7 +14,9 @@
         <ImageView
             android:id="@+id/image_recycler"
             android:layout_width="145dp"
-            android:layout_height="137dp" />
+            android:layout_height="137dp"
+            android:background="@drawable/round_outline"
+            android:clipToOutline="true"/>
 
         <TextView
             android:id="@+id/name_recycler"

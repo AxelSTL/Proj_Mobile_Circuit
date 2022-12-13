@@ -67,5 +67,13 @@
              android:textColor="@color/black"
              android:textSize="16sp"/>
 
+        <ImageView
+            android:id="@+id/fav_adaptercircuit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/ic_fav"></ImageView>
+
     </LinearLayout>
 </LinearLayout>

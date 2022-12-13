@@ -12,12 +12,13 @@ public class Circuit {
     String dateDebut;
     String dateFin;
     int codeResa;
+    boolean fav;
 
 /*String image2;
     String image3;
     String image4;*/
 
-    public Circuit(int code, String nom, String adresse, String description, String ville, int codePostal, String mainImg, int price) {
+    public Circuit(int code, String nom, String adresse, String description, String ville, int codePostal, String mainImg, int price, boolean fav) {
         this.code = code;
         this.nom = nom;
         this.adresse = adresse;
@@ -26,6 +27,7 @@ public class Circuit {
         this.codePostal = codePostal;
         this.mainImg = mainImg;
         this.price = price;
+        this.fav = fav;
     }
 
     public Circuit(int code, String nom, String adresse, String description, String mainImg, int price, String dateDebut, String dateFin, int codeResa) {
@@ -129,28 +131,11 @@ public class Circuit {
         this.codeResa = codeResa;
     }
 
-    /*public String getImage2() {
-        return image2;
+    public boolean isFav() {
+        return fav;
     }
 
-    public void setImage2(String image2) {
-        this.image2 = image2;
+    public void setFav(boolean fav) {
+        this.fav = fav;
     }
-
-    public String getImage3() {
-        return image3;
-    }
-
-    public void setImage3(String image3) {
-        this.image3 = image3;
-    }
-
-    public String getImage4() {
-        return image4;
-    }
-
-    public void setImage4(String image4) {
-        this.image4 = image4;
-    }*/
-
 }

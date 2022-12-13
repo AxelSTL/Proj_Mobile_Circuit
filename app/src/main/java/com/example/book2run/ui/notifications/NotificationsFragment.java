@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.book2run.LoginActivity;
 import com.example.book2run.MainActivity;
 import com.example.book2run.R;
 import com.example.book2run.adapters.ListCommentaryAdapter;
@@ -31,6 +33,7 @@ import com.example.book2run.adapters.ListViewCircuitRecycler;
 import com.example.book2run.adapters.RecyclerViewCircuit;
 import com.example.book2run.databinding.FragmentNotificationsBinding;
 import com.example.book2run.model.Circuit;
+import com.example.book2run.ui.addcircuit.AddNameActivity;
 import com.example.book2run.model.Commentary;
 import com.example.book2run.ui.data.LoginDataSource;
 import com.example.book2run.ui.data.LoginRepository;
@@ -99,6 +102,9 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         recyclerViewCircuits.setLayoutManager(new LinearLayoutManager(getActivity()));
         RecyclerViewCircuit adapterCircuits = new RecyclerViewCircuit(null);
         recyclerViewCircuits.setAdapter(adapterCircuits);
+        ImageButton addCircuitBtn = root.findViewById(R.id.addCircuit_btn);
+        addCircuitBtn.setOnClickListener(this);
+
         recyclerViewCircuits.setNestedScrollingEnabled(false);
 
         listViewCommentary = root.findViewById(R.id.listView_commentary_moncompte);
@@ -142,6 +148,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             utilisateurRateTxtView.setVisibility(View.INVISIBLE);
             nbAvisTextView.setVisibility(View.INVISIBLE);
             nbCircuitsTextView.setVisibility(View.INVISIBLE);
+            addCircuitBtn.setVisibility(View.INVISIBLE);
 
             stars1.setVisibility(View.INVISIBLE);
             stars2.setVisibility(View.INVISIBLE);
@@ -175,6 +182,17 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 Toast.makeText(getContext().getApplicationContext(), goodbye, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.addCircuit_btn:
+                Log.i("BntAddCircuit", "Ajout d'un circuit");
+                Intent intentAdd;
+                if(user.isLoggedIn()){
+                    intentAdd = new Intent(getActivity(), AddNameActivity.class);
+                } else {
+                    intentAdd = new Intent(getActivity(), LoginActivity.class);
+                    intentAdd.putExtra("userLogged", false);
+                }
+                startActivity(intentAdd);
 
         }
     }
@@ -184,7 +202,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/reservation?user=" + code;
+            String requestURL = "http://192.168.2.169:8180/reservation?user=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -207,7 +225,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
 
-            String requestURLRate = "http://10.0.2.2:8180/avis/user?user=" + code;
+            String requestURLRate = "http://192.168.2.169:8180/avis/user?user=" + code;
             URL urlRate = new URL(requestURLRate);
             HttpURLConnection connectionRate = (HttpURLConnection) urlRate.openConnection();
             connectionRate.connect();
@@ -227,7 +245,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             }
 
 
-            String requestURLLoc = "http://10.0.2.2:8180/circuits/nb?user=" + code;
+            String requestURLLoc = "http://192.168.2.169:8180/circuits/nb?user=" + code;
             URL urlLoc = new URL(requestURLLoc);
             HttpURLConnection connectionLoc = (HttpURLConnection) urlLoc.openConnection();
             connectionLoc.connect();
@@ -235,10 +253,9 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             BufferedReader readerLoc = new BufferedReader(new InputStreamReader(streamLoc));
             String nb = readerLoc.readLine();
             String s = (Integer.parseInt(nb) > 1) ? "s" : "";
-            System.out.println(readerLoc.readLine());
             nbCircuitsTextView.setText(nb + " circuit" + s +" en location");
 
-            String requestURLAvis = "http://10.0.2.2:8180/avis/nb?user=" + code;
+            String requestURLAvis = "http://192.168.2.169:8180/avis/nb?user=" + code;
             URL urlAvis = new URL(requestURLAvis);
             HttpURLConnection connectionAvis = (HttpURLConnection) urlAvis.openConnection();
             connectionAvis.connect();
@@ -255,6 +272,13 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         System.out.println("---------------------------------- " + rate);
         switch(rate){
             case 1:
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
                 stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
@@ -262,6 +286,14 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 break;
             case 2:
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+
                 stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
@@ -269,6 +301,14 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 break;
             case 3:
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+
                 stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
@@ -276,6 +316,14 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 break;
             case 4:
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_star_vide));
+
+
                 stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
@@ -283,6 +331,12 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
                 stars5.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(0,0,0)));
                 break;
             case 5:
+                stars1.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars2.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars3.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars4.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+                stars5.setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_rate_24));
+
                 stars1.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars2.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
                 stars3.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(240,240,40)));
@@ -333,7 +387,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/user?user=" + code;
+            String requestURL = "http://192.168.2.169:8180/circuits/user?user=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -389,7 +443,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try{
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/images?code=" + codeCircuit;
+            String requestURL = "http://192.168.2.169:8180/images?code=" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -401,7 +455,6 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            System.out.println("Img buffer " + buffer);
             JSONArray imgList = new JSONArray(buffer.toString());
             mainImage = imgList.getJSONObject(0).getString("lien");
 
@@ -421,7 +474,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/" + codeCircuit;
+            String requestURL = "http://192.168.2.169:8180/circuits/" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -447,7 +500,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/avis?user=" + code;
+            String requestURL = "http://192.168.2.169:8180/avis?user=" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -477,7 +530,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewReservation.setLayoutManager(horizontalLayoutManager);
         ListViewCircuitRecycler adapter;
-        adapter = new ListViewCircuitRecycler(getContext(), circuitList, false);
+        adapter = new ListViewCircuitRecycler(getContext(), circuitList, false, true);
         recyclerViewReservation.setAdapter(adapter);
     }
 
@@ -489,7 +542,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewCircuits.setLayoutManager(horizontalLayoutManager);
         ListViewCircuitRecycler adapter;
-        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true);
+        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true, false);
         recyclerViewCircuits.setAdapter(adapter);
     }
 
@@ -505,7 +558,7 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
             commentaryArrayList.add(new Commentary(commentarys[i].getNom(), commentarys[i].getEtoiles(), commentarys[i].getMessage()));
         }
 
-
+        System.out.println("Start loadListViewAvis");
         ListCommentaryAdapter adapter = new ListCommentaryAdapter(getActivity(), R.layout.adaptercommentary_view, commentaryArrayList);
         listViewCommentary.setAdapter(adapter);
     }

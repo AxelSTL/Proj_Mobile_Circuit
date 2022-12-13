@@ -60,7 +60,7 @@ public class LoginFragment extends Fragment {
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
-        final ImageButton loginButton = binding.login;
+        final Button loginButton = binding.login;
         final Button registerButton = binding.registerBtn;
         final ProgressBar loadingProgressBar = binding.loading;
 

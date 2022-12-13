@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     JSONArray bestCircuitList;
     JSONArray regionCircuitsList;
     Circuit[] bestCircuits, regionCircuits;
-    TextView bestCircuitTxtView, tarifView;
+    TextView bestCircuitTxtView, tarifView, titleRating, titleRegion;
     RecyclerView recyclerViewBest, recyclerViewRegion;
     LoginRepository user;
     SeekBar seekBar;
@@ -105,6 +105,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         recyclerViewRegion.setAdapter(adapterRegion);
 
         relativeLayout = root.findViewById(R.id.relativeLayout);
+        titleRegion = root.findViewById(R.id.titleRegion);
+        titleRating = root.findViewById(R.id.titleRating);
+
+        titleRegion.setVisibility(View.INVISIBLE);
 
         // reservations
         getBestCircuits();
@@ -114,16 +118,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tarifView.setText("Inférieur à 3500 €");
         seekBar.setProgress(3500);
         if(user.isLoggedIn()) {
+            titleRegion.setVisibility(View.VISIBLE);
             getCircuitsAround(user.code);
             setRegionCircuits();
+        } else {
+            titleRegion.setVisibility(View.INVISIBLE);
         }
 
         listViewCircuits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(position);
-                System.out.println(circuits[position].getCode());
-
                 Intent intent = new Intent(getActivity(), CircuitViewActivity.class);
                 intent.putExtra("code",circuits[position].getCode());
                 intent.putExtra("isMine", "false");
@@ -161,7 +165,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 boolean isExist = searchWithFilter();
                 if(isExist) {
-                    relativeLayout.setVisibility(View.INVISIBLE);
+                    titleRating.setVisibility(View.INVISIBLE);
+                    titleRegion.setVisibility(View.INVISIBLE);
+                    recyclerViewBest.setVisibility(View.INVISIBLE);
+                    recyclerViewRegion.setVisibility(View.INVISIBLE);
                     listViewCircuits.setVisibility(View.VISIBLE);
                     circuits = new Circuit[circuitsArray.length()];
                     for (int i = 0; i < circuitsArray.length(); i++) {
@@ -175,7 +182,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getString("nom"),
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getInt("codePostal"),
                                             imgList.getJSONObject(0).getString("lien"),
-                                            circuitsArray.getJSONObject(i).getInt("tarif"));
+                                            circuitsArray.getJSONObject(i).getInt("tarif"), false);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -184,8 +191,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     }
                     loadListViewCircuits(circuits);
                 } else if(seekBar.getProgress() == 3500){
-                    System.out.println("non il y arien");
-                    relativeLayout.setVisibility(View.VISIBLE);
+                    titleRating.setVisibility(View.VISIBLE);
+                    if(user.isLoggedIn()) titleRegion.setVisibility(View.VISIBLE);
+                    recyclerViewBest.setVisibility(View.VISIBLE);
+                    recyclerViewRegion.setVisibility(View.VISIBLE);
                     listViewCircuits.setVisibility(View.INVISIBLE);
                 }
             }
@@ -262,7 +271,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 });
                 boolean isExist = searchWithFilter();
                 if(isExist){
-                    relativeLayout.setVisibility(View.INVISIBLE);
+                    titleRating.setVisibility(View.INVISIBLE);
+                    titleRegion.setVisibility(View.INVISIBLE);
+                    recyclerViewBest.setVisibility(View.INVISIBLE);
+                    recyclerViewRegion.setVisibility(View.INVISIBLE);
                     listViewCircuits.setVisibility(View.VISIBLE);
                     circuits = new Circuit[circuitsArray.length()];
                     for (int i = 0; i < circuitsArray.length(); i++) {
@@ -276,7 +288,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getString("nom"),
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getInt("codePostal"),
                                             imgList.getJSONObject(0).getString("lien"),
-                                            circuitsArray.getJSONObject(i).getInt("tarif"));
+                                            circuitsArray.getJSONObject(i).getInt("tarif"),
+                                            false);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -308,7 +321,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (start > 1) {
-                    relativeLayout.setVisibility(View.INVISIBLE);
+                    titleRating.setVisibility(View.INVISIBLE);
+                    titleRegion.setVisibility(View.INVISIBLE);
+                    recyclerViewBest.setVisibility(View.INVISIBLE);
+                    recyclerViewRegion.setVisibility(View.INVISIBLE);
                     listViewCircuits.setVisibility(View.VISIBLE);
                     if(filterVisible){
                         searchWithFilter();
@@ -328,7 +344,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getString("nom"),
                                             circuitsArray.getJSONObject(i).getJSONObject("ville").getInt("codePostal"),
                                             imgList.getJSONObject(0).getString("lien"),
-                                            circuitsArray.getJSONObject(i).getInt("tarif"));
+                                            circuitsArray.getJSONObject(i).getInt("tarif"),
+                                            false);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -337,7 +354,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     }
                     loadListViewCircuits(circuits);
                 } else {
-                    relativeLayout.setVisibility(View.VISIBLE);
+                    titleRating.setVisibility(View.VISIBLE);
+                    if(user.isLoggedIn()) titleRegion.setVisibility(View.VISIBLE);
+                    recyclerViewBest.setVisibility(View.VISIBLE);
+                    recyclerViewRegion.setVisibility(View.VISIBLE);
                     listViewCircuits.setVisibility(View.INVISIBLE);
                 }
             }
@@ -357,9 +377,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getCicuits(CharSequence nom) {
         try {
+            recyclerViewBest.setVisibility(View.GONE);
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/search?nom=" + nom;
+            String requestURL = "http://192.168.2.169:8180/circuits/search?nom=" + nom;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -371,8 +392,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            Log.i("tout les circuits ", buffer.toString());
-
                 circuitsArray = new JSONArray(buffer.toString());
 
 
@@ -384,11 +403,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
     public boolean searchWithFilter(){
+        recyclerViewBest.setVisibility(View.GONE);
         boolean isExist = false;
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits?nom=" + search.getText().toString().toLowerCase() + "&codeRegion" + regionInt + "&tarif=" + sliderValue;
+            String requestURL = "http://192.168.2.169:8180/circuits?nom=" + search.getText().toString().toLowerCase() + "&codeRegion" + regionInt + "&tarif=" + seekBar.getProgress();
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -400,8 +420,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            System.out.println("http://10.0.2.2:8180/circuits?nom=" + search.getText() + "&codeRegion=" + regionInt + "&tarif=" + sliderValue);
-            Log.i("tout les circuits ", buffer.toString());
             JSONObject content = new JSONObject(buffer.toString());
 
             if(content.getInt("numberOfElements") > 0){
@@ -421,8 +439,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            Log.i("idCircuit", String.valueOf(idCircuit));
-            String requestURL = "http://10.0.2.2:8180/images?code=" + idCircuit;
+            String requestURL = "http://192.168.2.169:8180/images?code=" + idCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -434,13 +451,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            Log.i("buffer", buffer.toString());
             imgList = new JSONArray(buffer.toString());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.i("imgList", imgList.toString());
         return imgList;
     }
 
@@ -448,11 +463,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void loadListViewCircuits(Circuit[] circuits) {
         ArrayList<Circuit> circuit = new ArrayList<>();
         for (int i = 0; i < circuits.length; i++) {
-            circuit.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getVille(), circuits[i].getCodePostal(), circuits[i].getMainImg(), circuits[i].getPrice()));
+            circuit.add(new Circuit(circuits[i].getCode(), circuits[i].getNom(), circuits[i].getAdresse(), circuits[i].getDescription(), circuits[i].getVille(), circuits[i].getCodePostal(), circuits[i].getMainImg(), circuits[i].getPrice(), false));
         }
 
         ListViewCircuitAdapter adapter = new ListViewCircuitAdapter(getActivity(), R.layout.adaptercircuit_view_layout, circuit);
-        System.out.println(adapter);
         listViewCircuits.setAdapter(adapter);
 
     }
@@ -463,7 +477,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/rating";
+            String requestURL = "http://192.168.2.169:8180/circuits/rating";
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -485,7 +499,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         try {
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/circuits/region/" + code;
+            String requestURL = "http://192.168.2.169:8180/circuits/region/" + code;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -563,7 +577,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewBest.setLayoutManager(horizontalLayoutManager);
         ListViewCircuitRecycler adapter;
-        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true);
+        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true, false);
         recyclerViewBest.setAdapter(adapter);
     }
 
@@ -575,7 +589,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewRegion.setLayoutManager(horizontalLayoutManager);
         ListViewCircuitRecycler adapter;
-        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true);
+        adapter = new ListViewCircuitRecycler(getContext(), circuitList, true, false);
         recyclerViewRegion.setAdapter(adapter);
     }
 
@@ -584,7 +598,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         try{
             StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(gfgPolicy);
-            String requestURL = "http://10.0.2.2:8180/images?code=" + codeCircuit;
+            String requestURL = "http://192.168.2.169:8180/images?code=" + codeCircuit;
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -596,7 +610,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-            System.out.println("Img buffer " + buffer);
             JSONArray imgList = new JSONArray(buffer.toString());
             mainImage = imgList.getJSONObject(0).getString("lien");
 

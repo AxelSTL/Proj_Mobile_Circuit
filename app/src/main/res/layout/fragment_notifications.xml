@@ -170,6 +170,16 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <ImageButton
+            android:id="@+id/addCircuit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/arround_button_black"
+            android:contentDescription="@string/bouton_ajouter"
+            app:srcCompat="@drawable/ic_add_white" />
+
         <TextView
             android:id="@+id/myreservation_txtview"
             android:layout_width="match_parent"
@@ -230,6 +240,13 @@
             android:text="@string/logout"
             android:textAlignment="center"
             android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="TextView" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
